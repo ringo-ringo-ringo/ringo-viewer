@@ -1,11 +1,10 @@
-import {Entity} from '@/app/lib/Entity'
+import { Entity } from "@/app/lib/Entity";
 
 export class WorldModel {
-    
-    time: number;
+    step: number;
     entity: Entity[] = [];
 
-    constructor(time: number) {
-        this.time = time;
+    constructor(step: number) {
+        this.step = step;
     }
 }
