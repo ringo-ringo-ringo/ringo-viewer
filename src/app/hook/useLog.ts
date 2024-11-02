@@ -16,8 +16,8 @@ export default function useLog() {
                 .then(([startJson, endJson]) => {
                     // 両方の Promise が解決されたら実行
                     // then メソッドで Promise を処理
-                    console.log("in start: ", startJson); // startJson は JSON オブジェクト
-                    console.log("in end: ", endJson); // endJson は JSON オブジェクト
+                    // console.log("in start: ", startJson); // startJson は JSON オブジェクト
+                    // console.log("in end: ", endJson); // endJson は JSON オブジェクト
 
                     if (startJson.hasOwnProperty("start")) {
                         console.log("start プロパティが存在します");
