@@ -4,9 +4,9 @@ export class Simulation {
     worldModel: WorldModel[] = [];
 
     constructor() {}
-    
-    loadWorld(step: number) {
-        if (!this.worldModel[step]) {
+
+    fetchData(step: number) {
+        if (!this.worldModel[step] && step === 0) {
             this.worldModel[step] = new WorldModel(step);
         }
     }

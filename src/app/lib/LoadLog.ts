@@ -2,7 +2,8 @@ const { LogProto } = require("./RCRSLogProto_pb");
 
 export class LoadLog {
     constructor() {}
-    load(path: any, file: string): Promise<JSON> {
+
+    static load(path: any, file: string): Promise<JSON> {
         return new Promise((resolve, reject) => {
             const filePath = path + "/" + file;
             const host = process.env.NEXT_PUBLIC_LOG_HOST;

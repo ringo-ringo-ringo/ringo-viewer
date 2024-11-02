@@ -6,12 +6,11 @@ export default function useLog() {
     const [step, setStep] = useState<number>(0);
     const [isPause, setIsPause] = useState<boolean>(false);
     const [simulation, setSimulation] = useState(new Simulation());
-    const loadLog = new LoadLog();
 
     useEffect(() => {
         if (step === 0) {
-            const start = loadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "START_OF_LOG");
-            const end = loadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "END_OF_LOG");
+            const start = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "START_OF_LOG");
+            const end = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "END_OF_LOG");
 
             start
                 .then((startJson) => {
