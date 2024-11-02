@@ -12,49 +12,40 @@ export default function useLog() {
             const start = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "START_OF_LOG");
             const end = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "END_OF_LOG");
 
-            start
-                .then((startJson) => {
+            Promise.all([start, end]) // start と end の Promise を配列で渡す
+                .then(([startJson, endJson]) => {
+                    // 両方の Promise が解決されたら実行
                     // then メソッドで Promise を処理
-                    console.log("in : ", startJson); // startJson は JSON オブジェクト
-
-                    // startJson を JSON として操作する処理をここに記述
+                    console.log("in start: ", startJson); // startJson は JSON オブジェクト
+                    console.log("in end: ", endJson); // endJson は JSON オブジェクト
 
                     if (startJson.hasOwnProperty("start")) {
-                        // start プロパティが存在する場合の処理
                         console.log("start プロパティが存在します");
                     } else {
-                        // start プロパティが存在しない場合の処理
-                        console.log("start プロパティは存在しません");
+                        console.error("start プロパティは存在しません");
                         throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                     }
+
+                    if (endJson.hasOwnProperty("end")) {
+                        console.log("end プロパティが存在します");
+                    } else {
+                        console.error("end プロパティは存在しません");
+                        throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
+                    }
+
+                    // start と end の Promise が両方とも正常に解決されたら実行
+                    simulation.setLogPath(String(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH));
+
+                    simulation.fetchData(step);
                 })
                 .catch((error) => {
-                    console.error("start ログの読み込みエラー:", error);
+                    console.error("ログの読み込みエラー:", error);
+                    // エラー処理
                     throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                 });
-
-            end.then((endJson) => {
-                // then メソッドで Promise を処理
-                console.log("in : ", endJson); // startJson は JSON オブジェクト
-
-                // startJson を JSON として操作する処理をここに記述
-
-                if (endJson.hasOwnProperty("end")) {
-                    // start プロパティが存在する場合の処理
-                    console.log("end プロパティが存在します");
-                } else {
-                    // start プロパティが存在しない場合の処理
-                    console.log("end プロパティは存在しません");
-                    throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
-                }
-            }).catch((error) => {
-                console.error("end ログの読み込みエラー:", error);
-                throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
-            });
-
-            simulation.setLogPath(String(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH));
+        } else {
+            simulation.fetchData(step);
         }
-
     }, [step]);
 
     return [step, setStep, isPause, setIsPause, simulation, setSimulation];
