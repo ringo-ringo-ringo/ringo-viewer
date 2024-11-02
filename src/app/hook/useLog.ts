@@ -51,6 +51,8 @@ export default function useLog() {
                 console.error("end ログの読み込みエラー:", error);
                 throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
             });
+
+            simulation.setLogPath(String(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH));
         }
 
     }, [step]);
