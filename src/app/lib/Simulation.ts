@@ -17,4 +17,12 @@ export class Simulation {
     setLogPath(path: string) {
         this.LogPath = path;
     }
+
+    getLogPath() {
+        return this.LogPath;
+    }
+
+    getWorldModel(step: number) {
+        return this.worldModel[step];
+    }
 }
