@@ -16,6 +16,5 @@ export class Simulation {
 
     setLogPath(path: string) {
         this.LogPath = path;
-        console.log(this.LogPath);
     }
 }
