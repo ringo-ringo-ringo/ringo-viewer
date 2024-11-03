@@ -44,7 +44,7 @@ export default function useLog() {
                     throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                 });
         } else {
-            simulation.fetchData(step);
+            // simulation.fetchData(step);
         }
     }, [step]);
 
