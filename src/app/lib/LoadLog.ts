@@ -9,7 +9,7 @@ export class LoadLog {
             const host = process.env.NEXT_PUBLIC_LOG_HOST;
 
             const fetchUrl = new URL(filePath, host).href;
-            console.log(fetchUrl);
+            console.log("start fetch : " + fetchUrl);
 
             fetch(fetchUrl)
                 .then((res) => {
