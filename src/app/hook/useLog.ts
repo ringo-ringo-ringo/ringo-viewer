@@ -37,7 +37,15 @@ export default function useLog() {
                         // start と end の Promise が両方とも正常に解決されたら実行
                         simulation.setLogPath(String(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH));
 
-                        simulation.fetchData(step);
+                        LoadLog.load(simulation.getLogPath(), "INITIAL_CONDITIONS")
+                            .then((res) => {
+                                simulation.setWorldModel(step, res);
+                            })
+                            .catch((error) => {
+                                console.error("ログの読み込みエラー:", error);
+                                // エラー処理
+                                throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
+                            });
                     })
                     .catch((error) => {
                         console.error("ログの読み込みエラー:", error);

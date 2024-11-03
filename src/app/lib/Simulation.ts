@@ -8,9 +8,10 @@ export class Simulation {
         this.LogPath = null;
     }
 
-    fetchData(step: number) {
+    setWorldModel(step: number, log: any) {
         if (!this.worldModel[step] && step === 0 && this.LogPath) {
             this.worldModel[step] = new WorldModel(step);
+            this.worldModel[step].setEntity(log.initialcondition.entitiesList);
         }
     }
 

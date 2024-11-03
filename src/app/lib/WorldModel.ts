@@ -7,4 +7,11 @@ export class WorldModel {
     constructor(step: number) {
         this.step = step;
     }
+
+    setEntity(entitysLog: any) {
+        const num = 0;
+        for (const entity of entitysLog) {
+            this.entity[num] = new Entity(entity);
+        }
+    }
 }
