@@ -15,4 +15,8 @@ export class WorldModel {
             num++;
         }
     }
+
+    getEntity() {
+        return this.entity;
+    }
 }

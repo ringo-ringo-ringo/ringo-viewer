@@ -91,4 +91,8 @@ export class Property {
             }
         }
     }
+
+    getValue() {
+        return this.value;
+    }
 }

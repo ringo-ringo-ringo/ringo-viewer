@@ -5,7 +5,7 @@ import { LoadLog } from "@/app/lib/LoadLog";
 export default function useLog() {
     const [step, setStep] = useState<number>(0);
     const [isPause, setIsPause] = useState<boolean>(false);
-    const [simulation, setSimulation] = useState(new Simulation());
+    const [simulation, setSimulation] = useState<Simulation>(new Simulation());
 
     useEffect(() => {
         if (!simulation.getWorldModel(step)) {
@@ -40,6 +40,9 @@ export default function useLog() {
                         LoadLog.load(simulation.getLogPath(), "INITIAL_CONDITIONS")
                             .then((res) => {
                                 simulation.setWorldModel(step, res);
+                                const oldSimulation = simulation;
+                                const newSimulation: Simulation = new Simulation(oldSimulation);
+                                setSimulation(newSimulation);
                             })
                             .catch((error) => {
                                 console.error("ログの読み込みエラー:", error);

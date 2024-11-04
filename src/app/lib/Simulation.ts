@@ -4,8 +4,13 @@ export class Simulation {
     worldModel: WorldModel[] = [];
     LogPath: string | null;
 
-    constructor() {
-        this.LogPath = null;
+    constructor(simulation?: Simulation) {
+        if (simulation) {
+            this.worldModel = simulation.getWorldModels();
+            this.LogPath = simulation.getLogPath();
+        } else {
+            this.LogPath = null;
+        }
     }
 
     setWorldModel(step: number, log: any) {
@@ -25,5 +30,9 @@ export class Simulation {
 
     getWorldModel(step: number) {
         return this.worldModel[step];
+    }
+
+    getWorldModels() {
+        return this.worldModel;
     }
 }
