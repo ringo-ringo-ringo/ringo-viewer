@@ -24,9 +24,9 @@ export default function Viewer({ simulation, step }: any) {
         <>
             <DeckGL
                 initialViewState={{
-                    longitude: 15 / 2,
-                    latitude: 7 / 2,
-                    zoom: 7,
+                    longitude: 2,
+                    latitude:2,
+                    zoom: 6,
                 }}
                 controller
                 layers={layer}
