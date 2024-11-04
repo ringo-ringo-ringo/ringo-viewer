@@ -9,9 +9,10 @@ export class WorldModel {
     }
 
     setEntity(entitysLog: any) {
-        const num = 0;
+        let num = 0;
         for (const entity of entitysLog) {
             this.entity[num] = new Entity(entity);
+            num++;
         }
     }
 }
