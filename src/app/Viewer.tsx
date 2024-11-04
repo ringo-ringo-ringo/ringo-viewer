@@ -12,15 +12,11 @@ export default function Viewer({ simulation, step }: any) {
 
     useEffect(() => {
         if (simulation && simulation.getWorldModel(step)) {
-            new Promise((resolve, reject) => {
-                createLayer.createLayer(step, simulation);
+            createLayer.createLayer(step, simulation);
 
-                const layer = [createLayer.getBuildingsLayer(), createLayer.getRoadsLayer(), createLayer.getRefugesLayer(), createLayer.getHydrantsLayer(), createLayer.getGasStationsLayer(), createLayer.getFireStationsLayer(), createLayer.getAmbulanceCentresLayer(), createLayer.getCiviliansLayer(), createLayer.getFireBrigadesLayer(), createLayer.getAmbulanceTeamsLayer(), createLayer.getPoliceForcesLayer()];
+            const layer = [createLayer.getBuildingsLayer(), createLayer.getRoadsLayer(), createLayer.getRefugesLayer(), createLayer.getHydrantsLayer(), createLayer.getGasStationsLayer(), createLayer.getFireStationsLayer(), createLayer.getAmbulanceCentresLayer(), createLayer.getCiviliansLayer(), createLayer.getFireBrigadesLayer(), createLayer.getAmbulanceTeamsLayer(), createLayer.getPoliceForcesLayer()];
 
-                resolve(layer);
-            }).then((layer) => {
-                setLayer(layer);
-            });
+            setLayer(layer);
         }
     }, [simulation, step]);
 
