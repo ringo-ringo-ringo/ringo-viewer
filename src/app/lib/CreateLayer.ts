@@ -252,7 +252,7 @@ export class CreateLayer {
             getFillColor: (d) => d.backgroundColor,
             getLineColor: (d) => [150, 150, 150],
             lineWidthMinPixels: 1,
-            pickable: true,
+            // pickable: true,
         });
     }
 
@@ -266,7 +266,7 @@ export class CreateLayer {
             getPosition: (d) => d.position,
             getColor: (d) => d.backgroundColor,
             getSize: 30,
-            pickable: true,
+            // pickable: true,
         });
     }
 
