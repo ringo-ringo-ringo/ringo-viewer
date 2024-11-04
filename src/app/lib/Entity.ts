@@ -7,7 +7,7 @@ export class Entity {
 
     constructor(entity: any) {
         this.urn = entity.urn;
-        this.entityId = entity.entityId;
+        this.entityId = entity.entityid;
 
         entity.propertiesList.forEach((prop: any) => {
             let p = new Property(prop);
