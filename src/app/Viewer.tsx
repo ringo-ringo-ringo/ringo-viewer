@@ -30,10 +30,9 @@ export default function Viewer({ simulation, step }: any) {
                 }}
                 controller
                 layers={layer}
-                // getTooltip={({ object }) => object && `${object.backgroundColor}\nPopulation: ${object.population}`}
-                getTooltip={({ object }) => {
-                    return object && JSON.stringify(object.other, null, 2);
-                }}
+                // getTooltip={({ object }) => {
+                //     return object && JSON.stringify(object.other, null, 2);
+                // }}
             />
         </>
     );
