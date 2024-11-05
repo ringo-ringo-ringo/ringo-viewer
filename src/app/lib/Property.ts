@@ -61,7 +61,7 @@ export class Property {
                 this.value = propertys.intvalue;
                 // console.log(this.value);
             } else if (URN_MAP[propertys.urn] === "FIERYNESS") {
-                // this.value = propertys.intvalue;
+                // thsis.value = propertys.intvalue;
                 // console.log(this.value);
                 console.log("何これ : " + URN_MAP[propertys.urn]);
             } else if (URN_MAP[propertys.urn] === "CAPACITY") {
@@ -88,6 +88,7 @@ export class Property {
                 console.log("何これ : " + URN_MAP[propertys.urn]);
             } else {
                 console.error("Propertyクラスにて，未知のプロパティを発見しました : " + this.urn + " : " + URN_MAP[propertys.urn]);
+                console.log(propertys);
             }
         }
     }
