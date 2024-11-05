@@ -37,6 +37,11 @@ export class WorldModel {
                 this.setEntity(changeEntity);
             }
         });
+
+        deletesList.map((deleteId: number) => {
+            const newEntitys = this.entity.filter((entity: Entity) => entity.entityId !== deleteId);
+            this.entity = newEntitys;
+        });
     }
 
     getEntity() {
