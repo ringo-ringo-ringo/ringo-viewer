@@ -57,12 +57,8 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
             } else {
                 LoadLog.load(simulation.getLogPath(), `${step}/UPDATES`)
                     .then((res) => {
-                        console.log("ログの中身");
-                        console.log(res);
                         simulation.setWorldModel(step, res);
                         setSimulation(new Simulation(simulation));
-                        console.log("現在のシミュレーションクラスの内容");
-                        console.log(simulation);
                     })
                     .catch((error) => {
                         console.error("ログの読み込みエラー:", error);

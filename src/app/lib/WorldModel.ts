@@ -19,21 +19,10 @@ export class WorldModel {
     }
 
     changeEntity(changesList: any, deletesList: any) {
-        console.log("変更リスト");
-        console.log(changesList);
-        console.log("削除リスト");
-        console.log(deletesList);
-
         changesList.map((changeEntity: any) => {
             let changed: boolean = false;
             for (const oldEntity of this.entity) {
                 if (changeEntity.entityid === oldEntity.entityId) {
-                    console.log("一緒だぞ");
-                    console.log("元々あったやつ");
-                    console.log(oldEntity);
-                    console.log("差分のやつ");
-                    console.log(changeEntity);
-
                     oldEntity.changePropertie(changeEntity);
 
                     changed = true;
@@ -43,7 +32,6 @@ export class WorldModel {
             if (!changed) {
                 console.log("新規です");
             }
-            console.log("********************************");
         });
     }
 
