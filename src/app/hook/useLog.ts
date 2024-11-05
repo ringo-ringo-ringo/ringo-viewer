@@ -54,7 +54,18 @@ export default function useLog() {
                         throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                     });
             } else {
-                // simulation.fetchData(step);
+                LoadLog.load(simulation.getLogPath(), `${step}/UPDATES`)
+                    .then((res) => {
+                        console.log("ログの中身");
+                        console.log(res);
+                        simulation.setWorldModel(step, res);
+                        setSimulation(new Simulation(simulation));
+                    })
+                    .catch((error) => {
+                        console.error("ログの読み込みエラー:", error);
+                        // エラー処理
+                        throw new Error("ログを読み込めませんでした");
+                    });
             }
         }
     }, [step]);
