@@ -16,7 +16,7 @@ export class Simulation {
     setWorldModel(step: number, log: any) {
         if (!this.worldModel[step] && step === 0 && this.LogPath) {
             this.worldModel[step] = new WorldModel(step);
-            this.worldModel[step].setEntity(log.initialcondition.entitiesList);
+            this.worldModel[step].setEntitys(log.initialcondition.entitiesList);
         } else if (!this.worldModel[step] && step > 0 && this.LogPath) {
             this.worldModel[step] = new WorldModel(step, this.worldModel[step - 1].getEntity());
             this.worldModel[step].changeEntity(log.update.changes.changesList, log.update.changes.deletesList);

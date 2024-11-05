@@ -12,7 +12,7 @@ export class WorldModel {
         }
     }
 
-    setEntity(entitysLog: any) {
+    setEntitys(entitysLog: any) {
         for (const entity of entitysLog) {
             this.entity.push(new Entity(entity));
         }
