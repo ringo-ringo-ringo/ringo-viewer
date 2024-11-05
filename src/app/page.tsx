@@ -9,13 +9,15 @@ export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation] = useLog();
 
     const stepUp = () => {
-        setStep((step: number) => step + 1);
+        setStep((prevStep: number) => prevStep + 1);
     };
 
     return (
         <>
             <Viewer simulation={simulation} step={step}></Viewer>
-            <Button onClick={stepUp} variant="outlined"> go to next step : this step is {step}</Button>
+            <Button onClick={stepUp} variant="outlined">
+                go to next step : this step is {step}
+            </Button>
         </>
     );
 }

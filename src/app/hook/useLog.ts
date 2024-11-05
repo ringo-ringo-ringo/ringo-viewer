@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Simulation } from "@/app/lib/Simulation";
 import { LoadLog } from "@/app/lib/LoadLog";
+import { Dispatch, SetStateAction } from "react";
 
-export default function useLog() {
+export default function useLog(): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>] {
     const [step, setStep] = useState<number>(0);
     const [isPause, setIsPause] = useState<boolean>(false);
     const [simulation, setSimulation] = useState<Simulation>(new Simulation());
@@ -60,6 +61,8 @@ export default function useLog() {
                         console.log(res);
                         simulation.setWorldModel(step, res);
                         setSimulation(new Simulation(simulation));
+                        console.log("現在のシミュレーションクラスの内容");
+                        console.log(simulation);
                     })
                     .catch((error) => {
                         console.error("ログの読み込みエラー:", error);

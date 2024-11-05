@@ -34,6 +34,8 @@ export class WorldModel {
                     console.log("差分のやつ");
                     console.log(changeEntity);
 
+                    oldEntity.changePropertie(changeEntity);
+
                     changed = true;
                 }
             }

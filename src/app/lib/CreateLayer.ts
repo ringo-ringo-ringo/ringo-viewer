@@ -31,6 +31,8 @@ export class CreateLayer {
 
     createLayer(step: number, simulation: Simulation) {
         const worldModel: WorldModel = simulation.getWorldModel(step);
+        console.log("現在のワールドモデル");
+        console.log(worldModel);
         const entitys = worldModel.getEntity();
 
         entitys.map((entity) => {

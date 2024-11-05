@@ -22,7 +22,7 @@ export class Simulation {
             console.log(`インんスタンスしたばっかのステップ${step}のワールドモデル`);
             console.log(this.worldModel[step]);
 
-            this.worldModel[step].changeEntity(log.update.changes.changesList , log.update.changes.deletesList);
+            this.worldModel[step].changeEntity(log.update.changes.changesList, log.update.changes.deletesList);
         }
     }
 
