@@ -86,6 +86,17 @@ export class Property {
                 // this.value = propertys.intvalue;
                 // console.log(this.value);
                 console.log("何これ : " + URN_MAP[propertys.urn]);
+            } else if (URN_MAP[propertys.urn] === "REPAIR_COST") {
+                this.value = propertys.intvalue;
+                // console.log(this.value);
+            } else if (URN_MAP[propertys.urn] === "APEXES") {
+                this.value = propertys.intlist.valuesList;
+                // console.log(propertys);
+                // console.log(this.value);
+            } else if (URN_MAP[propertys.urn] === "BLOCKADES") {
+                this.value = propertys.intlist.valuesList;
+                // console.log(propertys);
+                // console.log(this.value);
             } else {
                 console.error("Propertyクラスにて，未知のプロパティを発見しました : " + this.urn + " : " + URN_MAP[propertys.urn]);
                 console.log(propertys);
