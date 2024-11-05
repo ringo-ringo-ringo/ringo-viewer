@@ -18,6 +18,10 @@ export class WorldModel {
         }
     }
 
+    setEntity(entity: Entity) {
+        this.entity.push(new Entity(entity));
+    }
+
     changeEntity(changesList: any, deletesList: any) {
         changesList.map((changeEntity: any) => {
             let changed: boolean = false;
@@ -30,7 +34,7 @@ export class WorldModel {
             }
 
             if (!changed) {
-                console.log("新規です");
+                this.setEntity(changeEntity);
             }
         });
     }
