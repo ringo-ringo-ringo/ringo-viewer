@@ -40,9 +40,7 @@ export default function useLog() {
                         LoadLog.load(simulation.getLogPath(), "INITIAL_CONDITIONS")
                             .then((res) => {
                                 simulation.setWorldModel(step, res);
-                                const oldSimulation = simulation;
-                                const newSimulation: Simulation = new Simulation(oldSimulation);
-                                setSimulation(newSimulation);
+                                setSimulation(new Simulation(simulation));
                             })
                             .catch((error) => {
                                 console.error("ログの読み込みエラー:", error);
