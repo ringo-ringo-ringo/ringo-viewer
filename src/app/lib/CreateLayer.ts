@@ -26,6 +26,7 @@ export class CreateLayer {
     FireBrigadesLayer: HumanLayer[] = [];
     AmbulanceTeamsLayer: HumanLayer[] = [];
     PoliceForcesLayer: HumanLayer[] = [];
+    BlockadesLayer: BuildLayer[] = [];
 
     constructor() {}
 
@@ -236,8 +237,38 @@ export class CreateLayer {
                 };
 
                 this.PoliceForcesLayer.push(data);
+            } else if (URN_MAP[entity.urn] === "BLOCKADE") {
+                const properties = entity.getPropertys();
+
+                const apexes = properties.APEXES.value;
+
+                let count: number = 0;
+                const edges: Array<number[]> = [];
+                let x: number | null = null;
+                let y: number | null = null;
+                apexes.map((apex: number) => {
+                    if (count % 2 === 0) {
+                        x = apex;
+                    } else {
+                        y = apex;
+                        if (x && y) {
+                            edges.push([x / 20000, y / 20000]);
+                        } else {
+                            console.error("中に入ってる値がnullだぞ");
+                        }
+                    }
+                    count++;
+                });
+
+                const data = {
+                    apex: edges,
+                    backgroundColor: [25, 25, 25],
+                };
+
+                this.BlockadesLayer.push(data);
             } else {
                 console.log("未使用のエンティティ発見 : " + URN_MAP[entity.urn]);
+                console.log(entity);
             }
         });
     }
@@ -309,6 +340,11 @@ export class CreateLayer {
 
     getPoliceOfficesLayer() {
         const layer = this.createPolygoneLayer("police-office", this.PoliceOfficesLayer);
+        return layer;
+    }
+
+    getBlockadesLayer() {
+        const layer = this.createPolygoneLayer("blockade", this.BlockadesLayer);
         return layer;
     }
 
