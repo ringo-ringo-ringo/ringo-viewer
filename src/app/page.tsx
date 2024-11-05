@@ -16,6 +16,9 @@ export default function Home() {
         setStep((prevStep: number) => prevStep - 1);
     };
 
+    console.log("現在のシミュレーション");
+    console.log(simulation);
+
     return (
         <>
             <Viewer simulation={simulation} step={step}></Viewer>
