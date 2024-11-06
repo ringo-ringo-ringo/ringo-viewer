@@ -3,7 +3,7 @@
 import useLog from "@/app/hook/useLog";
 import Viewer from "@/app/Viewer";
 import { useEffect } from "react";
-import { Button } from "@mui/material";
+import { Button, Slider } from "@mui/material";
 
 export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation] = useLog();
@@ -14,6 +14,10 @@ export default function Home() {
 
     const stepDown = (count: number) => {
         setStep((prevStep: number) => prevStep - count);
+    };
+
+    const changeSlider = (e) => {
+        setStep(e.target.value);
     };
 
     console.log("現在のシミュレーション");
@@ -54,6 +58,7 @@ export default function Home() {
             >
                 go to next 10 step : this step is {step}
             </Button>
+            <Slider size="small" defaultValue={0} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
         </>
     );
 }
