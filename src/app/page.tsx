@@ -28,6 +28,9 @@ export default function Home() {
             <Button onClick={() => stepUp(1)} variant="outlined">
                 go to next step : this step is {step}
             </Button>
+            <Button onClick={() => stepUp(10)} variant="outlined">
+                go to next 10 step : this step is {step}
+            </Button>
         </>
     );
 }

@@ -1,12 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "react";
 import { Simulation } from "@/app/lib/Simulation";
 import { LoadLog } from "@/app/lib/LoadLog";
-import { Dispatch, SetStateAction } from "react";
 
 export default function useLog(): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>] {
     const [step, setStep] = useState<number>(0);
     const [isPause, setIsPause] = useState<boolean>(false);
     const [simulation, setSimulation] = useState<Simulation>(new Simulation());
+
+    // const fetchUpdate = useCallback((callStep: number) => {
+    //     if (!simulation.getWorldModel(step - 1)) {
+    //         fetchUpdate(step - 1);
+    //     }
+
+    //     LoadLog.load(simulation.getLogPath(), `${callStep}/UPDATES`)
+    //         .then((res) => {
+    //             simulation.setWorldModel(callStep, res);
+    //             setSimulation(new Simulation(simulation));
+    //         })
+    //         .catch((error) => {
+    //             console.error("ログの読み込みエラー:", error);
+    //             // エラー処理
+    //             throw new Error("ログを読み込めませんでした");
+    //         });
+    // }, []);
 
     useEffect(() => {
         if (!simulation.getWorldModel(step)) {
@@ -55,16 +71,26 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                         throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                     });
             } else {
-                LoadLog.load(simulation.getLogPath(), `${step}/UPDATES`)
-                    .then((res) => {
-                        simulation.setWorldModel(step, res);
-                        setSimulation(new Simulation(simulation));
-                    })
-                    .catch((error) => {
-                        console.error("ログの読み込みエラー:", error);
-                        // エラー処理
-                        throw new Error("ログを読み込めませんでした");
-                    });
+                // fetchUpdate(step);
+
+                const fetchUpdate = async (callStep: number) => {
+                    if (!simulation.getWorldModel(callStep - 1)) {
+                        await fetchUpdate(callStep - 1);
+                    }
+
+                    await LoadLog.load(simulation.getLogPath(), `${callStep}/UPDATES`)
+                        .then((res) => {
+                            simulation.setWorldModel(callStep, res);
+                            setSimulation(new Simulation(simulation));
+                        })
+                        .catch((error) => {
+                            console.error("ログの読み込みエラー:", error);
+                            // エラー処理
+                            throw new Error("ログを読み込めませんでした");
+                        });
+                };
+
+                fetchUpdate(step);
             }
         }
     }, [step]);
