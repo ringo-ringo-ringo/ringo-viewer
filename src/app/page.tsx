@@ -8,8 +8,8 @@ import { Button } from "@mui/material";
 export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation] = useLog();
 
-    const stepUp = () => {
-        setStep((prevStep: number) => prevStep + 1);
+    const stepUp = (count: number) => {
+        setStep((prevStep: number) => prevStep + count);
     };
 
     const stepDown = () => {
@@ -25,7 +25,7 @@ export default function Home() {
             <Button onClick={stepDown} variant="outlined">
                 go to prev step
             </Button>
-            <Button onClick={stepUp} variant="outlined">
+            <Button onClick={() => stepUp(1)} variant="outlined">
                 go to next step : this step is {step}
             </Button>
         </>
