@@ -12,8 +12,8 @@ export default function Home() {
         setStep((prevStep: number) => prevStep + count);
     };
 
-    const stepDown = () => {
-        setStep((prevStep: number) => prevStep - 1);
+    const stepDown = (count: number) => {
+        setStep((prevStep: number) => prevStep - count);
     };
 
     console.log("現在のシミュレーション");
@@ -22,13 +22,36 @@ export default function Home() {
     return (
         <>
             <Viewer simulation={simulation} step={step}></Viewer>
-            <Button onClick={stepDown} variant="outlined">
+            <Button
+                onClick={() => {
+                    stepDown(10);
+                }}
+                variant="outlined"
+            >
+                go to prev 10 step
+            </Button>
+            <Button
+                onClick={() => {
+                    stepDown(1);
+                }}
+                variant="outlined"
+            >
                 go to prev step
             </Button>
-            <Button onClick={() => stepUp(1)} variant="outlined">
+            <Button
+                onClick={() => {
+                    stepUp(1);
+                }}
+                variant="outlined"
+            >
                 go to next step : this step is {step}
             </Button>
-            <Button onClick={() => stepUp(10)} variant="outlined">
+            <Button
+                onClick={() => {
+                    stepUp(10);
+                }}
+                variant="outlined"
+            >
                 go to next 10 step : this step is {step}
             </Button>
         </>
