@@ -18,7 +18,8 @@ export class Simulation {
             this.worldModel[step] = new WorldModel(step);
             this.worldModel[step].setEntitys(log.initialcondition.entitiesList);
         } else if (!this.worldModel[step] && step > 0 && this.LogPath) {
-            this.worldModel[step] = new WorldModel(step, this.worldModel[step - 1].getEntity());
+            const cloneEntities = this.worldModel[step - 1].getEntity().map((e) => e.clone());
+            this.worldModel[step] = new WorldModel(step, cloneEntities);
             this.worldModel[step].changeEntity(log.update.changes.changesList, log.update.changes.deletesList);
         }
     }

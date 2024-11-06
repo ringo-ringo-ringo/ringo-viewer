@@ -28,6 +28,20 @@ export class Entity {
         }
     }
 
+    clone() {
+        const cloneProperties: { [key: string]: any } = {};
+
+        for (const key in this.properties) {
+            cloneProperties[key] = new Property(this.properties[key]);
+        }
+
+        return new Entity({
+            urn: this.urn,
+            entityid: this.entityId,
+            propertiesList: Object.values(cloneProperties),
+        });
+    }
+
     getPropertys() {
         return this.properties;
     }
