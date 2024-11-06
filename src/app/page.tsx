@@ -76,7 +76,7 @@ export default function Home() {
                 go to last step
             </Button>
 
-            <Slider size="small" defaultValue={0} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
+            <Slider size="small" value={step} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
         </>
     );
 }
