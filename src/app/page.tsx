@@ -26,6 +26,15 @@ export default function Home() {
     return (
         <>
             <Viewer simulation={simulation} step={step}></Viewer>
+            <p>step : {step}</p>
+            <Button
+                onClick={() => {
+                    setStep(0);
+                }}
+                variant="outlined"
+            >
+                go to initial step
+            </Button>
             <Button
                 onClick={() => {
                     stepDown(10);
@@ -48,7 +57,7 @@ export default function Home() {
                 }}
                 variant="outlined"
             >
-                go to next step : this step is {step}
+                go to next step
             </Button>
             <Button
                 onClick={() => {
@@ -56,8 +65,17 @@ export default function Home() {
                 }}
                 variant="outlined"
             >
-                go to next 10 step : this step is {step}
+                go to next 10 step
             </Button>
+            <Button
+                onClick={() => {
+                    setStep(300);
+                }}
+                variant="outlined"
+            >
+                go to last step
+            </Button>
+
             <Slider size="small" defaultValue={0} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
         </>
     );
