@@ -20,6 +20,8 @@ export default function Home() {
         setStep(e.target.value);
     };
 
+    console.log("現在のステップ");
+    console.log(step);
     console.log("現在のシミュレーション");
     console.log(simulation);
 
