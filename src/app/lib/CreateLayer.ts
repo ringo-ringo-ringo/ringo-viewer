@@ -97,11 +97,16 @@ export class CreateLayer {
                     edges.push([edge.endx / 20000, edge.endy / 20000]);
                 });
 
+                let color = 200;
+                if (properties.BROKENNESS.value) {
+                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [250, 0, 0],
+                    backgroundColor: [color +50, 0, 0],
                     ...properties,
                 };
 
@@ -119,11 +124,16 @@ export class CreateLayer {
                     edges.push([edge.endx / 20000, edge.endy / 20000]);
                 });
 
+                let color = 200;
+                if (properties.BROKENNESS.value) {
+                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [0, 250, 0],
+                    backgroundColor: [0, color + 50, 0],
                     ...properties,
                 };
 
@@ -140,12 +150,17 @@ export class CreateLayer {
                     }
                     edges.push([edge.endx / 20000, edge.endy / 20000]);
                 });
+                
+                let color = 200;
+                if (properties.BROKENNESS.value) {
+                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                }
 
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [0, 0, 250],
+                    backgroundColor: [0, 0, color + 50],
                     ...properties,
                 };
 
@@ -163,11 +178,16 @@ export class CreateLayer {
                     edges.push([edge.endx / 20000, edge.endy / 20000]);
                 });
 
+                let color = 200;
+                if (properties.BROKENNESS.value) {
+                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [250, 250, 0],
+                    backgroundColor: [color + 50, color + 50, 0],
                     ...properties,
                 };
 
@@ -185,11 +205,16 @@ export class CreateLayer {
                     edges.push([edge.endx / 20000, edge.endy / 20000]);
                 });
 
+                let color = 200;
+                if (properties.BROKENNESS.value) {
+                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [250, 0, 250],
+                    backgroundColor: [color + 50, 0, color + 50],
                     ...properties,
                 };
 
@@ -207,11 +232,16 @@ export class CreateLayer {
                     edges.push([edge.endx / 20000, edge.endy / 20000]);
                 });
 
+                let color = 200;
+                if (properties.BROKENNESS.value) {
+                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [0, 250, 250],
+                    backgroundColor: [0, color + 50, color + 50],
                     ...properties,
                 };
 
