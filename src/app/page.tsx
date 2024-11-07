@@ -16,7 +16,7 @@ export default function Home() {
         setStep((prevStep: number) => prevStep - count);
     };
 
-    const changeSlider = (e) => {
+    const changeSlider = (e: any) => {
         setStep(e.target.value);
     };
 
