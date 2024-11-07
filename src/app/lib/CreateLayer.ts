@@ -222,7 +222,7 @@ export class CreateLayer {
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
-                let color = 255;
+                let color = 0;
                 if (properties.HP.value) {
                     color = 255 * (properties.HP.value / 10000);
                 }
@@ -242,7 +242,7 @@ export class CreateLayer {
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
-                let color = 255;
+                let color = 0;
                 if (properties.HP.value) {
                     color = 255 * (properties.HP.value / 10000);
                 }
@@ -262,7 +262,7 @@ export class CreateLayer {
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
-                let color = 255;
+                let color = 0;
                 if (properties.HP.value) {
                     color = 255 * (properties.HP.value / 10000);
                 }
@@ -282,7 +282,7 @@ export class CreateLayer {
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
-                let color = 255;
+                let color = 0;
                 if (properties.HP.value) {
                     color = 255 * (properties.HP.value / 10000);
                 }
