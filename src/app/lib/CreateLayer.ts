@@ -6,7 +6,6 @@ import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 interface BuildLayer {
     apex: number[][];
     backgroundColor: number[];
-    EDGES?: any;
 }
 
 interface HumanLayer {
@@ -50,6 +49,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [150, 150, 150],
                     ...properties,
@@ -70,6 +70,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [200, 200, 200],
                     ...properties,
@@ -90,6 +91,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [250, 0, 0],
                     ...properties,
@@ -110,6 +112,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [0, 250, 0],
                     ...properties,
@@ -130,6 +133,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [0, 0, 250],
                     ...properties,
@@ -150,6 +154,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [250, 250, 0],
                     ...properties,
@@ -170,6 +175,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [250, 0, 250],
                     ...properties,
@@ -190,6 +196,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [0, 250, 250],
                     ...properties,
@@ -203,6 +210,7 @@ export class CreateLayer {
                 const y: number = properties.Y.value;
 
                 const data = {
+                    entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [0, 250, 0],
                     ...properties,
@@ -216,6 +224,7 @@ export class CreateLayer {
                 const y: number = properties.Y.value;
 
                 const data = {
+                    entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [250, 0, 0],
                     ...properties,
@@ -229,6 +238,7 @@ export class CreateLayer {
                 const y: number = properties.Y.value;
 
                 const data = {
+                    entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [250, 250, 250],
                     ...properties,
@@ -242,6 +252,7 @@ export class CreateLayer {
                 const y: number = properties.Y.value;
 
                 const data = {
+                    entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [0, 0, 250],
                     ...properties,
@@ -272,6 +283,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [25, 25, 25],
                     ...properties,

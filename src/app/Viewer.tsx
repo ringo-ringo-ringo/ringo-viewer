@@ -35,10 +35,14 @@ export default function Viewer({ simulation, step }: any) {
 
                     let text = "";
 
+                    text += "entityId : " + object.entityId + "\n";
+
                     for (const key in object) {
-                        if (object.hasOwnProperty(key)) {
+                        if (key && object.hasOwnProperty(key)) {
                             const value = object[key];
-                            text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                            if (value.value) {
+                                text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                            }
                         }
                     }
 
