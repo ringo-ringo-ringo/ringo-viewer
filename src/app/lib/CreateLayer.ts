@@ -216,7 +216,6 @@ export class CreateLayer {
 
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
-                console.log(properties);
 
                 let color = 255;
                 if (properties.HP.value) {
