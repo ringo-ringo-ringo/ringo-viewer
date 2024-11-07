@@ -48,11 +48,16 @@ export class CreateLayer {
                     edges.push([edge.endx / 20000, edge.endy / 20000]);
                 });
 
+                let color = 150;
+                if (properties.BROKENNESS.value) {
+                    color = 150 * (properties.BROKENNESS.value / 100);
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [150, 150, 150],
+                    backgroundColor: [color, color, color],
                     ...properties,
                 };
 
