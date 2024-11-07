@@ -3,10 +3,10 @@
 import useLog from "@/app/hook/useLog";
 import Viewer from "@/app/Viewer";
 import { useEffect } from "react";
-import { Button, Slider } from "@mui/material";
+import { Button, Slider, LinearProgress } from "@mui/material";
 
 export default function Home() {
-    const [step, setStep, isPause, setIsPause, simulation, setSimulation] = useLog();
+    const [step, setStep, isPause, setIsPause, simulation, setSimulation, isLoading] = useLog();
 
     const stepUp = (count: number) => {
         setStep((prevStep: number) => prevStep + count);
@@ -28,6 +28,7 @@ export default function Home() {
     return (
         <>
             <Viewer simulation={simulation} step={step}></Viewer>
+            { isLoading ? <LinearProgress /> : null}
             <p>step : {step}</p>
             <Button
                 onClick={() => {
@@ -77,7 +78,6 @@ export default function Home() {
             >
                 go to last step
             </Button>
-
             <Slider size="small" value={step} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
         </>
     );

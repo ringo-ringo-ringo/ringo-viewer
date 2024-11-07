@@ -2,10 +2,11 @@ import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "reac
 import { Simulation } from "@/app/lib/Simulation";
 import { LoadLog } from "@/app/lib/LoadLog";
 
-export default function useLog(): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>] {
+export default function useLog(): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>, number] {
     const [step, setStep] = useState<number>(0);
     const [isPause, setIsPause] = useState<boolean>(false);
     const [simulation, setSimulation] = useState<Simulation>(new Simulation());
+    const [isLoading, setIsLoading] = useState<number>(0);
 
     // const fetchUpdate = useCallback((callStep: number) => {
     //     if (!simulation.getWorldModel(step - 1)) {
@@ -27,6 +28,8 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
     useEffect(() => {
         if (!simulation.getWorldModel(step)) {
             if (step === 0) {
+                setIsLoading((e) => e + 1);
+
                 const start = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "START_OF_LOG");
                 const end = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "END_OF_LOG");
 
@@ -58,15 +61,18 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                             .then((res) => {
                                 simulation.setWorldModel(step, res);
                                 setSimulation(new Simulation(simulation));
+                                setIsLoading((e) => e - 1);
                             })
                             .catch((error) => {
                                 console.error("ログの読み込みエラー:", error);
+
                                 // エラー処理
                                 throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                             });
                     })
                     .catch((error) => {
                         console.error("ログの読み込みエラー:", error);
+
                         // エラー処理
                         throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                     });
@@ -74,6 +80,8 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                 // fetchUpdate(step);
 
                 const fetchUpdate = async (callStep: number) => {
+                    setIsLoading((e) => e + 1);
+
                     if (!simulation.getWorldModel(callStep - 1)) {
                         await fetchUpdate(callStep - 1);
                     }
@@ -82,6 +90,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                         .then((res) => {
                             simulation.setWorldModel(callStep, res);
                             setSimulation(new Simulation(simulation));
+                            setIsLoading((e) => e - 1);
                         })
                         .catch((error) => {
                             console.error("ログの読み込みエラー:", error);
@@ -95,5 +104,5 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
         }
     }, [step]);
 
-    return [step, setStep, isPause, setIsPause, simulation, setSimulation];
+    return [step, setStep, isPause, setIsPause, simulation, setSimulation, isLoading];
 }
