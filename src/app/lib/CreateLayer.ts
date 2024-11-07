@@ -49,6 +49,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [150, 150, 150],
@@ -70,6 +71,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [200, 200, 200],
@@ -91,6 +93,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [250, 0, 0],
@@ -112,6 +115,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [0, 250, 0],
@@ -133,6 +137,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [0, 0, 250],
@@ -154,6 +159,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [250, 250, 0],
@@ -175,6 +181,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [250, 0, 250],
@@ -196,6 +203,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [0, 250, 250],
@@ -210,6 +218,7 @@ export class CreateLayer {
                 const y: number = properties.Y.value;
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [0, 250, 0],
@@ -224,6 +233,7 @@ export class CreateLayer {
                 const y: number = properties.Y.value;
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [250, 0, 0],
@@ -238,6 +248,7 @@ export class CreateLayer {
                 const y: number = properties.Y.value;
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [250, 250, 250],
@@ -252,6 +263,7 @@ export class CreateLayer {
                 const y: number = properties.Y.value;
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [0, 0, 250],
@@ -283,6 +295,7 @@ export class CreateLayer {
                 });
 
                 const data = {
+                    entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [25, 25, 25],

@@ -37,6 +37,8 @@ export default function Viewer({ simulation, step }: any) {
 
                     let text = "";
 
+                    text += "entity : " + object.entity + "\n";
+
                     text += "entityId : " + object.entityId + "\n";
 
                     for (const key in object) {
