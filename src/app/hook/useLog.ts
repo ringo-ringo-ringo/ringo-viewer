@@ -8,23 +8,6 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
     const [simulation, setSimulation] = useState<Simulation>(new Simulation());
     const [isLoading, setIsLoading] = useState<number>(0);
 
-    // const fetchUpdate = useCallback((callStep: number) => {
-    //     if (!simulation.getWorldModel(step - 1)) {
-    //         fetchUpdate(step - 1);
-    //     }
-
-    //     LoadLog.load(simulation.getLogPath(), `${callStep}/UPDATES`)
-    //         .then((res) => {
-    //             simulation.setWorldModel(callStep, res);
-    //             setSimulation(new Simulation(simulation));
-    //         })
-    //         .catch((error) => {
-    //             console.error("ログの読み込みエラー:", error);
-    //             // エラー処理
-    //             throw new Error("ログを読み込めませんでした");
-    //         });
-    // }, []);
-
     useEffect(() => {
         if (!simulation.getWorldModel(step)) {
             if (step === 0) {
@@ -33,13 +16,8 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                 const start = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "START_OF_LOG");
                 const end = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "END_OF_LOG");
 
-                Promise.all([start, end]) // start と end の Promise を配列で渡す
+                Promise.all([start, end])
                     .then(([startJson, endJson]) => {
-                        // 両方の Promise が解決されたら実行
-                        // then メソッドで Promise を処理
-                        // console.log("in start: ", startJson); // startJson は JSON オブジェクト
-                        // console.log("in end: ", endJson); // endJson は JSON オブジェクト
-
                         if (startJson.hasOwnProperty("start")) {
                             console.log("start プロパティが存在します");
                         } else {
@@ -54,7 +32,6 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                             throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                         }
 
-                        // start と end の Promise が両方とも正常に解決されたら実行
                         simulation.setLogPath(String(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH));
 
                         LoadLog.load(simulation.getLogPath(), "INITIAL_CONDITIONS")
@@ -66,19 +43,15 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                             .catch((error) => {
                                 console.error("ログの読み込みエラー:", error);
 
-                                // エラー処理
                                 throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                             });
                     })
                     .catch((error) => {
                         console.error("ログの読み込みエラー:", error);
 
-                        // エラー処理
                         throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                     });
             } else {
-                // fetchUpdate(step);
-
                 const fetchUpdate = async (callStep: number) => {
                     setIsLoading((e) => e + 1);
 
@@ -94,7 +67,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                         })
                         .catch((error) => {
                             console.error("ログの読み込みエラー:", error);
-                            // エラー処理
+
                             throw new Error("ログを読み込めませんでした");
                         });
                 };
