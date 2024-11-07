@@ -4,6 +4,7 @@ import React, { ReactElement, useState, useEffect } from "react";
 import DeckGL from "@deck.gl/react";
 import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 import { CreateLayer } from "@/app/lib/CreateLayer";
+import { stringify } from "querystring";
 
 export default function Viewer({ simulation, step }: any) {
     const [layer, setLayer] = useState<any>([]);
@@ -29,9 +30,20 @@ export default function Viewer({ simulation, step }: any) {
                 }}
                 controller
                 layers={layer}
-                // getTooltip={({ object }) => {
-                //     return object && JSON.stringify(object.other, null, 2);
-                // }}
+                getTooltip={({ object }) => {
+                    if (!object) return null;
+
+                    let text = "";
+
+                    for (const key in object) {
+                        if (object.hasOwnProperty(key)) {
+                            const value = object[key];
+                            text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                        }
+                    }
+
+                    return { text };
+                }}
             />
         </>
     );

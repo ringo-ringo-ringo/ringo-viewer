@@ -6,6 +6,7 @@ import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 interface BuildLayer {
     apex: number[][];
     backgroundColor: number[];
+    EDGES?: any;
 }
 
 interface HumanLayer {
@@ -51,6 +52,7 @@ export class CreateLayer {
                 const data = {
                     apex: edges,
                     backgroundColor: [150, 150, 150],
+                    ...properties,
                 };
 
                 this.BuildingsLayer.push(data);
@@ -70,6 +72,7 @@ export class CreateLayer {
                 const data = {
                     apex: edges,
                     backgroundColor: [200, 200, 200],
+                    ...properties,
                 };
 
                 this.RoadsLayer.push(data);
@@ -89,6 +92,7 @@ export class CreateLayer {
                 const data = {
                     apex: edges,
                     backgroundColor: [250, 0, 0],
+                    ...properties,
                 };
 
                 this.RefugesLayer.push(data);
@@ -108,6 +112,7 @@ export class CreateLayer {
                 const data = {
                     apex: edges,
                     backgroundColor: [0, 250, 0],
+                    ...properties,
                 };
 
                 this.HydrantsLayer.push(data);
@@ -127,6 +132,7 @@ export class CreateLayer {
                 const data = {
                     apex: edges,
                     backgroundColor: [0, 0, 250],
+                    ...properties,
                 };
 
                 this.GasStationsLayer.push(data);
@@ -146,6 +152,7 @@ export class CreateLayer {
                 const data = {
                     apex: edges,
                     backgroundColor: [250, 250, 0],
+                    ...properties,
                 };
 
                 this.FireStationsLayer.push(data);
@@ -165,6 +172,7 @@ export class CreateLayer {
                 const data = {
                     apex: edges,
                     backgroundColor: [250, 0, 250],
+                    ...properties,
                 };
 
                 this.AmbulanceCentresLayer.push(data);
@@ -184,6 +192,7 @@ export class CreateLayer {
                 const data = {
                     apex: edges,
                     backgroundColor: [0, 250, 250],
+                    ...properties,
                 };
 
                 this.PoliceOfficesLayer.push(data);
@@ -196,6 +205,7 @@ export class CreateLayer {
                 const data = {
                     position: [x / 20000, y / 20000],
                     backgroundColor: [0, 250, 0],
+                    ...properties,
                 };
 
                 this.CiviliansLayer.push(data);
@@ -208,6 +218,7 @@ export class CreateLayer {
                 const data = {
                     position: [x / 20000, y / 20000],
                     backgroundColor: [250, 0, 0],
+                    ...properties,
                 };
 
                 this.FireBrigadesLayer.push(data);
@@ -220,6 +231,7 @@ export class CreateLayer {
                 const data = {
                     position: [x / 20000, y / 20000],
                     backgroundColor: [250, 250, 250],
+                    ...properties,
                 };
 
                 this.AmbulanceTeamsLayer.push(data);
@@ -232,6 +244,7 @@ export class CreateLayer {
                 const data = {
                     position: [x / 20000, y / 20000],
                     backgroundColor: [0, 0, 250],
+                    ...properties,
                 };
 
                 this.PoliceForcesLayer.push(data);
@@ -261,6 +274,7 @@ export class CreateLayer {
                 const data = {
                     apex: edges,
                     backgroundColor: [25, 25, 25],
+                    ...properties,
                 };
 
                 this.BlockadesLayer.push(data);
@@ -283,7 +297,7 @@ export class CreateLayer {
             getFillColor: (d) => d.backgroundColor,
             getLineColor: (d) => [150, 150, 150],
             lineWidthMinPixels: 1,
-            // pickable: true,
+            pickable: true,
         });
     }
 
@@ -297,7 +311,7 @@ export class CreateLayer {
             getPosition: (d) => d.position,
             getColor: (d) => d.backgroundColor,
             getSize: 30,
-            // pickable: true,
+            pickable: true,
         });
     }
 
