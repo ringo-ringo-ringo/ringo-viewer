@@ -50,7 +50,7 @@ export class CreateLayer {
 
                 let color = 150;
                 if (properties.BROKENNESS.value) {
-                    color = 150 * (properties.BROKENNESS.value / 100);
+                    color = 150 * (1 - properties.BROKENNESS.value / 100);
                 }
 
                 const data = {
