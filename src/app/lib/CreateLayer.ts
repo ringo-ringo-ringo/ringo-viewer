@@ -216,12 +216,18 @@ export class CreateLayer {
 
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
+                console.log(properties);
+
+                let color = 255;
+                if (properties.HP.value) {
+                    color = 255 * (properties.HP.value / 10000);
+                }
 
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
-                    backgroundColor: [0, 250, 0],
+                    backgroundColor: [0, color, 0],
                     ...properties,
                 };
 
@@ -232,11 +238,16 @@ export class CreateLayer {
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
+                let color = 255;
+                if (properties.HP.value) {
+                    color = 255 * (properties.HP.value / 10000);
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
-                    backgroundColor: [250, 0, 0],
+                    backgroundColor: [color, 0, 0],
                     ...properties,
                 };
 
@@ -247,11 +258,16 @@ export class CreateLayer {
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
+                let color = 255;
+                if (properties.HP.value) {
+                    color = 255 * (properties.HP.value / 10000);
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
-                    backgroundColor: [250, 250, 250],
+                    backgroundColor: [color, color, color],
                     ...properties,
                 };
 
@@ -262,11 +278,16 @@ export class CreateLayer {
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
+                let color = 255;
+                if (properties.HP.value) {
+                    color = 255 * (properties.HP.value / 10000);
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
-                    backgroundColor: [0, 0, 250],
+                    backgroundColor: [0, 0, color],
                     ...properties,
                 };
 
