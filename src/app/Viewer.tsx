@@ -31,6 +31,8 @@ export default function Viewer({ simulation, step }: any) {
                 controller
                 layers={layer}
                 getTooltip={({ object }) => {
+                    //ここ適当!!直して!
+
                     if (!object) return null;
 
                     let text = "";
