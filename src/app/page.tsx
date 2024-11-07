@@ -28,7 +28,8 @@ export default function Home() {
     return (
         <>
             <Viewer simulation={simulation} step={step}></Viewer>
-            { isLoading ? <LinearProgress /> : null}
+            {isLoading ? <LinearProgress /> : null}
+            <p>残りの読み込むべきステップ : {isLoading}</p>
             <p>step : {step}</p>
             <Button
                 onClick={() => {
