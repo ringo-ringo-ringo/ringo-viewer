@@ -30,23 +30,29 @@ export class CreateLayer {
 
     constructor() {}
 
+    getEdges(edgesList: any) {
+        let first: boolean = true;
+        const edges: Array<number[]> = [];
+
+        edgesList.map((edge: any) => {
+            if (first) {
+                edges.push([edge.startx / 20000, edge.starty / 20000]);
+                first = false;
+            }
+            edges.push([edge.endx / 20000, edge.endy / 20000]);
+        });
+
+        return edges;
+    }
+
     createLayer(step: number, simulation: Simulation) {
         const worldModel: WorldModel = simulation.getWorldModel(step);
         const entitys = worldModel.getEntity();
 
         entitys.map((entity) => {
             if (URN_MAP[entity.urn] === "BUILDING") {
-                let first: boolean = true;
-                const edges: Array<number[]> = [];
                 const properties = entity.getPropertys();
-
-                properties.EDGES.value.edgesList.map((edge: any) => {
-                    if (first) {
-                        edges.push([edge.startx / 20000, edge.starty / 20000]);
-                        first = false;
-                    }
-                    edges.push([edge.endx / 20000, edge.endy / 20000]);
-                });
+                const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
                 let color = 100;
                 if (properties.BROKENNESS.value) {
@@ -63,17 +69,8 @@ export class CreateLayer {
 
                 this.BuildingsLayer.push(data);
             } else if (URN_MAP[entity.urn] === "ROAD") {
-                let first: boolean = true;
-                const edges: Array<number[]> = [];
                 const properties = entity.getPropertys();
-
-                properties.EDGES.value.edgesList.map((edge: any) => {
-                    if (first) {
-                        edges.push([edge.startx / 20000, edge.starty / 20000]);
-                        first = false;
-                    }
-                    edges.push([edge.endx / 20000, edge.endy / 20000]);
-                });
+                const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -85,17 +82,8 @@ export class CreateLayer {
 
                 this.RoadsLayer.push(data);
             } else if (URN_MAP[entity.urn] === "REFUGE") {
-                let first: boolean = true;
-                const edges: Array<number[]> = [];
                 const properties = entity.getPropertys();
-
-                properties.EDGES.value.edgesList.map((edge: any) => {
-                    if (first) {
-                        edges.push([edge.startx / 20000, edge.starty / 20000]);
-                        first = false;
-                    }
-                    edges.push([edge.endx / 20000, edge.endy / 20000]);
-                });
+                const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
                 let color = 200;
                 if (properties.BROKENNESS.value) {
@@ -106,23 +94,14 @@ export class CreateLayer {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [color +50, 0, 0],
+                    backgroundColor: [color + 50, 0, 0],
                     ...properties,
                 };
 
                 this.RefugesLayer.push(data);
             } else if (URN_MAP[entity.urn] === "HYDRANT") {
-                let first: boolean = true;
-                const edges: Array<number[]> = [];
                 const properties = entity.getPropertys();
-
-                properties.EDGES.value.edgesList.map((edge: any) => {
-                    if (first) {
-                        edges.push([edge.startx / 20000, edge.starty / 20000]);
-                        first = false;
-                    }
-                    edges.push([edge.endx / 20000, edge.endy / 20000]);
-                });
+                const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
                 let color = 200;
                 if (properties.BROKENNESS.value) {
@@ -139,18 +118,9 @@ export class CreateLayer {
 
                 this.HydrantsLayer.push(data);
             } else if (URN_MAP[entity.urn] === "GAS_STATION") {
-                let first: boolean = true;
-                const edges: Array<number[]> = [];
                 const properties = entity.getPropertys();
+                const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
-                properties.EDGES.value.edgesList.map((edge: any) => {
-                    if (first) {
-                        edges.push([edge.startx / 20000, edge.starty / 20000]);
-                        first = false;
-                    }
-                    edges.push([edge.endx / 20000, edge.endy / 20000]);
-                });
-                
                 let color = 200;
                 if (properties.BROKENNESS.value) {
                     color = 200 * (1 - properties.BROKENNESS.value / 100);
@@ -166,17 +136,8 @@ export class CreateLayer {
 
                 this.GasStationsLayer.push(data);
             } else if (URN_MAP[entity.urn] === "FIRE_STATION") {
-                let first: boolean = true;
-                const edges: Array<number[]> = [];
                 const properties = entity.getPropertys();
-
-                properties.EDGES.value.edgesList.map((edge: any) => {
-                    if (first) {
-                        edges.push([edge.startx / 20000, edge.starty / 20000]);
-                        first = false;
-                    }
-                    edges.push([edge.endx / 20000, edge.endy / 20000]);
-                });
+                const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
                 let color = 200;
                 if (properties.BROKENNESS.value) {
@@ -193,17 +154,8 @@ export class CreateLayer {
 
                 this.FireStationsLayer.push(data);
             } else if (URN_MAP[entity.urn] === "AMBULANCE_CENTRE") {
-                let first: boolean = true;
-                const edges: Array<number[]> = [];
                 const properties = entity.getPropertys();
-
-                properties.EDGES.value.edgesList.map((edge: any) => {
-                    if (first) {
-                        edges.push([edge.startx / 20000, edge.starty / 20000]);
-                        first = false;
-                    }
-                    edges.push([edge.endx / 20000, edge.endy / 20000]);
-                });
+                const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
                 let color = 200;
                 if (properties.BROKENNESS.value) {
@@ -220,17 +172,8 @@ export class CreateLayer {
 
                 this.AmbulanceCentresLayer.push(data);
             } else if (URN_MAP[entity.urn] === "POLICE_OFFICE") {
-                let first: boolean = true;
-                const edges: Array<number[]> = [];
                 const properties = entity.getPropertys();
-
-                properties.EDGES.value.edgesList.map((edge: any) => {
-                    if (first) {
-                        edges.push([edge.startx / 20000, edge.starty / 20000]);
-                        first = false;
-                    }
-                    edges.push([edge.endx / 20000, edge.endy / 20000]);
-                });
+                const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
                 let color = 200;
                 if (properties.BROKENNESS.value) {
