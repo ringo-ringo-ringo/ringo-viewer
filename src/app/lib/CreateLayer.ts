@@ -1,7 +1,7 @@
 import { Simulation } from "@/app/lib/Simulation";
 import { WorldModel } from "@/app/lib/WorldModel";
 import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
-import { PolygonLayer, IconLayer } from "@deck.gl/layers";
+import { PolygonLayer, IconLayer, LineLayer } from "@deck.gl/layers";
 
 interface BuildLayer {
     apex: number[][];
@@ -11,6 +11,12 @@ interface BuildLayer {
 interface HumanLayer {
     position: number[];
     backgroundColor: number[];
+}
+
+interface PositionHistoryLayer {
+    backgroundColor: number[];
+    from: number[];
+    to: number[];
 }
 
 export class CreateLayer {
@@ -27,6 +33,7 @@ export class CreateLayer {
     AmbulanceTeamsLayer: HumanLayer[] = [];
     PoliceForcesLayer: HumanLayer[] = [];
     BlockadesLayer: BuildLayer[] = [];
+    PositionHistoryLayer: PositionHistoryLayer[] = [];
 
     constructor() {}
 
@@ -192,6 +199,35 @@ export class CreateLayer {
             } else if (URN_MAP[entity.urn] === "CIVILIAN") {
                 const properties = entity.getPropertys();
 
+                if (properties.POSITION_HISTORY.value && properties.POSITION_HISTORY.value.valuesList.length > 0) {
+                    let count: number = 0;
+                    let first: boolean = true;
+                    let x1: number = 0;
+                    let y1: number = 0;
+                    let x2: number = 0;
+                    let y2: number = 0;
+                    for (const position of properties.POSITION_HISTORY.value.valuesList) {
+                        if (count % 2 === 0) {
+                            x2 = position;
+                        } else if (count % 2 === 1) {
+                            y2 = position;
+                            if (first) {
+                                first = false;
+                            } else {
+                                const positionHistoryData = {
+                                    backgroundColor: [250, 0, 0],
+                                    from: [x1 / 20000, y1 / 20000],
+                                    to: [x2 / 20000, y2 / 20000],
+                                };
+                                this.PositionHistoryLayer.push(positionHistoryData);
+                            }
+                            x1 = x2;
+                            y1 = y2;
+                        }
+                        count++;
+                    }
+                }
+
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
@@ -211,6 +247,35 @@ export class CreateLayer {
                 this.CiviliansLayer.push(data);
             } else if (URN_MAP[entity.urn] === "FIRE_BRIGADE") {
                 const properties = entity.getPropertys();
+
+                if (properties.POSITION_HISTORY.value && properties.POSITION_HISTORY.value.valuesList.length > 0) {
+                    let count: number = 0;
+                    let first: boolean = true;
+                    let x1: number = 0;
+                    let y1: number = 0;
+                    let x2: number = 0;
+                    let y2: number = 0;
+                    for (const position of properties.POSITION_HISTORY.value.valuesList) {
+                        if (count % 2 === 0) {
+                            x2 = position;
+                        } else if (count % 2 === 1) {
+                            y2 = position;
+                            if (first) {
+                                first = false;
+                            } else {
+                                const positionHistoryData = {
+                                    backgroundColor: [250, 0, 0],
+                                    from: [x1 / 20000, y1 / 20000],
+                                    to: [x2 / 20000, y2 / 20000],
+                                };
+                                this.PositionHistoryLayer.push(positionHistoryData);
+                            }
+                            x1 = x2;
+                            y1 = y2;
+                        }
+                        count++;
+                    }
+                }
 
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
@@ -232,6 +297,35 @@ export class CreateLayer {
             } else if (URN_MAP[entity.urn] === "AMBULANCE_TEAM") {
                 const properties = entity.getPropertys();
 
+                if (properties.POSITION_HISTORY.value && properties.POSITION_HISTORY.value.valuesList.length > 0) {
+                    let count: number = 0;
+                    let first: boolean = true;
+                    let x1: number = 0;
+                    let y1: number = 0;
+                    let x2: number = 0;
+                    let y2: number = 0;
+                    for (const position of properties.POSITION_HISTORY.value.valuesList) {
+                        if (count % 2 === 0) {
+                            x2 = position;
+                        } else if (count % 2 === 1) {
+                            y2 = position;
+                            if (first) {
+                                first = false;
+                            } else {
+                                const positionHistoryData = {
+                                    backgroundColor: [250, 0, 0],
+                                    from: [x1 / 20000, y1 / 20000],
+                                    to: [x2 / 20000, y2 / 20000],
+                                };
+                                this.PositionHistoryLayer.push(positionHistoryData);
+                            }
+                            x1 = x2;
+                            y1 = y2;
+                        }
+                        count++;
+                    }
+                }
+
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
@@ -251,6 +345,35 @@ export class CreateLayer {
                 this.AmbulanceTeamsLayer.push(data);
             } else if (URN_MAP[entity.urn] === "POLICE_FORCE") {
                 const properties = entity.getPropertys();
+
+                if (properties.POSITION_HISTORY.value && properties.POSITION_HISTORY.value.valuesList.length > 0) {
+                    let count: number = 0;
+                    let first: boolean = true;
+                    let x1: number = 0;
+                    let y1: number = 0;
+                    let x2: number = 0;
+                    let y2: number = 0;
+                    for (const position of properties.POSITION_HISTORY.value.valuesList) {
+                        if (count % 2 === 0) {
+                            x2 = position;
+                        } else if (count % 2 === 1) {
+                            y2 = position;
+                            if (first) {
+                                first = false;
+                            } else {
+                                const positionHistoryData = {
+                                    backgroundColor: [250, 0, 0],
+                                    from: [x1 / 20000, y1 / 20000],
+                                    to: [x2 / 20000, y2 / 20000],
+                                };
+                                this.PositionHistoryLayer.push(positionHistoryData);
+                            }
+                            x1 = x2;
+                            y1 = y2;
+                        }
+                        count++;
+                    }
+                }
 
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
@@ -338,6 +461,18 @@ export class CreateLayer {
         });
     }
 
+    createPositionHistoryLayer() {
+        return new LineLayer({
+            data: this.PositionHistoryLayer,
+            id: "positionHistory",
+            getColor: (d) => d.backgroundColor,
+            getSourcePosition: (d) => d.from,
+            getTargetPosition: (d) => d.to,
+            getWidth: 1,
+            // pickable: true,
+        });
+    }
+
     getBuildingsLayer() {
         const layer = this.createPolygoneLayer("buildings", this.BuildingsLayer);
         return layer;
@@ -400,6 +535,11 @@ export class CreateLayer {
 
     getPoliceForcesLayer() {
         const layer = this.createIconLayer("police-force", this.PoliceForcesLayer);
+        return layer;
+    }
+
+    getPositionHistoryLayer() {
+        const layer = this.createPositionHistoryLayer();
         return layer;
     }
 }
