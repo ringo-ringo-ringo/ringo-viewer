@@ -9,11 +9,15 @@ export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation, isLoading] = useLog();
 
     const stepUp = (count: number) => {
-        setStep((prevStep: number) => prevStep + count);
+        if (step + count <= 300) {
+            setStep((prevStep: number) => prevStep + count);
+        }
     };
 
     const stepDown = (count: number) => {
-        setStep((prevStep: number) => prevStep - count);
+        if (step - count >= 0) {
+            setStep((prevStep: number) => prevStep - count);
+        }
     };
 
     const changeSlider = (e: any) => {
