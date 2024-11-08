@@ -226,6 +226,12 @@ export class CreateLayer {
                         }
                         count++;
                     }
+                    const positionHistoryData = {
+                        backgroundColor: [250, 0, 0],
+                        from: [x2 / 20000, y2 / 20000],
+                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                    };
+                    this.PositionHistoryLayer.push(positionHistoryData);
                 }
 
                 const x: number = properties.X.value;
@@ -275,6 +281,12 @@ export class CreateLayer {
                         }
                         count++;
                     }
+                    const positionHistoryData = {
+                        backgroundColor: [250, 0, 0],
+                        from: [x2 / 20000, y2 / 20000],
+                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                    };
+                    this.PositionHistoryLayer.push(positionHistoryData);
                 }
 
                 const x: number = properties.X.value;
@@ -324,6 +336,12 @@ export class CreateLayer {
                         }
                         count++;
                     }
+                    const positionHistoryData = {
+                        backgroundColor: [250, 0, 0],
+                        from: [x2 / 20000, y2 / 20000],
+                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                    };
+                    this.PositionHistoryLayer.push(positionHistoryData);
                 }
 
                 const x: number = properties.X.value;
@@ -373,6 +391,12 @@ export class CreateLayer {
                         }
                         count++;
                     }
+                    const positionHistoryData = {
+                        backgroundColor: [250, 0, 0],
+                        from: [x2 / 20000, y2 / 20000],
+                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                    };
+                    this.PositionHistoryLayer.push(positionHistoryData);
                 }
 
                 const x: number = properties.X.value;
