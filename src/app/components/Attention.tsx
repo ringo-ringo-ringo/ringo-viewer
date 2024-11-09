@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 
 export default function Attention({ attentionData, setAttentionData }: any) {
-    console.log(attentionData);
-
     const attentionList = [];
     for (const key in attentionData) {
         const data = key + " : " + JSON.stringify(attentionData[key], null, 2);
@@ -15,7 +13,7 @@ export default function Attention({ attentionData, setAttentionData }: any) {
     };
 
     const perception = () => {
-        if (attentionData.entity === "CIVILIAN" || attentionData.entity === "FIRE_BRIGADE" || attentionData.entity === "AMBULANCE_TEAM"|| attentionData.entity === "POLICE_FORCE") {
+        if (attentionData.entity === "CIVILIAN" || attentionData.entity === "FIRE_BRIGADE" || attentionData.entity === "AMBULANCE_TEAM" || attentionData.entity === "POLICE_FORCE") {
             return <Button variant="outlined">知覚情報を見る - 未実装</Button>;
         }
     };
