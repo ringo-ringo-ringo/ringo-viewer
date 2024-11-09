@@ -2,11 +2,14 @@
 
 import useLog from "@/app/hook/useLog";
 import Viewer from "@/app/Viewer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Slider, LinearProgress } from "@mui/material";
+import Attention from "@/app/components/Attention";
 
 export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation, isLoading] = useLog();
+
+    const [attentionData, setAttentionData] = useState(null);
 
     const stepUp = (count: number) => {
         if (step + count <= 300) {
@@ -31,7 +34,7 @@ export default function Home() {
 
     return (
         <>
-            <Viewer simulation={simulation} step={step}></Viewer>
+            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData}></Viewer>
             {isLoading ? <LinearProgress /> : null}
             <p>残りの読み込むべきステップ : {isLoading}</p>
             <p>step : {step}</p>
@@ -84,6 +87,7 @@ export default function Home() {
                 go to last step
             </Button>
             <Slider size="small" value={step} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
+            <div style={{ position: "relative", zIndex: 2 }}>{attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData}></Attention> : ""}</div>
         </>
     );
 }
