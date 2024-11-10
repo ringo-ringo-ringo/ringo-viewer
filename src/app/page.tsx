@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 import { Button, Slider, LinearProgress } from "@mui/material";
 import Attention from "@/app/components/Attention";
 import Sidebar from "@/app/components/Sidebar";
+import useScore from "@/app/hook/useScore";
 
 export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation, isLoading] = useLog();
+    const [score, maxScore] = useScore(step, simulation);
 
     const [attentionData, setAttentionData] = useState(null);
 
@@ -49,6 +51,8 @@ export default function Home() {
     console.log(step);
     console.log("現在のシミュレーション");
     console.log(simulation);
+    console.log("現在のスコアと最大スコア");
+    console.log(score, maxScore);
 
     return (
         <>
@@ -56,6 +60,7 @@ export default function Home() {
             {isLoading ? <LinearProgress /> : null}
             <p>残りの読み込むべきステップ : {isLoading}</p>
             <p>step : {step}</p>
+            <p>Score : {score} / {maxScore}</p>
             <Button
                 onClick={() => {
                     setStep(0);
