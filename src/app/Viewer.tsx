@@ -6,7 +6,7 @@ import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 import { CreateLayer } from "@/app/lib/CreateLayer";
 import { stringify } from "querystring";
 
-export default function Viewer({ simulation, step }: any) {
+export default function Viewer({ simulation, step, setAttentionData, filter }: any) {
     const [layer, setLayer] = useState<any>([]);
 
     useEffect(() => {
@@ -14,11 +14,32 @@ export default function Viewer({ simulation, step }: any) {
             const createLayer = new CreateLayer();
             createLayer.createLayer(step, simulation);
 
-            const layer = [createLayer.getBuildingsLayer(), createLayer.getRoadsLayer(), createLayer.getPoliceOfficesLayer(), createLayer.getRefugesLayer(), createLayer.getHydrantsLayer(), createLayer.getGasStationsLayer(), createLayer.getFireStationsLayer(), createLayer.getAmbulanceCentresLayer(), createLayer.getBlockadesLayer(), createLayer.getCiviliansLayer(), createLayer.getFireBrigadesLayer(), createLayer.getAmbulanceTeamsLayer(), createLayer.getPoliceForcesLayer() , createLayer.getPositionHistoryLayer()];
+            // const layer = [createLayer.getBuildingsLayer(), createLayer.getRoadsLayer(), createLayer.getPoliceOfficesLayer(), createLayer.getRefugesLayer(), createLayer.getHydrantsLayer(), createLayer.getGasStationsLayer(), createLayer.getFireStationsLayer(), createLayer.getAmbulanceCentresLayer(), createLayer.getBlockadesLayer(), createLayer.getCiviliansLayer(), createLayer.getFireBrigadesLayer(), createLayer.getAmbulanceTeamsLayer(), createLayer.getPoliceForcesLayer(), createLayer.getPositionHistoryLayer()];
+
+            const layer = [];
+            
+            if (filter.BUILDING) layer.push(createLayer.getBuildingsLayer());
+            if (filter.ROAD) layer.push(createLayer.getRoadsLayer());
+            if (filter.POLICE_OFFICE) layer.push(createLayer.getPoliceOfficesLayer());
+            if (filter.REFUGE) layer.push(createLayer.getRefugesLayer());
+            if (filter.HYDRANT) layer.push(createLayer.getHydrantsLayer());
+            if (filter.GAS_STATION) layer.push(createLayer.getGasStationsLayer());
+            if (filter.FIRE_STATION) layer.push(createLayer.getFireStationsLayer());
+            if (filter.AMBULANCE_CENTRE) layer.push(createLayer.getAmbulanceCentresLayer());
+            if (filter.BLOCKADE) layer.push(createLayer.getBlockadesLayer());
+            if (filter.CIVILIAN) layer.push(createLayer.getCiviliansLayer());
+            if (filter.FIRE_BRIGADE) layer.push(createLayer.getFireBrigadesLayer());
+            if (filter.AMBULANCE_TEAM) layer.push(createLayer.getAmbulanceTeamsLayer());
+            if (filter.POLICE_FORCE) layer.push(createLayer.getPoliceForcesLayer());
+            if (filter.POSITION_HISTORY) layer.push(createLayer.getPositionHistoryLayer());
 
             setLayer(layer);
         }
-    }, [simulation, step]);
+    }, [simulation, step, filter]);
+
+    const deckglClickHandler = (e: any) => {
+        setAttentionData(e.object);
+    };
 
     return (
         <>
@@ -30,6 +51,7 @@ export default function Viewer({ simulation, step }: any) {
                 }}
                 controller
                 layers={layer}
+                onClick={deckglClickHandler}
                 getTooltip={({ object }) => {
                     //ここ適当!!直して!
 
