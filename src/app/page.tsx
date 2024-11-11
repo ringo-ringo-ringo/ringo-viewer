@@ -9,7 +9,7 @@ import Sidebar from "@/app/components/Sidebar";
 import useScore from "@/app/hook/useScore";
 
 export default function Home() {
-    const [step, setStep, isPause, setIsPause, simulation, setSimulation, isLoading] = useLog();
+    const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading] = useLog();
     const [score, maxScore] = useScore(step, simulation);
 
     const [attentionData, setAttentionData] = useState(null);
@@ -56,11 +56,13 @@ export default function Home() {
 
     return (
         <>
-            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter}></Viewer>
+            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId}></Viewer>
             {isLoading ? <LinearProgress /> : null}
             <p>残りの読み込むべきステップ : {isLoading}</p>
             <p>step : {step}</p>
-            <p>Score : {score} / {maxScore}</p>
+            <p>
+                Score : {score} / {maxScore}
+            </p>
             <Button
                 onClick={() => {
                     setStep(0);
@@ -113,7 +115,7 @@ export default function Home() {
             <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
                 <Sidebar filter={filter} setFilter={setFilter}></Sidebar>
             </div>
-            <div style={{ position: "relative", zIndex: 2, backgroundColor: "lightgray" }}>{attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData}></Attention> : ""}</div>
+            <div style={{ position: "relative", zIndex: 2, backgroundColor: "lightgray" }}>{attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId}></Attention> : ""}</div>
         </>
     );
 }

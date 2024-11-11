@@ -44,6 +44,30 @@ export class WorldModel {
         });
     }
 
+    changePerception(log: any, id: number) {
+        this.entity.map((entity) => {
+            if (entity.getEntityId() === id) {
+                entity.changePerception(log.perception.visible.changesList, log.perception.visible.deletesList);
+            }
+        });
+    }
+
+    initPerception(id: number , perception? : Entity[]) {
+        this.entity.map((entity) => {
+            if (entity.getEntityId() === id) {
+                entity.initPerception(perception);
+            }
+        });
+    }
+
+    getPerception(id: number) :any {
+        for (const entity of this.entity) {
+            if (entity.getEntityId() === id ) {
+                return entity.getPerception();
+            }
+        }
+    }
+
     getEntity() {
         return this.entity;
     }

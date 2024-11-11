@@ -6,7 +6,7 @@ import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 import { CreateLayer } from "@/app/lib/CreateLayer";
 import { stringify } from "querystring";
 
-export default function Viewer({ simulation, step, setAttentionData, filter }: any) {
+export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId }: any) {
     const [layer, setLayer] = useState<any>([]);
 
     useEffect(() => {
@@ -17,7 +17,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter }: a
             // const layer = [createLayer.getBuildingsLayer(), createLayer.getRoadsLayer(), createLayer.getPoliceOfficesLayer(), createLayer.getRefugesLayer(), createLayer.getHydrantsLayer(), createLayer.getGasStationsLayer(), createLayer.getFireStationsLayer(), createLayer.getAmbulanceCentresLayer(), createLayer.getBlockadesLayer(), createLayer.getCiviliansLayer(), createLayer.getFireBrigadesLayer(), createLayer.getAmbulanceTeamsLayer(), createLayer.getPoliceForcesLayer(), createLayer.getPositionHistoryLayer()];
 
             const layer = [];
-            
+
             if (filter.BUILDING) layer.push(createLayer.getBuildingsLayer());
             if (filter.ROAD) layer.push(createLayer.getRoadsLayer());
             if (filter.POLICE_OFFICE) layer.push(createLayer.getPoliceOfficesLayer());

@@ -5,6 +5,7 @@ export class Entity {
     urn: number;
     entityId: number;
     properties: { [key: string]: any } = {};
+    perception: Entity[] | null = null;
 
     constructor(entity: any) {
         this.urn = entity.urn;
@@ -42,7 +43,35 @@ export class Entity {
         });
     }
 
+    changePerception(changeLog: any, deleteLog: any) {
+        console.log(changeLog, deleteLog);
+        if (this.perception) {
+            for (const entity of changeLog) {
+                // this.perception.push(new Entity(entity));
+                
+            }
+            console.log("これ");
+            console.log(this.perception);
+        }
+    }
+
+    initPerception(perception?: Entity[]) {
+        if (perception) {
+            this.perception = perception;
+        } else {
+            this.perception = [];
+        }
+    }
+
+    getPerception() {
+        return this.perception;
+    }
+
     getPropertys() {
         return this.properties;
+    }
+
+    getEntityId() {
+        return this.entityId;
     }
 }

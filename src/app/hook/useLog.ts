@@ -2,11 +2,12 @@ import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "reac
 import { Simulation } from "@/app/lib/Simulation";
 import { LoadLog } from "@/app/lib/LoadLog";
 
-export default function useLog(): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>, number] {
+export default function useLog(): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>, any, Dispatch<SetStateAction<any>>, number] {
     const [step, setStep] = useState<number>(0);
     const [isPause, setIsPause] = useState<boolean>(false);
     const [simulation, setSimulation] = useState<Simulation>(new Simulation());
     const [isLoading, setIsLoading] = useState<number>(0);
+    const [perceptionId, setPerceptionId] = useState(null);
 
     useEffect(() => {
         if (!simulation.getWorldModel(step)) {
@@ -74,8 +75,41 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
 
                 fetchUpdate(step);
             }
-        }
-    }, [step]);
+        } else {
+            if (perceptionId) {
+                console.log("読み込むperceptionId");
+                console.log(perceptionId);
 
-    return [step, setStep, isPause, setIsPause, simulation, setSimulation, isLoading];
+                const fetchPerception = async (callStep: number) => {
+                    if (callStep === 0) {
+                        simulation.initPerseption(callStep, perceptionId);
+                    } else {
+                        setIsLoading((e) => e + 1);
+
+                        //過去のログが読み込めていない時の処理
+                        if (simulation.getPerception(callStep, perceptionId) === null) {
+                            await fetchPerception(callStep - 1);
+                        }
+
+                        await LoadLog.load(simulation.getLogPath(), `${callStep}/PERCEPTION/${perceptionId}`)
+                            .then((res) => {
+                                console.log(res);
+                                //ここに処理を書く
+                                simulation.changePerception(callStep, res, perceptionId);
+                                setIsLoading((e) => e - 1);
+                            })
+                            .catch((error) => {
+                                console.error("ログの読み込みエラー : ", error);
+
+                                throw new Error("ログを読み込めませんでした");
+                            });
+                    }
+                };
+
+                fetchPerception(step);
+            }
+        }
+    }, [step, perceptionId]);
+
+    return [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading];
 }
