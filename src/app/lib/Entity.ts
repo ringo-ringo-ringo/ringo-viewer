@@ -46,10 +46,27 @@ export class Entity {
     changePerception(changeLog: any, deleteLog: any) {
         console.log(changeLog, deleteLog);
         if (this.perception) {
+            let changed: boolean = false;
             for (const entity of changeLog) {
                 // this.perception.push(new Entity(entity));
-                
+                for (const perception of this.perception) {
+                    if (entity.entityid === perception.entityId) {
+                        //ここに変更の処理
+                        console.error("同じIDのやつ来たぞ");
+
+                        changed = true;
+                    }
+                }
+                if (!changed) {
+                    this.perception.push(new Entity(entity));
+                }
             }
+
+            //ここに削除の処理
+            if (deleteLog.length > 0) {
+                console.error("デリートきたぞ");
+            }
+
             console.log("これ");
             console.log(this.perception);
         }
