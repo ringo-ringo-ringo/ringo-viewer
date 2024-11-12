@@ -48,11 +48,9 @@ export class Entity {
         if (this.perception) {
             let changed: boolean = false;
             for (const entity of changeLog) {
-                // this.perception.push(new Entity(entity));
                 for (const perception of this.perception) {
                     if (entity.entityid === perception.entityId) {
-                        //ここに変更の処理
-                        console.error("同じIDのやつ来たぞ");
+                        perception.changePropertie(entity);
 
                         changed = true;
                     }
