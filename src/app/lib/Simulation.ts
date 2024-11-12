@@ -1,5 +1,6 @@
 import { WorldModel } from "@/app/lib/WorldModel";
 import { Entity } from "./Entity";
+import { URN_MAP } from "./URN";
 
 export class Simulation {
     worldModel: WorldModel[] = [];
@@ -39,13 +40,26 @@ export class Simulation {
 
     initPerseption(step: number, id: number) {
         if (step === 0) {
-            this.worldModel[step].initPerception(id);
+            this.worldModel[step].initPerception(id, this.getInitPerceptionMapEntity());
         } else {
             console.error("0ステップじゃないぞ");
         }
     }
 
-    getPerception(step : number , id: number) {
+    getInitPerceptionMapEntity() {
+        const entitys = this.worldModel[0].getEntity();
+        const initPerceptionMapEntity: Entity[] = [];
+
+        entitys.map((entity) => {
+            if (URN_MAP[entity.urn] === "ROAD" || URN_MAP[entity.urn] === "BUILDING" || URN_MAP[entity.urn] === "REFUGE" || URN_MAP[entity.urn] === "HYDRANT" || URN_MAP[entity.urn] === "GAS_STATION" || URN_MAP[entity.urn] === "FIRE_STATION" || URN_MAP[entity.urn] === "AMBULANCE_CENTRE" || URN_MAP[entity.urn] === "POLICE_OFFICE") {
+                initPerceptionMapEntity.push(entity);
+            }
+        });
+
+        return initPerceptionMapEntity;
+    }
+
+    getPerception(step: number, id: number) {
         return this.worldModel[step].getPerception(id);
     }
 
