@@ -77,7 +77,7 @@ export default function Home() {
 
     return (
         <>
-            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId}></Viewer>
+            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter}></Viewer>
             {isLoading ? <LinearProgress /> : null}
             <p>残りの読み込むべきステップ : {isLoading}</p>
             <p>step : {step}</p>

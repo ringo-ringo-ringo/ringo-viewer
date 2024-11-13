@@ -6,7 +6,7 @@ import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 import { CreateLayer } from "@/app/lib/CreateLayer";
 import { stringify } from "querystring";
 
-export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId }: any) {
+export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter }: any) {
     const [layer, setLayer] = useState<any>([]);
 
     useEffect(() => {
@@ -33,9 +33,25 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (filter.POLICE_FORCE) layer.push(createLayer.getPoliceForcesLayer());
             if (filter.POSITION_HISTORY) layer.push(createLayer.getPositionHistoryLayer());
 
+            if (perceptionId !== null && simulation.getPerception(step, perceptionId)) {
+                if (perceptionFilter.perceptionBUILDING) layer.push(createLayer.getPerceptionBuildingsLayer());
+                if (perceptionFilter.perceptionROAD) layer.push(createLayer.getPerceptionRoadsLayer());
+                if (perceptionFilter.perceptionPOLICE_OFFICE) layer.push(createLayer.getPerceptionPoliceOfficesLayer());
+                if (perceptionFilter.perceptionREFUGE) layer.push(createLayer.getPerceptionRefugesLayer());
+                if (perceptionFilter.perceptionHYDRANT) layer.push(createLayer.getPerceptionHydrantsLayer());
+                if (perceptionFilter.perceptionGAS_STATION) layer.push(createLayer.getPerceptionGasStationsLayer());
+                if (perceptionFilter.perceptionFIRE_STATION) layer.push(createLayer.getPerceptionFireStationsLayer());
+                if (perceptionFilter.perceptionAMBULANCE_CENTRE) layer.push(createLayer.getPerceptionAmbulanceCentresLayer());
+                if (perceptionFilter.perceptionBLOCKADE) layer.push(createLayer.getPerceptionBlockadesLayer());
+                if (perceptionFilter.perceptionCIVILIAN) layer.push(createLayer.getPerceptionCiviliansLayer());
+                if (perceptionFilter.perceptionFIRE_BRIGADE) layer.push(createLayer.getPerceptionFireBrigadesLayer());
+                if (perceptionFilter.perceptionAMBULANCE_TEAM) layer.push(createLayer.getPerceptionAmbulanceTeamsLayer());
+                if (perceptionFilter.perceptionPOLICE_FORCE) layer.push(createLayer.getPerceptionPoliceForcesLayer());
+            }
+
             setLayer(layer);
         }
-    }, [simulation, step, filter, perceptionId]);
+    }, [simulation, step, filter, perceptionFilter, perceptionId]);
 
     const deckglClickHandler = (e: any) => {
         setAttentionData(e.object);
