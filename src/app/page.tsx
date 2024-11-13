@@ -43,6 +43,10 @@ export default function Home() {
         }
     };
 
+    const deletePerceptionId = () => {
+        setPerceptionId(null);
+    };
+
     const changeSlider = (e: any) => {
         setStep(e.target.value);
     };
@@ -111,6 +115,18 @@ export default function Home() {
             >
                 go to last step
             </Button>
+            {perceptionId !== null ? (
+                <Button
+                    onClick={() => {
+                        deletePerceptionId();
+                    }}
+                    variant="outlined"
+                >
+                    delete perception view
+                </Button>
+            ) : (
+                ""
+            )}
             <Slider size="small" value={step} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
             <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
                 <Sidebar filter={filter} setFilter={setFilter}></Sidebar>
