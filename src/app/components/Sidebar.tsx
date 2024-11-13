@@ -28,21 +28,21 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
             perceptionCheckboxList.push(key);
         }
 
-        setFilter((prevFilter: any) => {
-            const newFilter = prevFilter;
-            for (const key in newFilter) {
-                newFilter[key] = false;
-            }
-            return newFilter;
-        });
+        // setFilter((prevFilter: any) => {
+        //     const newFilter = prevFilter;
+        //     for (const key in newFilter) {
+        //         newFilter[key] = false;
+        //     }
+        //     return newFilter;
+        // });
     } else {
-        setFilter((prevFilter: any) => {
-            const newFilter = prevFilter;
-            for (const key in newFilter) {
-                newFilter[key] = true;
-            }
-            return newFilter;
-        });
+        // setFilter((prevFilter: any) => {
+        //     const newFilter = prevFilter;
+        //     for (const key in newFilter) {
+        //         newFilter[key] = true;
+        //     }
+        //     return newFilter;
+        // });
     }
 
     return (
