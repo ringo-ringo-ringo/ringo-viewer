@@ -31,6 +31,23 @@ export default function Home() {
         POSITION_HISTORY: true,
     });
 
+    const [perceptionFilter, setPerceptionFilter] = useState({
+        perceptionROAD: true,
+        perceptionBLOCKADE: true,
+        perceptionBUILDING: true,
+        perceptionREFUGE: true,
+        perceptionHYDRANT: true,
+        perceptionGAS_STATION: true,
+        perceptionFIRE_STATION: true,
+        perceptionAMBULANCE_CENTRE: true,
+        perceptionPOLICE_OFFICE: true,
+        perceptionCIVILIAN: true,
+        perceptionFIRE_BRIGADE: true,
+        perceptionAMBULANCE_TEAM: true,
+        perceptionPOLICE_FORCE: true,
+        perceptionPOSITION_HISTORY: true,
+    });
+
     const stepUp = (count: number) => {
         if (step + count <= 300) {
             setStep((prevStep: number) => prevStep + count);
@@ -129,7 +146,7 @@ export default function Home() {
             )}
             <Slider size="small" value={step} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
             <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
-                <Sidebar filter={filter} setFilter={setFilter}></Sidebar>
+                <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
             </div>
             <div style={{ position: "relative", zIndex: 2, backgroundColor: "lightgray" }}>{attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId}></Attention> : ""}</div>
         </>
