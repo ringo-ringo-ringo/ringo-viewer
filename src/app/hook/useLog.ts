@@ -82,12 +82,12 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
 
                 const fetchPerception = async (callStep: number) => {
                     if (callStep === 0) {
-                        simulation.initPerseption(callStep, perceptionId);
+                        await simulation.initPerseption(callStep, perceptionId);
                     } else {
                         setIsLoading((e) => e + 1);
 
                         //過去のログが読み込めていない時の処理
-                        if (simulation.getPerception(callStep, perceptionId) === null) {
+                        if (simulation.getPerception(callStep - 1, perceptionId) === null) {
                             await fetchPerception(callStep - 1);
                         }
 
