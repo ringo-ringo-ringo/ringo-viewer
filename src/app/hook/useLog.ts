@@ -96,7 +96,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                                 console.log(res);
                                 //ここに処理を書く
                                 simulation.changePerception(callStep, res, perceptionId);
-                                setSimulation(simulation);
+                                setSimulation(new Simulation(simulation));
                                 setIsLoading((e) => e - 1);
                             })
                             .catch((error) => {
