@@ -35,6 +35,20 @@ export class CreateLayer {
     BlockadesLayer: BuildLayer[] = [];
     PositionHistoryLayer: PositionHistoryLayer[] = [];
 
+    perceptionBuildingsLayer: BuildLayer[] = [];
+    perceptionRoadsLayer: BuildLayer[] = [];
+    perceptionRefugesLayer: BuildLayer[] = [];
+    perceptionHydrantsLayer: BuildLayer[] = [];
+    perceptionGasStationsLayer: BuildLayer[] = [];
+    perceptionFireStationsLayer: BuildLayer[] = [];
+    perceptionAmbulanceCentresLayer: BuildLayer[] = [];
+    perceptionPoliceOfficesLayer: BuildLayer[] = [];
+    perceptionCiviliansLayer: HumanLayer[] = [];
+    perceptionFireBrigadesLayer: HumanLayer[] = [];
+    perceptionAmbulanceTeamsLayer: HumanLayer[] = [];
+    perceptionPoliceForcesLayer: HumanLayer[] = [];
+    perceptionBlockadesLayer: BuildLayer[] = [];
+
     constructor() {}
 
     getEdges(edgesList: any) {
