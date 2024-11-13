@@ -66,7 +66,8 @@ export class CreateLayer {
         return edges;
     }
 
-    createLayer(step: number, simulation: Simulation) {
+    createLayer(step: number, simulation: Simulation, perceptionId: number) {
+        //ここからがworldのレイヤー作成
         const worldModel: WorldModel = simulation.getWorldModel(step);
         const entitys = worldModel.getEntity();
 

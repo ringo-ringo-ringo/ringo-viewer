@@ -12,7 +12,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
     useEffect(() => {
         if (simulation && simulation.getWorldModel(step)) {
             const createLayer = new CreateLayer();
-            createLayer.createLayer(step, simulation);
+            createLayer.createLayer(step, simulation, perceptionId);
 
             // const layer = [createLayer.getBuildingsLayer(), createLayer.getRoadsLayer(), createLayer.getPoliceOfficesLayer(), createLayer.getRefugesLayer(), createLayer.getHydrantsLayer(), createLayer.getGasStationsLayer(), createLayer.getFireStationsLayer(), createLayer.getAmbulanceCentresLayer(), createLayer.getBlockadesLayer(), createLayer.getCiviliansLayer(), createLayer.getFireBrigadesLayer(), createLayer.getAmbulanceTeamsLayer(), createLayer.getPoliceForcesLayer(), createLayer.getPositionHistoryLayer()];
 
@@ -35,7 +35,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
             setLayer(layer);
         }
-    }, [simulation, step, filter]);
+    }, [simulation, step, filter, perceptionId]);
 
     const deckglClickHandler = (e: any) => {
         setAttentionData(e.object);
