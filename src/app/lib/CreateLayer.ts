@@ -758,6 +758,7 @@ export class CreateLayer {
                     };
 
                     this.perceptionPoliceForcesLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "BLOCKADE") {
                 } else {
                     console.log("未使用のエンティティ発見 : " + URN_MAP[entity.urn]);
                     console.log(entity);
