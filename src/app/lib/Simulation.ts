@@ -28,11 +28,7 @@ export class Simulation {
 
     changePerception(step: number, log: any, id: number) {
         if (step !== 0 && this.worldModel[step] && this.LogPath) {
-            const lastPerception = this.worldModel[step - 1].getPerception(id);
-            const clonePerception: Entity[] = [];
-            for (const entity of lastPerception) {
-                clonePerception.push(entity);
-            }
+            const clonePerception = this.worldModel[step - 1].getPerception(id).map((e: any) => e.clone());
             this.worldModel[step].initPerception(id, clonePerception);
             this.worldModel[step].changePerception(log, id);
         }
