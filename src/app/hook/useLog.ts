@@ -111,6 +111,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
 
                 (async () => {
                     await fetchUpdate(step);
+
                     await fetchPerception();
                 })();
             }
