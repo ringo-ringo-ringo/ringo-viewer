@@ -2,6 +2,7 @@ import { Simulation } from "@/app/lib/Simulation";
 import { WorldModel } from "@/app/lib/WorldModel";
 import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
 import { PolygonLayer, IconLayer, LineLayer } from "@deck.gl/layers";
+import { Entity } from "./Entity";
 
 interface BuildLayer {
     apex: number[][];
@@ -35,6 +36,20 @@ export class CreateLayer {
     BlockadesLayer: BuildLayer[] = [];
     PositionHistoryLayer: PositionHistoryLayer[] = [];
 
+    perceptionBuildingsLayer: BuildLayer[] = [];
+    perceptionRoadsLayer: BuildLayer[] = [];
+    perceptionRefugesLayer: BuildLayer[] = [];
+    perceptionHydrantsLayer: BuildLayer[] = [];
+    perceptionGasStationsLayer: BuildLayer[] = [];
+    perceptionFireStationsLayer: BuildLayer[] = [];
+    perceptionAmbulanceCentresLayer: BuildLayer[] = [];
+    perceptionPoliceOfficesLayer: BuildLayer[] = [];
+    perceptionCiviliansLayer: HumanLayer[] = [];
+    perceptionFireBrigadesLayer: HumanLayer[] = [];
+    perceptionAmbulanceTeamsLayer: HumanLayer[] = [];
+    perceptionPoliceForcesLayer: HumanLayer[] = [];
+    perceptionBlockadesLayer: BuildLayer[] = [];
+
     constructor() {}
 
     getEdges(edgesList: any) {
@@ -52,7 +67,8 @@ export class CreateLayer {
         return edges;
     }
 
-    createLayer(step: number, simulation: Simulation) {
+    createLayer(step: number, simulation: Simulation, perceptionId: number) {
+        //ここからがworldのレイヤー作成
         const worldModel: WorldModel = simulation.getWorldModel(step);
         const entitys = worldModel.getEntity();
 
@@ -453,6 +469,299 @@ export class CreateLayer {
                 console.log(entity);
             }
         });
+
+        //ここからがperceptionのレイヤー作成
+        if (perceptionId !== null && simulation.getPerception(step, perceptionId)) {
+            const perceptionEntitys: Entity[] = simulation.getWorldModel(step).getPerception(perceptionId);
+
+            perceptionEntitys.map((entity) => {
+                if (URN_MAP[entity.urn] === "BUILDING") {
+                    const properties = entity.getPropertys();
+                    const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
+
+                    let color = 100;
+                    if (properties.BROKENNESS.value) {
+                        color = 100 * (1 - properties.BROKENNESS.value / 100);
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        apex: edges,
+                        backgroundColor: [color + 50, color + 50, color + 50],
+                        ...properties,
+                    };
+
+                    this.perceptionBuildingsLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "ROAD") {
+                    const properties = entity.getPropertys();
+                    const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        apex: edges,
+                        backgroundColor: [200, 200, 200],
+                        ...properties,
+                    };
+
+                    this.perceptionRoadsLayer.push(data);
+
+                    if (properties.BLOCKADES?.value?.length > 0) {
+                        properties.BLOCKADES.value.map((bloId: number) => {
+                            const entitys = simulation.getWorldModel(step).getEntity();
+                            entitys.map((bloEntity) => {
+                                if (bloEntity.getEntityId() === bloId) {
+                                    const properties = bloEntity.getPropertys();
+
+                                    const apexes = properties.APEXES.value;
+
+                                    let count: number = 0;
+                                    const edges: Array<number[]> = [];
+                                    let x: number | null = null;
+                                    let y: number | null = null;
+                                    apexes.map((apex: number) => {
+                                        if (count % 2 === 0) {
+                                            x = apex;
+                                        } else {
+                                            y = apex;
+                                            if (x && y) {
+                                                edges.push([x / 20000, y / 20000]);
+                                            } else {
+                                                console.error("中に入ってる値がnullだぞ");
+                                            }
+                                        }
+                                        count++;
+                                    });
+
+                                    const data = {
+                                        entity: URN_MAP[entity.urn],
+                                        entityId: entity.entityId,
+                                        apex: edges,
+                                        backgroundColor: [10, 10, 10],
+                                        ...properties,
+                                    };
+
+                                    this.perceptionBlockadesLayer.push(data);
+                                }
+                            });
+                        });
+                    }
+                } else if (URN_MAP[entity.urn] === "REFUGE") {
+                    const properties = entity.getPropertys();
+                    const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
+
+                    let color = 200;
+                    if (properties.BROKENNESS.value) {
+                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        apex: edges,
+                        backgroundColor: [color + 50, 0, 0],
+                        ...properties,
+                    };
+
+                    this.perceptionRefugesLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "HYDRANT") {
+                    const properties = entity.getPropertys();
+                    const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
+
+                    let color = 200;
+                    if (properties.BROKENNESS.value) {
+                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        apex: edges,
+                        backgroundColor: [0, color + 50, 0],
+                        ...properties,
+                    };
+
+                    this.perceptionHydrantsLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "GAS_STATION") {
+                    const properties = entity.getPropertys();
+                    const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
+
+                    let color = 200;
+                    if (properties.BROKENNESS.value) {
+                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        apex: edges,
+                        backgroundColor: [0, 0, color + 50],
+                        ...properties,
+                    };
+
+                    this.perceptionGasStationsLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "FIRE_STATION") {
+                    const properties = entity.getPropertys();
+                    const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
+
+                    let color = 200;
+                    if (properties.BROKENNESS.value) {
+                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        apex: edges,
+                        backgroundColor: [color + 50, color + 50, 0],
+                        ...properties,
+                    };
+
+                    this.perceptionFireStationsLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "AMBULANCE_CENTRE") {
+                    const properties = entity.getPropertys();
+                    const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
+
+                    let color = 200;
+                    if (properties.BROKENNESS.value) {
+                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        apex: edges,
+                        backgroundColor: [color + 50, 0, color + 50],
+                        ...properties,
+                    };
+
+                    this.perceptionAmbulanceCentresLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "POLICE_OFFICE") {
+                    const properties = entity.getPropertys();
+                    const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
+
+                    let color = 200;
+                    if (properties.BROKENNESS.value) {
+                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        apex: edges,
+                        backgroundColor: [0, color + 50, color + 50],
+                        ...properties,
+                    };
+
+                    this.perceptionPoliceOfficesLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "CIVILIAN") {
+                    const properties = entity.getPropertys();
+
+                    const x: number = properties.X.value;
+                    const y: number = properties.Y.value;
+
+                    let color = 0;
+                    if (properties.HP.value) {
+                        color = 255 * (properties.HP.value / 10000);
+                    }
+
+                    let bgc = [0, color, 0];
+                    if (entity.entityId === perceptionId) {
+                        bgc = [0, color, color];
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        position: [x / 20000, y / 20000],
+                        backgroundColor: bgc,
+                        ...properties,
+                    };
+
+                    this.perceptionCiviliansLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "FIRE_BRIGADE") {
+                    const properties = entity.getPropertys();
+
+                    const x: number = properties.X.value;
+                    const y: number = properties.Y.value;
+
+                    let color = 0;
+                    if (properties.HP.value) {
+                        color = 255 * (properties.HP.value / 10000);
+                    }
+
+                    let bgc = [color, 0, 0];
+                    if (entity.entityId === perceptionId) {
+                        bgc = [0, color, color];
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        position: [x / 20000, y / 20000],
+                        backgroundColor: bgc,
+                        ...properties,
+                    };
+
+                    this.perceptionFireBrigadesLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "AMBULANCE_TEAM") {
+                    const properties = entity.getPropertys();
+
+                    const x: number = properties.X.value;
+                    const y: number = properties.Y.value;
+
+                    let color = 0;
+                    if (properties.HP.value) {
+                        color = 255 * (properties.HP.value / 10000);
+                    }
+
+                    let bgc = [color, color, color];
+                    if (entity.entityId === perceptionId) {
+                        bgc = [0, color, color];
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        position: [x / 20000, y / 20000],
+                        backgroundColor: bgc,
+                        ...properties,
+                    };
+
+                    this.perceptionAmbulanceTeamsLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "POLICE_FORCE") {
+                    const properties = entity.getPropertys();
+
+                    const x: number = properties.X.value;
+                    const y: number = properties.Y.value;
+
+                    let color = 0;
+                    if (properties.HP.value) {
+                        color = 255 * (properties.HP.value / 10000);
+                    }
+
+                    let bgc = [0, 0, color];
+                    if (entity.entityId === perceptionId) {
+                        bgc = [0, color, color];
+                    }
+
+                    const data = {
+                        entity: URN_MAP[entity.urn],
+                        entityId: entity.entityId,
+                        position: [x / 20000, y / 20000],
+                        backgroundColor: bgc,
+                        ...properties,
+                    };
+
+                    this.perceptionPoliceForcesLayer.push(data);
+                } else if (URN_MAP[entity.urn] === "BLOCKADE") {
+                } else {
+                    console.log("未使用のエンティティ発見 : " + URN_MAP[entity.urn]);
+                    console.log(entity);
+                }
+            });
+        }
     }
 
     createPolygoneLayer(id: string, data: Array<any>) {
@@ -564,6 +873,71 @@ export class CreateLayer {
 
     getPositionHistoryLayer() {
         const layer = this.createPositionHistoryLayer();
+        return layer;
+    }
+
+    getPerceptionBuildingsLayer() {
+        const layer = this.createPolygoneLayer("perception-buildings", this.perceptionBuildingsLayer);
+        return layer;
+    }
+
+    getPerceptionRoadsLayer() {
+        const layer = this.createPolygoneLayer("perception-roads", this.perceptionRoadsLayer);
+        return layer;
+    }
+
+    getPerceptionRefugesLayer() {
+        const layer = this.createPolygoneLayer("perception-refuges", this.perceptionRefugesLayer);
+        return layer;
+    }
+
+    getPerceptionHydrantsLayer() {
+        const layer = this.createPolygoneLayer("perception-Hydrants", this.perceptionHydrantsLayer);
+        return layer;
+    }
+
+    getPerceptionGasStationsLayer() {
+        const layer = this.createPolygoneLayer("perception-gas-station", this.perceptionGasStationsLayer);
+        return layer;
+    }
+
+    getPerceptionFireStationsLayer() {
+        const layer = this.createPolygoneLayer("perception-fire-station", this.perceptionFireStationsLayer);
+        return layer;
+    }
+
+    getPerceptionAmbulanceCentresLayer() {
+        const layer = this.createPolygoneLayer("perception-ambulance-centre", this.perceptionAmbulanceCentresLayer);
+        return layer;
+    }
+
+    getPerceptionPoliceOfficesLayer() {
+        const layer = this.createPolygoneLayer("perception-police-office", this.perceptionPoliceOfficesLayer);
+        return layer;
+    }
+
+    getPerceptionBlockadesLayer() {
+        const layer = this.createPolygoneLayer("perception-blockade", this.perceptionBlockadesLayer);
+        return layer;
+    }
+
+    getPerceptionCiviliansLayer() {
+        const layer = this.createIconLayer("perception-civilian", this.perceptionCiviliansLayer);
+        return layer;
+    }
+
+    getPerceptionFireBrigadesLayer() {
+        const layer = this.createIconLayer("perception-fire-brigade", this.perceptionFireBrigadesLayer);
+        return layer;
+    }
+
+    getPerceptionAmbulanceTeamsLayer() {
+        const layer = this.createIconLayer("perception-ambulance-team", this.perceptionAmbulanceTeamsLayer);
+        return layer;
+    }
+
+    getPerceptionPoliceForcesLayer() {
+        const layer = this.createIconLayer("perception-police-force", this.perceptionPoliceForcesLayer);
         return layer;
     }
 }

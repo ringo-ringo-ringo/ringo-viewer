@@ -1,4 +1,6 @@
 import { WorldModel } from "@/app/lib/WorldModel";
+import { Entity } from "./Entity";
+import { URN_MAP } from "./URN";
 
 export class Simulation {
     worldModel: WorldModel[] = [];
@@ -22,6 +24,39 @@ export class Simulation {
             this.worldModel[step] = new WorldModel(step, cloneEntities);
             this.worldModel[step].changeEntity(log.update.changes.changesList, log.update.changes.deletesList);
         }
+    }
+
+    changePerception(step: number, log: any, id: number) {
+        if (step !== 0 && this.worldModel[step] && this.LogPath) {
+            const clonePerception = this.worldModel[step - 1].getPerception(id).map((e: any) => e.clone());
+            this.worldModel[step].initPerception(id, clonePerception);
+            this.worldModel[step].changePerception(log, id);
+        }
+    }
+
+    initPerseption(step: number, id: number) {
+        if (step === 0) {
+            this.worldModel[step].initPerception(id, this.getInitPerceptionMapEntity());
+        } else {
+            console.error("0ステップじゃないぞ");
+        }
+    }
+
+    getInitPerceptionMapEntity() {
+        const entitys = this.worldModel[0].getEntity();
+        const initPerceptionMapEntity: Entity[] = [];
+
+        entitys.map((entity) => {
+            if (URN_MAP[entity.urn] === "ROAD" || URN_MAP[entity.urn] === "BUILDING" || URN_MAP[entity.urn] === "REFUGE" || URN_MAP[entity.urn] === "HYDRANT" || URN_MAP[entity.urn] === "GAS_STATION" || URN_MAP[entity.urn] === "FIRE_STATION" || URN_MAP[entity.urn] === "AMBULANCE_CENTRE" || URN_MAP[entity.urn] === "POLICE_OFFICE") {
+                initPerceptionMapEntity.push(entity);
+            }
+        });
+
+        return initPerceptionMapEntity;
+    }
+
+    getPerception(step: number, id: number) {
+        return this.worldModel[step].getPerception(id);
     }
 
     setLogPath(path: string) {

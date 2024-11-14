@@ -5,6 +5,7 @@ export class Entity {
     urn: number;
     entityId: number;
     properties: { [key: string]: any } = {};
+    perception: Entity[] | null = null;
 
     constructor(entity: any) {
         this.urn = entity.urn;
@@ -42,7 +43,48 @@ export class Entity {
         });
     }
 
+    changePerception(changeLog: any, deleteLog: any) {
+        if (this.perception) {
+            for (const entity of changeLog) {
+                let changed: boolean = false;
+
+                for (const perception of this.perception) {
+                    if (entity.entityid === perception.entityId) {
+                        perception.changePropertie(entity);
+
+                        changed = true;
+                    }
+                }
+
+                if (!changed) {
+                    this.perception.push(new Entity(entity));
+                }
+            }
+
+            //ここに削除の処理
+            if (deleteLog.length > 0) {
+                console.error("デリートきたぞ");
+            }
+        }
+    }
+
+    initPerception(perception?: Entity[]) {
+        if (perception) {
+            this.perception = perception;
+        } else {
+            this.perception = [];
+        }
+    }
+
+    getPerception() {
+        return this.perception;
+    }
+
     getPropertys() {
         return this.properties;
+    }
+
+    getEntityId() {
+        return this.entityId;
     }
 }

@@ -9,10 +9,26 @@ import Sidebar from "@/app/components/Sidebar";
 import useScore from "@/app/hook/useScore";
 
 export default function Home() {
-    const [step, setStep, isPause, setIsPause, simulation, setSimulation, isLoading] = useLog();
+    const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading] = useLog();
     const [score, maxScore] = useScore(step, simulation);
 
     const [attentionData, setAttentionData] = useState(null);
+
+    const [sliderValue, setSliderValue] = useState<number>(0);
+
+    useEffect(() => {
+        changeCommittedSlider("a", step);
+    }, [step]);
+
+    const [buttonDisable, setButtonDisable] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (isLoading > 0) {
+            setButtonDisable(true);
+        } else {
+            setButtonDisable(false);
+        }
+    }, [isLoading]);
 
     const [filter, setFilter] = useState({
         ROAD: true,
@@ -31,6 +47,23 @@ export default function Home() {
         POSITION_HISTORY: true,
     });
 
+    const [perceptionFilter, setPerceptionFilter] = useState({
+        perceptionROAD: true,
+        perceptionBLOCKADE: true,
+        perceptionBUILDING: true,
+        perceptionREFUGE: true,
+        perceptionHYDRANT: true,
+        perceptionGAS_STATION: true,
+        perceptionFIRE_STATION: true,
+        perceptionAMBULANCE_CENTRE: true,
+        perceptionPOLICE_OFFICE: true,
+        perceptionCIVILIAN: true,
+        perceptionFIRE_BRIGADE: true,
+        perceptionAMBULANCE_TEAM: true,
+        perceptionPOLICE_FORCE: true,
+        perceptionPOSITION_HISTORY: true,
+    });
+
     const stepUp = (count: number) => {
         if (step + count <= 300) {
             setStep((prevStep: number) => prevStep + count);
@@ -43,8 +76,24 @@ export default function Home() {
         }
     };
 
+    const deletePerceptionId = () => {
+        setPerceptionId(null);
+        setFilter((prevFilter: any) => {
+            const newFilter = prevFilter;
+            for (const key in newFilter) {
+                newFilter[key] = true;
+            }
+            return newFilter;
+        });
+    };
+
     const changeSlider = (e: any) => {
-        setStep(e.target.value);
+        setSliderValue(e.target.value);
+    };
+
+    const changeCommittedSlider = (e: any, value: any) => {
+        setSliderValue(value);
+        setStep(value);
     };
 
     console.log("現在のステップ");
@@ -56,16 +105,19 @@ export default function Home() {
 
     return (
         <>
-            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter}></Viewer>
+            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter}></Viewer>
             {isLoading ? <LinearProgress /> : null}
             <p>残りの読み込むべきステップ : {isLoading}</p>
             <p>step : {step}</p>
-            <p>Score : {score} / {maxScore}</p>
+            <p>
+                Score : {score} / {maxScore}
+            </p>
             <Button
                 onClick={() => {
                     setStep(0);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to initial step
             </Button>
@@ -74,6 +126,7 @@ export default function Home() {
                     stepDown(10);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to prev 10 step
             </Button>
@@ -82,6 +135,7 @@ export default function Home() {
                     stepDown(1);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to prev step
             </Button>
@@ -90,6 +144,7 @@ export default function Home() {
                     stepUp(1);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to next step
             </Button>
@@ -98,6 +153,7 @@ export default function Home() {
                     stepUp(10);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to next 10 step
             </Button>
@@ -106,14 +162,28 @@ export default function Home() {
                     setStep(300);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to last step
             </Button>
-            <Slider size="small" value={step} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
+            {perceptionId !== null ? (
+                <Button
+                    onClick={() => {
+                        deletePerceptionId();
+                    }}
+                    variant="outlined"
+                    disabled={buttonDisable}
+                >
+                    delete perception view
+                </Button>
+            ) : (
+                ""
+            )}
+            <Slider size="small" value={sliderValue} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} onChangeCommitted={changeCommittedSlider} disabled={buttonDisable} />
             <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
-                <Sidebar filter={filter} setFilter={setFilter}></Sidebar>
+                <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
             </div>
-            <div style={{ position: "relative", zIndex: 2, backgroundColor: "lightgray" }}>{attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData}></Attention> : ""}</div>
+            <div style={{ position: "relative", zIndex: 2, backgroundColor: "lightgray" }}>{attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}</div>
         </>
     );
 }
