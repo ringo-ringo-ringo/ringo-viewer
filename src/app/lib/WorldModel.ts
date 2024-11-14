@@ -52,7 +52,7 @@ export class WorldModel {
         });
     }
 
-    initPerception(id: number , perception? : Entity[]) {
+    initPerception(id: number, perception?: Entity[]) {
         this.entity.map((entity) => {
             if (entity.getEntityId() === id) {
                 entity.initPerception(perception);
@@ -60,9 +60,9 @@ export class WorldModel {
         });
     }
 
-    getPerception(id: number) :any {
+    getPerception(id: number): any {
         for (const entity of this.entity) {
-            if (entity.getEntityId() === id ) {
+            if (entity.getEntityId() === id) {
                 return entity.getPerception();
             }
         }
