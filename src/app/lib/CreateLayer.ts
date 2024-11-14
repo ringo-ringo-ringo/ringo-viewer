@@ -669,11 +669,16 @@ export class CreateLayer {
                         color = 255 * (properties.HP.value / 10000);
                     }
 
+                    let bgc = [0, color, 0];
+                    if (entity.entityId === perceptionId) {
+                        bgc = [0, color, color];
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         position: [x / 20000, y / 20000],
-                        backgroundColor: [0, color, 0],
+                        backgroundColor: bgc,
                         ...properties,
                     };
 
@@ -689,11 +694,16 @@ export class CreateLayer {
                         color = 255 * (properties.HP.value / 10000);
                     }
 
+                    let bgc = [color, 0, 0];
+                    if (entity.entityId === perceptionId) {
+                        bgc = [0, color, color];
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         position: [x / 20000, y / 20000],
-                        backgroundColor: [color, 0, 0],
+                        backgroundColor: bgc,
                         ...properties,
                     };
 
@@ -709,11 +719,16 @@ export class CreateLayer {
                         color = 255 * (properties.HP.value / 10000);
                     }
 
+                    let bgc = [color, color, color];
+                    if (entity.entityId === perceptionId) {
+                        bgc = [0, color, color];
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         position: [x / 20000, y / 20000],
-                        backgroundColor: [color, color, color],
+                        backgroundColor: bgc,
                         ...properties,
                     };
 
@@ -729,11 +744,16 @@ export class CreateLayer {
                         color = 255 * (properties.HP.value / 10000);
                     }
 
+                    let bgc = [0, 0, color];
+                    if (entity.entityId === perceptionId) {
+                        bgc = [0, color, color];
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         position: [x / 20000, y / 20000],
-                        backgroundColor: [0, 0, color],
+                        backgroundColor: bgc,
                         ...properties,
                     };
 
