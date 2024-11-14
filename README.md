@@ -1,7 +1,54 @@
-# プロジェクトの開始方法
+# ringo-viewer
 
-1. 依存関係にあるパッケージをダウンロードする
-`npm install`
+<!-- Next-generation RoboCup Rescue Simulation Log Viewer -->
 
-2. サーバーをデベロッパーモードで起動させる
-`npm run dev`
+RoboCup Rescue Simulationで使用できるログビューワー
+
+## セットアップ
+1. 本リポジトリのクローンを作成
+はじめに，本リポジトリをコンピュータにインストールします
+shellの場合は下記スクリプトで，またはGitHub上の「Code」内の「Download ZIP」よりzip形式でダウンロードできます
+```shell
+git clone https://github.com/ringo-ringo-ringo/ringo-viewer.git
+```
+
+2. 環境変数の設定
+環境変数の定義を行う.envファイルの作成をいます
+`.env.example`ファイルのコピーを貼り付け，`.env`へ名前を変えます
+shellの場合は下記スクリプトより名前を変えた上でコピーができます
+```shell
+cp .env.example .env
+```
+
+3. 依存関係であるパッケージのインストール
+本ソフトウェアで必要とされているパッケージのインストールを行います
+下記のshellを実行すると，必要なパッケージがインストールされます
+```shell
+npm install
+```
+
+## 実行方法
+1. ログファイルの保存
+RoboCup Rescue Simulation Serverでシミュレーションが完了した後に出力されるログファイルを解凍した後，`/ringo-viewer/public/logs/`の中に配置します
+
+2. ログのパスを記述
+`.env`ファイル内の変数`NEXT_PUBLIC_DEFAULT_LOG_PATH`にログのファイルパスを格納します
+このログパスはルートが`public`になっています
+そのため`/ringo-viewer/public/logs/rescue.log`のようにログファイルを入れた場合は`NEXT_PUBLIC_DEFAULT_LOG_PATH=/logs/rescue.log`のようになります
+
+3. サーバーの実行
+サーバーを下記スクリプトで実行させます
+```shell
+npm run dev
+```
+
+4. シミュレーションを見る
+ターミナル画面に出力されるアドレスへWebブラウザーを使用してアクセスしてください
+
+## 困った時は
+
+-  ログが読み込まれません
+お使いのパソコン内で動作中の他プログラムで，`https://localhost:3000`のアドレスを使用している場合，ログが読み込まれない場合があります
+このような場合，同じポート番号を使用しないように，本プログラムが3000番ポート以外のポート番号を使用し，サーバーが起動されます
+本プログラムは3000番ポートで公開できるという前提で設計さえているため，このように3000番以外のポート番号を使用するとログが読み込まれなくなってしまいます
+その場合，`.env`ファイルに記述されている`NEXT_PUBLIC_LOG_HOST`変数を現在公開されているアドレスに書き換えてください
