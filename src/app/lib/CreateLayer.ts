@@ -507,7 +507,7 @@ export class CreateLayer {
 
                     this.perceptionRoadsLayer.push(data);
 
-                    if (properties.BLOCKADES && properties.BLOCKADES.value.length > 0) {
+                    if (properties.BLOCKADES?.value?.length > 0) {
                         properties.BLOCKADES.value.map((bloId: number) => {
                             console.log(bloId);
                             const entitys = simulation.getWorldModel(step).getEntity();
