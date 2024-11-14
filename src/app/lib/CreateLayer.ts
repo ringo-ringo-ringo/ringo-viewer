@@ -509,12 +509,9 @@ export class CreateLayer {
 
                     if (properties.BLOCKADES?.value?.length > 0) {
                         properties.BLOCKADES.value.map((bloId: number) => {
-                            console.log(bloId);
                             const entitys = simulation.getWorldModel(step).getEntity();
                             entitys.map((bloEntity) => {
                                 if (bloEntity.getEntityId() === bloId) {
-                                    console.log(bloEntity);
-
                                     const properties = bloEntity.getPropertys();
 
                                     const apexes = properties.APEXES.value;
