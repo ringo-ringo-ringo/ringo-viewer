@@ -11,9 +11,6 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
 
     const fetchPerception = () => {
         if (perceptionId) {
-            console.log("読み込むperceptionId");
-            console.log(perceptionId);
-
             const fetchPerception = async (callStep: number) => {
                 if (callStep === 0) {
                     await simulation.initPerseption(callStep, perceptionId);
