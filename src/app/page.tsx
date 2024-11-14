@@ -14,6 +14,12 @@ export default function Home() {
 
     const [attentionData, setAttentionData] = useState(null);
 
+    const [sliderValue, setSliderValue] = useState<number>(0);
+
+    useEffect(() => {
+        changeCommittedSlider("a", step);
+    }, [step]);
+
     const [filter, setFilter] = useState({
         ROAD: true,
         BLOCKADE: true,
@@ -72,7 +78,12 @@ export default function Home() {
     };
 
     const changeSlider = (e: any) => {
-        setStep(e.target.value);
+        setSliderValue(e.target.value);
+    };
+
+    const changeCommittedSlider = (e: any, value: any) => {
+        setSliderValue(value);
+        setStep(value);
     };
 
     console.log("現在のステップ");
@@ -151,7 +162,7 @@ export default function Home() {
             ) : (
                 ""
             )}
-            <Slider size="small" value={step} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} />
+            <Slider size="small" value={sliderValue} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} onChangeCommitted={changeCommittedSlider} />
             <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
                 <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
             </div>
