@@ -473,8 +473,6 @@ export class CreateLayer {
         //ここからがperceptionのレイヤー作成
         if (perceptionId !== null && simulation.getPerception(step, perceptionId)) {
             const perceptionEntitys: Entity[] = simulation.getWorldModel(step).getPerception(perceptionId);
-            console.log("これですよ");
-            console.log(perceptionEntitys);
 
             perceptionEntitys.map((entity) => {
                 if (URN_MAP[entity.urn] === "BUILDING") {

@@ -44,7 +44,6 @@ export class Entity {
     }
 
     changePerception(changeLog: any, deleteLog: any) {
-        console.log(changeLog, deleteLog);
         if (this.perception) {
             for (const entity of changeLog) {
                 let changed: boolean = false;
@@ -66,15 +65,6 @@ export class Entity {
             if (deleteLog.length > 0) {
                 console.error("デリートきたぞ");
             }
-
-            console.log("これ");
-            console.log(this.perception);
-            console.log("人間はこれ");
-            this.perception.map((entity) => {
-                if (URN_MAP[entity.urn] === "CIVILIAN" || URN_MAP[entity.urn] === "FIRE_BRIGADE" || URN_MAP[entity.urn] === "AMBULANCE_TEAM" || URN_MAP[entity.urn] === "POLICE_FORCE") {
-                    console.log(entity);
-                }
-            });
         }
     }
 
