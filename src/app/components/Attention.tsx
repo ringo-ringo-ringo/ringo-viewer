@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@mui/material";
 
-export default function Attention({ attentionData, setAttentionData, setPerceptionId }: any) {
+export default function Attention({ attentionData, setAttentionData, setPerceptionId, setFilter }: any) {
     const attentionList = [];
     for (const key in attentionData) {
         const data = key + " : " + JSON.stringify(attentionData[key], null, 2);
@@ -14,6 +14,13 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
 
     const changePerceptionId = () => {
         setPerceptionId(attentionData.entityId);
+        setFilter((prevFilter: any) => {
+            const newFilter = prevFilter;
+            for (const key in newFilter) {
+                newFilter[key] = false;
+            }
+            return newFilter;
+        });
     };
 
     const perception = () => {

@@ -27,22 +27,7 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
         for (const key in perceptionFilter) {
             perceptionCheckboxList.push(key);
         }
-
-        // setFilter((prevFilter: any) => {
-        //     const newFilter = prevFilter;
-        //     for (const key in newFilter) {
-        //         newFilter[key] = false;
-        //     }
-        //     return newFilter;
-        // });
     } else {
-        // setFilter((prevFilter: any) => {
-        //     const newFilter = prevFilter;
-        //     for (const key in newFilter) {
-        //         newFilter[key] = true;
-        //     }
-        //     return newFilter;
-        // });
     }
 
     return (

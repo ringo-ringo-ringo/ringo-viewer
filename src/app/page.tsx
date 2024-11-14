@@ -62,6 +62,13 @@ export default function Home() {
 
     const deletePerceptionId = () => {
         setPerceptionId(null);
+        setFilter((prevFilter: any) => {
+            const newFilter = prevFilter;
+            for (const key in newFilter) {
+                newFilter[key] = true;
+            }
+            return newFilter;
+        });
     };
 
     const changeSlider = (e: any) => {
@@ -148,7 +155,7 @@ export default function Home() {
             <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
                 <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
             </div>
-            <div style={{ position: "relative", zIndex: 2, backgroundColor: "lightgray" }}>{attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId}></Attention> : ""}</div>
+            <div style={{ position: "relative", zIndex: 2, backgroundColor: "lightgray" }}>{attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}</div>
         </>
     );
 }
