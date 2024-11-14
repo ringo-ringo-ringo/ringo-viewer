@@ -506,6 +506,50 @@ export class CreateLayer {
                     };
 
                     this.perceptionRoadsLayer.push(data);
+
+                    if (properties.BLOCKADES && properties.BLOCKADES.value.length > 0) {
+                        properties.BLOCKADES.value.map((bloId: number) => {
+                            console.log(bloId);
+                            const entitys = simulation.getWorldModel(step).getEntity();
+                            entitys.map((bloEntity) => {
+                                if (bloEntity.getEntityId() === bloId) {
+                                    console.log(bloEntity);
+
+                                    const properties = bloEntity.getPropertys();
+
+                                    const apexes = properties.APEXES.value;
+
+                                    let count: number = 0;
+                                    const edges: Array<number[]> = [];
+                                    let x: number | null = null;
+                                    let y: number | null = null;
+                                    apexes.map((apex: number) => {
+                                        if (count % 2 === 0) {
+                                            x = apex;
+                                        } else {
+                                            y = apex;
+                                            if (x && y) {
+                                                edges.push([x / 20000, y / 20000]);
+                                            } else {
+                                                console.error("中に入ってる値がnullだぞ");
+                                            }
+                                        }
+                                        count++;
+                                    });
+
+                                    const data = {
+                                        entity: URN_MAP[entity.urn],
+                                        entityId: entity.entityId,
+                                        apex: edges,
+                                        backgroundColor: [10, 10, 10],
+                                        ...properties,
+                                    };
+
+                                    this.perceptionBlockadesLayer.push(data);
+                                }
+                            });
+                        });
+                    }
                 } else if (URN_MAP[entity.urn] === "REFUGE") {
                     const properties = entity.getPropertys();
                     const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
@@ -694,38 +738,6 @@ export class CreateLayer {
                     };
 
                     this.perceptionPoliceForcesLayer.push(data);
-                } else if (URN_MAP[entity.urn] === "BLOCKADE") {
-                    const properties = entity.getPropertys();
-
-                    const apexes = properties.APEXES.value;
-
-                    let count: number = 0;
-                    const edges: Array<number[]> = [];
-                    let x: number | null = null;
-                    let y: number | null = null;
-                    apexes.map((apex: number) => {
-                        if (count % 2 === 0) {
-                            x = apex;
-                        } else {
-                            y = apex;
-                            if (x && y) {
-                                edges.push([x / 20000, y / 20000]);
-                            } else {
-                                console.error("中に入ってる値がnullだぞ");
-                            }
-                        }
-                        count++;
-                    });
-
-                    const data = {
-                        entity: URN_MAP[entity.urn],
-                        entityId: entity.entityId,
-                        apex: edges,
-                        backgroundColor: [10, 10, 10],
-                        ...properties,
-                    };
-
-                    this.perceptionBlockadesLayer.push(data);
                 } else {
                     console.log("未使用のエンティティ発見 : " + URN_MAP[entity.urn]);
                     console.log(entity);
