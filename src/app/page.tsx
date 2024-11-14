@@ -20,6 +20,16 @@ export default function Home() {
         changeCommittedSlider("a", step);
     }, [step]);
 
+    const [buttonDisable, setButtonDisable] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (isLoading > 0) {
+            setButtonDisable(true);
+        } else {
+            setButtonDisable(false);
+        }
+    }, [isLoading]);
+
     const [filter, setFilter] = useState({
         ROAD: true,
         BLOCKADE: true,
@@ -107,6 +117,7 @@ export default function Home() {
                     setStep(0);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to initial step
             </Button>
@@ -115,6 +126,7 @@ export default function Home() {
                     stepDown(10);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to prev 10 step
             </Button>
@@ -123,6 +135,7 @@ export default function Home() {
                     stepDown(1);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to prev step
             </Button>
@@ -131,6 +144,7 @@ export default function Home() {
                     stepUp(1);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to next step
             </Button>
@@ -139,6 +153,7 @@ export default function Home() {
                     stepUp(10);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to next 10 step
             </Button>
@@ -147,6 +162,7 @@ export default function Home() {
                     setStep(300);
                 }}
                 variant="outlined"
+                disabled={buttonDisable}
             >
                 go to last step
             </Button>
@@ -156,13 +172,14 @@ export default function Home() {
                         deletePerceptionId();
                     }}
                     variant="outlined"
+                    disabled={buttonDisable}
                 >
                     delete perception view
                 </Button>
             ) : (
                 ""
             )}
-            <Slider size="small" value={sliderValue} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} onChangeCommitted={changeCommittedSlider} />
+            <Slider size="small" value={sliderValue} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} onChangeCommitted={changeCommittedSlider} disabled={buttonDisable} />
             <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
                 <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
             </div>
