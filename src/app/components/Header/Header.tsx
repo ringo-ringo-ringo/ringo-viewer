@@ -9,20 +9,19 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
         top: 10px;
         left: 10px;
         z-index: 2;
-        margin: 5px 10px;
+        padding: 5px 10px;
         text-align: right;
-        line-height: 50px;
         border-radius: 10px;
     `;
 
     return (
         <>
             <header css={header}>
-                <Text>残りの処理のかず : {isLoading}</Text>
                 <Text>step : {step}</Text>
                 <Text>
                     Score : {score} / {maxScore}
                 </Text>
+                <Text>残りの処理のかず : {isLoading}</Text>
             </header>
         </>
     );
