@@ -4,8 +4,9 @@ import React, { ReactElement, useState, useEffect } from "react";
 import DeckGL from "@deck.gl/react";
 import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 import { CreateLayer } from "@/app/lib/CreateLayer";
+import Attention from "@/app/components/Attention/Attention";
 
-export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter }: any) {
+export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter }: any) {
     const [layer, setLayer] = useState<any>([]);
 
     useEffect(() => {
@@ -99,6 +100,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                         return { text };
                     }}
                 />
+                {attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}
             </div>
         </>
     );

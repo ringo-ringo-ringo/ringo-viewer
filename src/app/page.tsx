@@ -7,7 +7,6 @@ import { Button, Slider, LinearProgress } from "@mui/material";
 import Sidebar from "@/app/components/Sidebar";
 import useScore from "@/app/hook/useScore";
 import Header from "@/app/components/Header/Header";
-import Attention from "@/app/components/Attention/Attention";
 
 export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading] = useLog();
@@ -107,7 +106,7 @@ export default function Home() {
     return (
         <>
             <Header step={step} score={score} maxScore={maxScore} isLoading={isLoading}></Header>
-            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter}></Viewer>
+            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Viewer>
 
             <Button
                 onClick={() => {
@@ -180,7 +179,6 @@ export default function Home() {
             <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
                 <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
             </div>
-            {attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}
         </>
     );
 }
