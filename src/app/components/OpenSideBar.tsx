@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 export default function OpenSideBar({ setShowSideBar }: any) {
     const body = css`
@@ -29,7 +29,7 @@ export default function OpenSideBar({ setShowSideBar }: any) {
     return (
         <>
             <div css={body} onClick={openHandler}>
-                <ArrowForwardIosIcon className="icon"></ArrowForwardIosIcon>
+                <ChevronRightIcon className="icon"></ChevronRightIcon>
             </div>
         </>
     );
