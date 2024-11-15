@@ -66,38 +66,40 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
     return (
         <>
-            <DeckGL
-                initialViewState={{
-                    longitude: 2,
-                    latitude: 2,
-                    zoom: 6,
-                }}
-                controller
-                layers={layer}
-                onClick={deckglClickHandler}
-                getTooltip={({ object }) => {
-                    //ここ適当!!直して!
+            <div>
+                <DeckGL
+                    initialViewState={{
+                        longitude: 2,
+                        latitude: 2,
+                        zoom: 6,
+                    }}
+                    controller
+                    layers={layer}
+                    onClick={deckglClickHandler}
+                    getTooltip={({ object }) => {
+                        //ここ適当!!直して!
 
-                    if (!object) return null;
+                        if (!object) return null;
 
-                    let text = "";
+                        let text = "";
 
-                    text += "entity : " + object.entity + "\n";
+                        text += "entity : " + object.entity + "\n";
 
-                    text += "entityId : " + object.entityId + "\n";
+                        text += "entityId : " + object.entityId + "\n";
 
-                    for (const key in object) {
-                        if (key && object.hasOwnProperty(key)) {
-                            const value = object[key];
-                            if (value.value) {
-                                text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                        for (const key in object) {
+                            if (key && object.hasOwnProperty(key)) {
+                                const value = object[key];
+                                if (value.value) {
+                                    text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                                }
                             }
                         }
-                    }
 
-                    return { text };
-                }}
-            />
+                        return { text };
+                    }}
+                />
+            </div>
         </>
     );
 }
