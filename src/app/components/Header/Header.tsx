@@ -11,6 +11,7 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
         z-index: 2;
         height: 50px;
         text-align: right;
+        line-height: 50px;
         .line {
             position: absolute;
             top: 0;
