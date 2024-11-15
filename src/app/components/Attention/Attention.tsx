@@ -55,7 +55,7 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
     return (
         <>
             <div css={body}>
-                <Button onClick={clear} variant="outlined">
+                <Button onClick={clear}>
                     {/* 消す */}
                     <DeleteIcon></DeleteIcon>
                 </Button>
