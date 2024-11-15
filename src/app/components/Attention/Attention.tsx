@@ -10,7 +10,7 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
         max-height: calc(100% - 20px);
         z-index: 2;
         width: 400px;
-        background-color: gray;
+        background-color: #9f9f9fbe;
         border-radius: 10px;
         padding: 20px;
         overflow-y: scroll;
