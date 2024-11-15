@@ -161,7 +161,6 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         onClick={() => {
                             setStep(0);
                         }}
-                        variant="outlined"
                         disabled={buttonDisable}
                     >
                         {/* go to initial step */}
@@ -171,7 +170,6 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         onClick={() => {
                             stepDown(10);
                         }}
-                        variant="outlined"
                         disabled={buttonDisable}
                     >
                         {/* go to prev 10 step */}
@@ -181,7 +179,6 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         onClick={() => {
                             stepDown(1);
                         }}
-                        variant="outlined"
                         disabled={buttonDisable}
                     >
                         {/* go to prev step */}
@@ -191,7 +188,6 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         onClick={() => {
                             stepUp(1);
                         }}
-                        variant="outlined"
                         disabled={buttonDisable}
                     >
                         {/* go to next step */}
@@ -201,7 +197,6 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         onClick={() => {
                             stepUp(10);
                         }}
-                        variant="outlined"
                         disabled={buttonDisable}
                     >
                         {/* go to next 10 step */}
@@ -211,7 +206,6 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         onClick={() => {
                             setStep(300);
                         }}
-                        variant="outlined"
                         disabled={buttonDisable}
                     >
                         {/* go to last step */}
@@ -222,7 +216,6 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                             onClick={() => {
                                 deletePerceptionId();
                             }}
-                            variant="outlined"
                             disabled={buttonDisable}
                         >
                             {/* delete perception view */}
