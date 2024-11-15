@@ -7,6 +7,7 @@ import { Button, Slider, LinearProgress } from "@mui/material";
 import Sidebar from "@/app/components/Sidebar";
 import useScore from "@/app/hook/useScore";
 import Header from "@/app/components/Header/Header";
+import Linear from "@/app/components/Linear";
 
 export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading] = useLog();
@@ -105,6 +106,7 @@ export default function Home() {
 
     return (
         <>
+            <Linear isLoading={isLoading}></Linear>
             <Header step={step} score={score} maxScore={maxScore} isLoading={isLoading}></Header>
             <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Viewer>
 
