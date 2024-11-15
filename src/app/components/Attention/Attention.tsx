@@ -6,9 +6,18 @@ import { Button } from "@mui/material";
 export default function Attention({ attentionData, setAttentionData, setPerceptionId, setFilter }: any) {
     const body = css`
         position: absolute;
-
+        right: 10px;
+        height: 100%;
         z-index: 2;
         width: 400px;
+        background-color: gray;
+        border-radius: 10px;
+        padding: 20px;
+        overflow-y: scroll;
+        margin: 10px 0;
+        li {
+            margin: 5px 0;
+        }
     `;
 
     const attentionList = [];
