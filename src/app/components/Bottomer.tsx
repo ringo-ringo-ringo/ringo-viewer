@@ -14,7 +14,7 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
         z-index: 10;
         :hover {
             bottom: 0;
-            background-color: #9f9f9fbe;
+            background-color: #9f9f9ff5;
             .MuiSlider-root {
                 height: 16px;
                 bottom: 0;
