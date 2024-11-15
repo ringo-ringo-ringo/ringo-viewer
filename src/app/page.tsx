@@ -109,12 +109,8 @@ export default function Home() {
         <>
             <Linear isLoading={isLoading}></Linear>
             <Header step={step} score={score} maxScore={maxScore} isLoading={isLoading}></Header>
-            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Viewer>
+            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter} setPerceptionFilter={setPerceptionFilter}></Viewer>
             <Bottomer sliderValue={sliderValue} changeSlider={changeSlider} changeCommittedSlider={changeCommittedSlider} buttonDisable={buttonDisable} setStep={setStep} stepDown={stepDown} stepUp={stepUp} perceptionId={perceptionId} deletePerceptionId={deletePerceptionId}></Bottomer>
-
-            <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
-                <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
-            </div>
         </>
     );
 }

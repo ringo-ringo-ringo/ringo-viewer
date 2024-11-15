@@ -7,8 +7,9 @@ import DeckGL from "@deck.gl/react";
 import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 import { CreateLayer } from "@/app/lib/CreateLayer";
 import Attention from "@/app/components/Attention/Attention";
+import Sidebar from "@/app/components/Sidebar";
 
-export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter }: any) {
+export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter }: any) {
     const body = css`
         position: relative;
         height: 100%;
@@ -107,6 +108,8 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                         return { text };
                     }}
                 />
+                <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
+
                 {attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}
             </div>
         </>
