@@ -49,11 +49,11 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
                     消す
                 </Button>
                 {perception()}
-                <li>
+                <ul>
                     {attentionList.map((e) => {
-                        return <ul key={e}>{e}</ul>;
+                        return <li key={e}>{e}</li>;
                     })}
-                </li>
+                </ul>
             </div>
         </>
     );
