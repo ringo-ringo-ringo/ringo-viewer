@@ -31,7 +31,7 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
                 <Text>
                     score : {score} / {maxScore}
                 </Text>
-                <Text>残りの処理のかず : {isLoading}</Text>
+                <Text>remaining processes : {isLoading}</Text>
                 <LinearProgress variant="determinate" value={score / maxScore * 100} css={line} />
             </header>
         </>
