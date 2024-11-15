@@ -1,9 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Slider, Button } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import { useState } from "react";
 
 export default function Bottomer({ sliderValue, changeSlider, changeCommittedSlider, buttonDisable, setStep, stepDown, stepUp, perceptionId, deletePerceptionId }: any) {
-    const body = css`
+    const defaultBody = css`
         position: absolute;
         /* bottom: 0px; */
         /* bottom: calc(-36.5px + -20px); */
@@ -20,6 +23,23 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
             .MuiSlider-root {
                 /* height: 16px; */
                 /* bottom: 0; */
+            }
+        }
+        .showIcon {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: lightgray;
+            border-radius: 10px;
+            z-index: 5;
+            :hover {
+                cursor: pointer;
+            }
+            .icon {
+                width: 30px;
+                height: 30px;
             }
         }
         .buttons {
@@ -52,9 +72,83 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
         }
     `;
 
+    const autoCloseBody = css`
+        position: absolute;
+        /* bottom: 0px; */
+        bottom: calc(-36.5px + -20px);
+        width: 100%;
+        background-color: transparent;
+        padding: 20px 10px;
+        transition: 0.2s;
+        z-index: 10;
+        :hover {
+            bottom: 0;
+            background-color: #9f9f9ff5;
+            .MuiSlider-root {
+                height: 16px;
+                bottom: 0;
+            }
+        }
+        .showIcon {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: lightgray;
+            border-radius: 10px;
+            z-index: 5;
+            :hover {
+                cursor: pointer;
+            }
+            .icon {
+                width: 30px;
+                height: 30px;
+            }
+        }
+        .buttons {
+            height: 36.5px;
+            overflow-y: scroll;
+        }
+        .MuiSlider-root {
+            position: absolute;
+            bottom: calc(36.5px + 20px);
+            left: 0;
+            padding: 0;
+            height: 8px;
+            width: 100%;
+            /* height: 16px; */
+            border-radius: 0;
+            transition: 0.2s;
+            z-index: 3;
+        }
+        .MuiSlider-thumb {
+            width: 0;
+            height: 0;
+            ::after {
+                width: 0;
+                height: 0;
+            }
+        }
+    `;
+
+    const [autoClose, setAutoClose] = useState(false);
+
+    const toggleAutoClose = () => {
+        if (autoClose) {
+            setAutoClose(false);
+        } else {
+            setAutoClose(true);
+        }
+    };
+
     return (
         <>
-            <div css={body}>
+            <div css={autoClose ? autoCloseBody : defaultBody}>
+                <div className="showIcon" onClick={toggleAutoClose}>
+                    {autoClose ? <ExpandLessIcon className="icon"></ExpandLessIcon> : <ExpandMoreIcon className="icon"></ExpandMoreIcon>}
+                </div>
+
                 <div className="buttons">
                     <Button
                         onClick={() => {
