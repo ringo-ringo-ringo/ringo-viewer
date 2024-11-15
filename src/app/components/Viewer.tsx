@@ -4,7 +4,6 @@ import React, { ReactElement, useState, useEffect } from "react";
 import DeckGL from "@deck.gl/react";
 import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 import { CreateLayer } from "@/app/lib/CreateLayer";
-import { stringify } from "querystring";
 
 export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter }: any) {
     const [layer, setLayer] = useState<any>([]);
