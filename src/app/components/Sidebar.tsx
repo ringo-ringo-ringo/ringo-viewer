@@ -18,6 +18,8 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
         max-height: calc(100% - 120px);
         background-color: gray;
         overflow: scroll;
+        padding: 10px;
+        border-radius: 10px;
     `;
 
     const [tabValue, setTabValue] = useState("1");
