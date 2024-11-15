@@ -67,7 +67,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
     return (
         <>
-            <div>
+            <div style={{ height: "calc(100 % - 50px)" }}>
                 <DeckGL
                     initialViewState={{
                         longitude: 2,

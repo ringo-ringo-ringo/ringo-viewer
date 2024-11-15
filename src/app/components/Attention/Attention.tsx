@@ -7,7 +7,8 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
     const body = css`
         position: absolute;
         right: 10px;
-        height: 100%;
+        /* まじ？ */
+        max-height: calc(100% - 80px);
         z-index: 2;
         width: 400px;
         background-color: gray;

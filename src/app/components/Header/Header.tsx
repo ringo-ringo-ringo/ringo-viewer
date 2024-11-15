@@ -9,7 +9,7 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
         background-color: #b8b8b8;
         position: relative;
         z-index: 2;
-        padding: 5px 0px;
+        height: 50px;
         text-align: right;
         .line {
             position: absolute;
