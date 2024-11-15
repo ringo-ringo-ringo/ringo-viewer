@@ -18,7 +18,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
     const [layer, setLayer] = useState<any>([]);
 
-    const [showSideBar, setShowSideBar] = useState(true);
+    const [showSideBar, setShowSideBar] = useState(false);
 
     useEffect(() => {
         if (simulation && simulation.getWorldModel(step)) {
