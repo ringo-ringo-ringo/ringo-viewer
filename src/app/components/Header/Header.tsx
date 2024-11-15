@@ -22,6 +22,10 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
         left: 0;
         width: 100%;
         z-index: 3;
+        background-color: #7c997c;
+        span{
+            background-color: #7fdf7f;
+        }
     `;
 
     return (
@@ -32,7 +36,7 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
                     score : {score} / {maxScore}
                 </Text>
                 <Text>remaining processes : {isLoading}</Text>
-                <LinearProgress variant="determinate" value={score / maxScore * 100} css={line} />
+                <LinearProgress variant="determinate" value={(score / maxScore) * 100} css={line} />
             </header>
         </>
     );
