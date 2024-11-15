@@ -4,6 +4,13 @@ import { Slider, Button } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useState } from "react";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import LastPageIcon from "@mui/icons-material/LastPage";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import Replay10Icon from "@mui/icons-material/Replay10";
+import Forward10Icon from "@mui/icons-material/Forward10";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 export default function Bottomer({ sliderValue, changeSlider, changeCommittedSlider, buttonDisable, setStep, stepDown, stepUp, perceptionId, deletePerceptionId }: any) {
     const defaultBody = css`
@@ -157,7 +164,8 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         variant="outlined"
                         disabled={buttonDisable}
                     >
-                        go to initial step
+                        {/* go to initial step */}
+                        <FirstPageIcon></FirstPageIcon>
                     </Button>
                     <Button
                         onClick={() => {
@@ -166,7 +174,8 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         variant="outlined"
                         disabled={buttonDisable}
                     >
-                        go to prev 10 step
+                        {/* go to prev 10 step */}
+                        <Replay10Icon></Replay10Icon>
                     </Button>
                     <Button
                         onClick={() => {
@@ -175,7 +184,8 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         variant="outlined"
                         disabled={buttonDisable}
                     >
-                        go to prev step
+                        {/* go to prev step */}
+                        <NavigateBeforeIcon></NavigateBeforeIcon>
                     </Button>
                     <Button
                         onClick={() => {
@@ -184,7 +194,8 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         variant="outlined"
                         disabled={buttonDisable}
                     >
-                        go to next step
+                        {/* go to next step */}
+                        <NavigateNextIcon></NavigateNextIcon>
                     </Button>
                     <Button
                         onClick={() => {
@@ -193,7 +204,8 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         variant="outlined"
                         disabled={buttonDisable}
                     >
-                        go to next 10 step
+                        {/* go to next 10 step */}
+                        <Forward10Icon></Forward10Icon>
                     </Button>
                     <Button
                         onClick={() => {
@@ -202,7 +214,8 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         variant="outlined"
                         disabled={buttonDisable}
                     >
-                        go to last step
+                        {/* go to last step */}
+                        <LastPageIcon></LastPageIcon>
                     </Button>
                     {perceptionId !== null ? (
                         <Button
@@ -212,7 +225,8 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                             variant="outlined"
                             disabled={buttonDisable}
                         >
-                            delete perception view
+                            {/* delete perception view */}
+                            <VisibilityOffIcon></VisibilityOffIcon>
                         </Button>
                     ) : (
                         ""
