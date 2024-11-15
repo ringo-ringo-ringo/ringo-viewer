@@ -1,5 +1,7 @@
 "use client";
 
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import React, { ReactElement, useState, useEffect } from "react";
 import DeckGL from "@deck.gl/react";
 import { PolygonLayer, IconLayer } from "@deck.gl/layers";
@@ -7,6 +9,11 @@ import { CreateLayer } from "@/app/lib/CreateLayer";
 import Attention from "@/app/components/Attention/Attention";
 
 export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter }: any) {
+    const body = css`
+        position: relative;
+        height: calc(100% - 50px);
+    `;
+
     const [layer, setLayer] = useState<any>([]);
 
     useEffect(() => {
@@ -67,7 +74,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
     return (
         <>
-            <div style={{ height: "calc(100 % - 50px)" }}>
+            <div css={body}>
                 <DeckGL
                     initialViewState={{
                         longitude: 2,
