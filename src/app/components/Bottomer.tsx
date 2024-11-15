@@ -33,7 +33,12 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
             z-index: 3;
         }
         .MuiSlider-thumb {
-            display: none;
+            width: 0;
+            height: 0;
+            ::after{
+                width: 0;
+                height: 0;
+            }
         }
     `;
 
