@@ -20,6 +20,10 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                 bottom: 0;
             }
         }
+        .buttons {
+            height: 36.5px;
+            overflow-y: scroll;
+        }
         .MuiSlider-root {
             position: absolute;
             bottom: calc(36.5px + 20px);
@@ -35,7 +39,7 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
         .MuiSlider-thumb {
             width: 0;
             height: 0;
-            ::after{
+            ::after {
                 width: 0;
                 height: 0;
             }
@@ -45,7 +49,7 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
     return (
         <>
             <div css={body}>
-                <div>
+                <div className="buttons">
                     <Button
                         onClick={() => {
                             setStep(0);
