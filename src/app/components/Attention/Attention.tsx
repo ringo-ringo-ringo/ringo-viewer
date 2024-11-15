@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 import { Button } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Attention({ attentionData, setAttentionData, setPerceptionId, setFilter }: any) {
     const body = css`
@@ -55,7 +56,8 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
         <>
             <div css={body}>
                 <Button onClick={clear} variant="outlined">
-                    消す
+                    {/* 消す */}
+                    <DeleteIcon></DeleteIcon>
                 </Button>
                 {perception()}
                 <ul>
