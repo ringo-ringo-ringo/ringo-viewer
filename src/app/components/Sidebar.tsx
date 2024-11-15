@@ -17,7 +17,7 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
         top: 100px;
         left: 10px;
         max-height: calc(100% - 120px);
-        background-color: gray;
+        background-color: #9f9f9fbe;
         overflow: scroll;
         padding: 10px;
         border-radius: 10px;
