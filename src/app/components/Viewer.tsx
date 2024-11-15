@@ -11,7 +11,7 @@ import Attention from "@/app/components/Attention/Attention";
 export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter }: any) {
     const body = css`
         position: relative;
-        height: calc(100% - 50px);
+        height: 100%;
     `;
 
     const [layer, setLayer] = useState<any>([]);
