@@ -1,13 +1,13 @@
 "use client";
 
 import useLog from "@/app/hook/useLog";
-import Viewer from "@/app/Viewer";
+import Viewer from "@/app/components/Viewer";
 import { useEffect, useState } from "react";
 import { Button, Slider, LinearProgress } from "@mui/material";
-import Attention from "@/app/components/Attention";
 import Sidebar from "@/app/components/Sidebar";
 import useScore from "@/app/hook/useScore";
 import Header from "@/app/components/Header/Header";
+import Attention from "@/app/components/Attention/Attention";
 
 export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading] = useLog();
@@ -180,7 +180,7 @@ export default function Home() {
             <div style={{ position: "relative", zIndex: 2, width: "250px", backgroundColor: "lightgray", border: "1px black solid" }}>
                 <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
             </div>
-            <div style={{ position: "relative", zIndex: 2, backgroundColor: "lightgray" }}>{attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}</div>
+            {attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}
         </>
     );
 }

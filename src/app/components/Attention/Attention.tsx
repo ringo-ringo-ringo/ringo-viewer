@@ -1,7 +1,16 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { useState } from "react";
 import { Button } from "@mui/material";
 
 export default function Attention({ attentionData, setAttentionData, setPerceptionId, setFilter }: any) {
+    const body = css`
+        position: absolute;
+
+        z-index: 2;
+        width: 400px;
+    `;
+
     const attentionList = [];
     for (const key in attentionData) {
         const data = key + " : " + JSON.stringify(attentionData[key], null, 2);
@@ -35,15 +44,17 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
 
     return (
         <>
-            <Button onClick={clear} variant="outlined">
-                消す
-            </Button>
-            <li>
-                {attentionList.map((e) => {
-                    return <ul key={e}>{e}</ul>;
-                })}
-            </li>
-            {perception()}
+            <div css={body}>
+                <Button onClick={clear} variant="outlined">
+                    消す
+                </Button>
+                {perception()}
+                <li>
+                    {attentionList.map((e) => {
+                        return <ul key={e}>{e}</ul>;
+                    })}
+                </li>
+            </div>
         </>
     );
 }
