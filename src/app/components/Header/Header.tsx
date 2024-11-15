@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { LinearProgress } from "@mui/material";
+import Text from "@/app/components/Header/Text";
 
 export default function Header({ step, score, maxScore, isLoading }: any) {
     const header = css`
@@ -10,9 +11,6 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
         z-index: 2;
         padding: 5px 0px;
         text-align: right;
-        span {
-            margin: 0 10px;
-        }
         .line {
             position: absolute;
             top: 0;
@@ -25,11 +23,11 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
         <>
             <header css={header}>
                 {isLoading ? <LinearProgress className="line" /> : null}
-                <span>残りの処理のかず : {isLoading}</span>
-                <span>step : {step}</span>
-                <span>
+                <Text>残りの処理のかず : {isLoading}</Text>
+                <Text>step : {step}</Text>
+                <Text>
                     Score : {score} / {maxScore}
-                </span>
+                </Text>
             </header>
         </>
     );
