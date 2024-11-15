@@ -5,7 +5,7 @@ import { LinearProgress } from "@mui/material";
 
 export default function Header({ step, score, maxScore, isLoading }: any) {
     const header = css`
-        background-color: #9f9f9ff5;
+        background-color: #9f9f9fbe;
         position: absolute;
         top: 10px;
         left: 10px;
@@ -23,7 +23,7 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
         width: 100%;
         z-index: 3;
         background-color: #7c997c;
-        span {
+        span{
             background-color: #7fdf7f;
         }
     `;
