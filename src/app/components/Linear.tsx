@@ -8,7 +8,7 @@ export default function Linear({ isLoading }: any) {
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 2;
+        z-index: 3;
     `;
 
     return <>{isLoading ? <LinearProgress css={line}/> : null}</>;
