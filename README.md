@@ -8,7 +8,7 @@ RoboCup Rescue Simulationで使用できるログビューワー
 
 
 ## セットアップ
-1. 本リポジトリのクローンを作成
+### 1. 本リポジトリのクローンを作成
 
 はじめに，本リポジトリをコンピュータにインストールします
 
@@ -19,7 +19,7 @@ git clone https://github.com/ringo-ringo-ringo/ringo-viewer.git
 ```
 
 
-2. 環境変数の設定
+### 2. 環境変数の設定
 
 環境変数の定義を行う.envファイルの作成をいます
 
@@ -32,7 +32,7 @@ cp .env.example .env
 ```
 
 
-3. 依存関係であるパッケージのインストール
+### 3. 依存関係であるパッケージのインストール
 
 本ソフトウェアで必要とされているパッケージのインストールを行います
 
@@ -45,12 +45,12 @@ npm install
 
 ## 実行方法
 
-1. ログファイルの保存
+### 1. ログファイルの保存
 
 RoboCup Rescue Simulation Serverでシミュレーションが完了した後に出力されるログファイルを解凍した後，`/ringo-viewer/public/logs/`の中に配置します
 
 
-2. ログのパスを記述
+### 2. ログのパスを記述
 
 `.env`ファイル内の変数`NEXT_PUBLIC_DEFAULT_LOG_PATH`にログのファイルパスを格納します
 
@@ -59,7 +59,7 @@ RoboCup Rescue Simulation Serverでシミュレーションが完了した後に
 そのため`/ringo-viewer/public/logs/rescue.log`のようにログファイルを入れた場合は`NEXT_PUBLIC_DEFAULT_LOG_PATH=/logs/rescue.log`のようになります
 
 
-3. サーバーの実行
+### 3. サーバーの実行
 
 サーバーを下記スクリプトで実行させます
 
@@ -68,7 +68,7 @@ npm run dev
 ```
 
 
-4. シミュレーションを見る
+### 4. シミュレーションを見る
 
 ターミナル画面に出力されるアドレスへWebブラウザーを使用してアクセスしてください
 
