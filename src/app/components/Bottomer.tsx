@@ -6,18 +6,20 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
     const body = css`
         position: absolute;
         /* bottom: 0px; */
-        bottom: calc(-36.5px + -20px);
+        /* bottom: calc(-36.5px + -20px); */
+        bottom: 0;
         width: 100%;
-        background-color: transparent;
+        /* background-color: transparent; */
+        background-color: #9f9f9ff5;
         padding: 20px 10px;
         transition: 0.2s;
         z-index: 10;
         :hover {
-            bottom: 0;
-            background-color: #9f9f9ff5;
+            /* bottom: 0; */
+            /* background-color: #9f9f9ff5; */
             .MuiSlider-root {
-                height: 16px;
-                bottom: 0;
+                /* height: 16px; */
+                /* bottom: 0; */
             }
         }
         .buttons {
@@ -26,7 +28,8 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
         }
         .MuiSlider-root {
             position: absolute;
-            bottom: calc(36.5px + 20px);
+            /* bottom: calc(36.5px + 20px); */
+            bottom: 0;
             left: 0;
             padding: 0;
             height: 8px;
@@ -35,6 +38,9 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
             border-radius: 0;
             transition: 0.2s;
             z-index: 3;
+            :hover {
+                height: 16px;
+            }
         }
         .MuiSlider-thumb {
             width: 0;
