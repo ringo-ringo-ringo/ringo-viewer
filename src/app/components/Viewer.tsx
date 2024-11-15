@@ -8,6 +8,7 @@ import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 import { CreateLayer } from "@/app/lib/CreateLayer";
 import Attention from "@/app/components/Attention/Attention";
 import Sidebar from "@/app/components/Sidebar";
+import OpenSideBar from "@/app/components/OpenSideBar";
 
 export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter }: any) {
     const body = css`
@@ -16,6 +17,8 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
     `;
 
     const [layer, setLayer] = useState<any>([]);
+
+    const [showSideBar, setShowSideBar] = useState(true);
 
     useEffect(() => {
         if (simulation && simulation.getWorldModel(step)) {
@@ -108,7 +111,8 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                         return { text };
                     }}
                 />
-                <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter}></Sidebar>
+
+                {showSideBar ? <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter} setShowSideBar={setShowSideBar}></Sidebar> : <OpenSideBar setShowSideBar={setShowSideBar}></OpenSideBar>}
 
                 {attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}
             </div>

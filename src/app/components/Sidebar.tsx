@@ -9,8 +9,9 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useState } from "react";
+import ClearIcon from "@mui/icons-material/Clear";
 
-export default function Sidebar({ filter, setFilter, perceptionId, perceptionFilter, setPerceptionFilter }: any) {
+export default function Sidebar({ filter, setFilter, perceptionId, perceptionFilter, setPerceptionFilter, setShowSideBar }: any) {
     const body = css`
         position: absolute;
         top: 100px;
@@ -22,7 +23,27 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
         border-radius: 10px;
     `;
 
+    const clearIcon = css`
+        position: relative;
+        height: 30px;
+        .icon {
+            position: absolute;
+            right: 0;
+            height: 30px;
+            width: 30px;
+            transition: 0.2s;
+            :hover {
+                color: #91f0ff;
+                cursor: pointer;
+            }
+        }
+    `;
+
     const [tabValue, setTabValue] = useState("1");
+
+    const closeHandler = () => {
+        setShowSideBar(false);
+    };
 
     const filterHandler = (e: any) => {
         setFilter({
@@ -58,6 +79,9 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
     return (
         <div css={body}>
             <TabContext value={tabValue}>
+                <div css={clearIcon}>
+                    <ClearIcon className="icon" onClick={closeHandler}></ClearIcon>
+                </div>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                     <TabList onChange={tabHandler} aria-label="lab API tabs example">
                         <Tab label="world" value="1" />
