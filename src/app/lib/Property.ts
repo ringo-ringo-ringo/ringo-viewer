@@ -50,8 +50,7 @@ export class Property {
                     // this.value = propertys.intvalue;
                     console.log("何これ : " + URN_MAP[propertys.urn]);
                 } else if (URN_MAP[propertys.urn] === "DIRECTION") {
-                    // this.value = propertys.intvalue;
-                    console.log("何これ : " + URN_MAP[propertys.urn]);
+                    this.value = propertys.intvalue;
                 } else if (URN_MAP[propertys.urn] === "BUILDING_CODE") {
                     this.value = propertys.intvalue;
                     // console.log(this.value);
