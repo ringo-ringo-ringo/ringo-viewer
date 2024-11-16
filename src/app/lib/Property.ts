@@ -64,9 +64,7 @@ export class Property {
                 } else if (URN_MAP[propertys.urn] === "FIERYNESS") {
                     this.value = propertys.intvalue;
                 } else if (URN_MAP[propertys.urn] === "CAPACITY") {
-                    // this.value = propertys.intvalue;
-                    // console.log(this.value);
-                    console.log("何これ : " + URN_MAP[propertys.urn]);
+                    this.value = propertys.intvalue;
                 } else if (URN_MAP[propertys.urn] === "IMPORTANCE") {
                     this.value = propertys.intvalue;
                     // console.log(this.value);
