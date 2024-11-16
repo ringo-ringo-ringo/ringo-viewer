@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Attention({ attentionData, setAttentionData, setPerceptionId, setFilter }: any) {
@@ -45,9 +45,10 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
     const perception = () => {
         if (attentionData.entity === "CIVILIAN" || attentionData.entity === "FIRE_BRIGADE" || attentionData.entity === "AMBULANCE_TEAM" || attentionData.entity === "POLICE_FORCE") {
             return (
-                <Button variant="outlined" onClick={changePerceptionId}>
-                    知覚情報を見る - 未実装
-                </Button>
+                    <Button variant="outlined" onClick={changePerceptionId}>
+                        {/* 知覚情報を見る */}
+                        view perception
+                    </Button>
             );
         }
     };
@@ -55,10 +56,13 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
     return (
         <>
             <div css={body}>
-                <Button onClick={clear}>
-                    {/* 消す */}
-                    <DeleteIcon></DeleteIcon>
-                </Button>
+                <Tooltip title="delete">
+                    <Button onClick={clear}>
+                        {/* 消す */}
+                        <DeleteIcon></DeleteIcon>
+                    </Button>
+                </Tooltip>
+
                 {perception()}
                 <ul>
                     {attentionList.map((e) => {
