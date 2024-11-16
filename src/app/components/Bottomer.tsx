@@ -11,6 +11,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Replay10Icon from "@mui/icons-material/Replay10";
 import Forward10Icon from "@mui/icons-material/Forward10";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function Bottomer({ sliderValue, changeSlider, changeCommittedSlider, buttonDisable, setStep, stepDown, stepUp, perceptionId, deletePerceptionId }: any) {
     const defaultBody = css`
@@ -157,70 +158,84 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                 </div>
 
                 <div className="buttons">
-                    <Button
-                        onClick={() => {
-                            setStep(0);
-                        }}
-                        disabled={buttonDisable}
-                    >
-                        {/* go to initial step */}
-                        <FirstPageIcon></FirstPageIcon>
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            stepDown(10);
-                        }}
-                        disabled={buttonDisable}
-                    >
-                        {/* go to prev 10 step */}
-                        <Replay10Icon></Replay10Icon>
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            stepDown(1);
-                        }}
-                        disabled={buttonDisable}
-                    >
-                        {/* go to prev step */}
-                        <NavigateBeforeIcon></NavigateBeforeIcon>
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            stepUp(1);
-                        }}
-                        disabled={buttonDisable}
-                    >
-                        {/* go to next step */}
-                        <NavigateNextIcon></NavigateNextIcon>
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            stepUp(10);
-                        }}
-                        disabled={buttonDisable}
-                    >
-                        {/* go to next 10 step */}
-                        <Forward10Icon></Forward10Icon>
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            setStep(300);
-                        }}
-                        disabled={buttonDisable}
-                    >
-                        {/* go to last step */}
-                        <LastPageIcon></LastPageIcon>
-                    </Button>
-                    {perceptionId !== null ? (
+                    <Tooltip title="go to initial step">
                         <Button
                             onClick={() => {
-                                deletePerceptionId();
+                                setStep(0);
                             }}
                             disabled={buttonDisable}
                         >
-                            {/* delete perception view */}
-                            <VisibilityOffIcon></VisibilityOffIcon>
+                            {/* go to initial step */}
+                            <FirstPageIcon></FirstPageIcon>
                         </Button>
+                    </Tooltip>
+                    <Tooltip title="go to prev 10 step">
+                        <Button
+                            onClick={() => {
+                                stepDown(10);
+                            }}
+                            disabled={buttonDisable}
+                        >
+                            {/* go to prev 10 step */}
+                            <Replay10Icon></Replay10Icon>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="go to prev step">
+                        <Button
+                            onClick={() => {
+                                stepDown(1);
+                            }}
+                            disabled={buttonDisable}
+                        >
+                            {/* go to prev step */}
+                            <NavigateBeforeIcon></NavigateBeforeIcon>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="go to next step">
+                        <Button
+                            onClick={() => {
+                                stepUp(1);
+                            }}
+                            disabled={buttonDisable}
+                        >
+                            {/* go to next step */}
+                            <NavigateNextIcon></NavigateNextIcon>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="go to next 10 step">
+                        <Button
+                            onClick={() => {
+                                stepUp(10);
+                            }}
+                            disabled={buttonDisable}
+                        >
+                            {/* go to next 10 step */}
+                            <Forward10Icon></Forward10Icon>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="go to last step">
+                        <Button
+                            onClick={() => {
+                                setStep(300);
+                            }}
+                            disabled={buttonDisable}
+                        >
+                            {/* go to last step */}
+                            <LastPageIcon></LastPageIcon>
+                        </Button>
+                    </Tooltip>
+                    {perceptionId !== null ? (
+                        <Tooltip title="delete perception view">
+                            <Button
+                                onClick={() => {
+                                    deletePerceptionId();
+                                }}
+                                disabled={buttonDisable}
+                            >
+                                {/* delete perception view */}
+                                <VisibilityOffIcon></VisibilityOffIcon>
+                            </Button>
+                        </Tooltip>
                     ) : (
                         ""
                     )}
