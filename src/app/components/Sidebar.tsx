@@ -81,7 +81,7 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
         <div css={body}>
             <TabContext value={tabValue}>
                 <div css={clearIcon}>
-                    <Tooltip title="close">
+                    <Tooltip title="close filter">
                         <ClearIcon className="icon" onClick={closeHandler}></ClearIcon>
                     </Tooltip>
                 </div>
