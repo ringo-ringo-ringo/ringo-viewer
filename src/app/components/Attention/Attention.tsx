@@ -17,7 +17,7 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
         overflow-y: scroll;
         margin: 10px 0;
         li {
-            margin: 5px 0;
+            margin: 10px 0;
         }
     `;
 
