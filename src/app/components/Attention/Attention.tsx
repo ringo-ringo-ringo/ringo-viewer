@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ClearIcon from "@mui/icons-material/Clear";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export default function Attention({ attentionData, setAttentionData, setPerceptionId, setFilter }: any) {
     const body = css`
@@ -70,7 +71,8 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
             return (
                 <Button variant="outlined" onClick={changePerceptionId}>
                     {/* 知覚情報を見る */}
-                    view perception
+                    {/* view perception */}
+                    <VisibilityIcon></VisibilityIcon>
                 </Button>
             );
         }
