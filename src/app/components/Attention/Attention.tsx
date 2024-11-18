@@ -31,10 +31,12 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
 
     const clearIcon = css`
         position: relative;
-        height: 30px;
+        height: 36.5px;
         .icon {
             position: absolute;
             right: 0;
+            top: 50%;
+            transform: translateY(-50%);
             height: 30px;
             width: 30px;
             transition: 0.2s;
@@ -81,12 +83,12 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
         <>
             <div css={body}>
                 <div css={clearIcon}>
+                    {perception()}
                     <Tooltip title="delete">
                         <ClearIcon className="icon" onClick={clear}></ClearIcon>
                     </Tooltip>
                 </div>
 
-                {perception()}
                 <ul>
                     {attentionList.map((e) => {
                         return <li key={e}>{e}</li>;
