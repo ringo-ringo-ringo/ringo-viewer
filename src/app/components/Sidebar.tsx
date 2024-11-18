@@ -33,7 +33,7 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
             width: 30px;
             transition: 0.2s;
             :hover {
-                color: #91f0ff;
+                color:  #f3f3f3f5;;
                 cursor: pointer;
             }
         }

@@ -13,7 +13,7 @@ export default function OpenSideBar({ setShowSideBar }: any) {
         border-radius: 5px;
         transition: 0.2s;
         :hover {
-            color: #91f0ff;
+            color: #f3f3f3f5;
             cursor: pointer;
         }
         .icon {
