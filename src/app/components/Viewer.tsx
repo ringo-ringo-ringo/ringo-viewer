@@ -103,7 +103,11 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                             if (key && object.hasOwnProperty(key)) {
                                 const value = object[key];
                                 if (value.value) {
-                                    text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                                    if (key === "HP" || key === "STAMINA" || key === "BURIEDNESS" || key === "REPAIR_COST" || key === "OCCUPIED_BEDS" || key === "BED_CAPACITY" || key === "BED_CAPACITY" || key === "BROKENNESS") {
+                                        text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                                    } else {
+                                        // text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                                    }
                                 }
                             }
                         }
