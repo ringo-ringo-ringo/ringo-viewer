@@ -18,6 +18,11 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
         margin: 10px 0;
         li {
             margin: 10px 0;
+            transition: 0.2s;
+            border-radius: 10px;
+            :hover{
+                background-color: #b2b2b2f5;
+            }
         }
     `;
 
