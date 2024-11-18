@@ -30,7 +30,7 @@ export default function OpenSideBar({ setShowSideBar }: any) {
     return (
         <>
             <div css={body} onClick={openHandler}>
-                <Tooltip title="open">
+                <Tooltip title="open filter">
                     <ChevronRightIcon className="icon"></ChevronRightIcon>
                 </Tooltip>
             </div>
