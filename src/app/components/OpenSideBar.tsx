@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Tooltip } from "@mui/material";
 
 export default function OpenSideBar({ setShowSideBar }: any) {
     const body = css`
@@ -29,7 +30,9 @@ export default function OpenSideBar({ setShowSideBar }: any) {
     return (
         <>
             <div css={body} onClick={openHandler}>
-                <ChevronRightIcon className="icon"></ChevronRightIcon>
+                <Tooltip title="open">
+                    <ChevronRightIcon className="icon"></ChevronRightIcon>
+                </Tooltip>
             </div>
         </>
     );
