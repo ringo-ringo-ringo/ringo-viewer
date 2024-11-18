@@ -36,8 +36,8 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                 isOkPerception = false;
             }
 
-            if (filter.BUILDING) layer.push(createLayer.getBuildingsLayer());
             if (filter.ROAD) layer.push(createLayer.getRoadsLayer());
+            if (filter.BUILDING) layer.push(createLayer.getBuildingsLayer());
             if (filter.POLICE_OFFICE) layer.push(createLayer.getPoliceOfficesLayer());
             if (filter.REFUGE) layer.push(createLayer.getRefugesLayer());
             if (filter.HYDRANT) layer.push(createLayer.getHydrantsLayer());
@@ -46,8 +46,8 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (filter.AMBULANCE_CENTRE) layer.push(createLayer.getAmbulanceCentresLayer());
             if (filter.BLOCKADE) layer.push(createLayer.getBlockadesLayer());
 
-            if (perceptionFilter.perceptionBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
             if (perceptionFilter.perceptionROAD && isOkPerception) layer.push(createLayer.getPerceptionRoadsLayer());
+            if (perceptionFilter.perceptionBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
             if (perceptionFilter.perceptionPOLICE_OFFICE && isOkPerception) layer.push(createLayer.getPerceptionPoliceOfficesLayer());
             if (perceptionFilter.perceptionREFUGE && isOkPerception) layer.push(createLayer.getPerceptionRefugesLayer());
             if (perceptionFilter.perceptionHYDRANT && isOkPerception) layer.push(createLayer.getPerceptionHydrantsLayer());
