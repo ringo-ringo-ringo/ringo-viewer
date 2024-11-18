@@ -42,8 +42,11 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
             background-color: lightgray;
             border-radius: 10px;
             z-index: 5;
+            transition: 0.2s;
+
             :hover {
                 cursor: pointer;
+                color: #f5f5f5f5;
             }
             .icon {
                 width: 30px;
@@ -106,8 +109,10 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
             background-color: lightgray;
             border-radius: 10px;
             z-index: 5;
+            transition: 0.2s;
             :hover {
                 cursor: pointer;
+                color: #f5f5f5f5;
             }
             .icon {
                 width: 30px;
