@@ -69,10 +69,9 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
     const perception = () => {
         if (attentionData.entity === "CIVILIAN" || attentionData.entity === "FIRE_BRIGADE" || attentionData.entity === "AMBULANCE_TEAM" || attentionData.entity === "POLICE_FORCE") {
             return (
-                <Button variant="outlined" onClick={changePerceptionId}>
+                <Button onClick={changePerceptionId}>
                     {/* 知覚情報を見る */}
-                    {/* view perception */}
-                    <VisibilityIcon></VisibilityIcon>
+                    <VisibilityIcon></VisibilityIcon> view perception
                 </Button>
             );
         }
