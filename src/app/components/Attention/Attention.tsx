@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { Button, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ClearIcon from "@mui/icons-material/Clear";
 
 export default function Attention({ attentionData, setAttentionData, setPerceptionId, setFilter }: any) {
     const body = css`
@@ -23,6 +24,22 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
             border-radius: 10px;
             :hover {
                 background-color: #b2b2b2f5;
+            }
+        }
+    `;
+
+    const clearIcon = css`
+        position: relative;
+        height: 30px;
+        .icon {
+            position: absolute;
+            right: 0;
+            height: 30px;
+            width: 30px;
+            transition: 0.2s;
+            :hover {
+                color: #f3f3f3f5;
+                cursor: pointer;
             }
         }
     `;
@@ -62,12 +79,11 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
     return (
         <>
             <div css={body}>
-                <Tooltip title="delete">
-                    <Button onClick={clear}>
-                        {/* 消す */}
-                        <DeleteIcon></DeleteIcon>
-                    </Button>
-                </Tooltip>
+                <div css={clearIcon}>
+                    <Tooltip title="delete">
+                        <ClearIcon className="icon" onClick={clear}></ClearIcon>
+                    </Tooltip>
+                </div>
 
                 {perception()}
                 <ul>
