@@ -8,7 +8,7 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
     const body = css`
         position: absolute;
         right: 10px;
-        max-height: calc(100% - 20px);
+        max-height: calc(100% - 20px - 36.5px - 40px);
         z-index: 2;
         width: 400px;
         background-color: #9f9f9ff5;
@@ -20,7 +20,7 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
             margin: 10px 0;
             transition: 0.2s;
             border-radius: 10px;
-            :hover{
+            :hover {
                 background-color: #b2b2b2f5;
             }
         }
@@ -50,10 +50,10 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
     const perception = () => {
         if (attentionData.entity === "CIVILIAN" || attentionData.entity === "FIRE_BRIGADE" || attentionData.entity === "AMBULANCE_TEAM" || attentionData.entity === "POLICE_FORCE") {
             return (
-                    <Button variant="outlined" onClick={changePerceptionId}>
-                        {/* 知覚情報を見る */}
-                        view perception
-                    </Button>
+                <Button variant="outlined" onClick={changePerceptionId}>
+                    {/* 知覚情報を見る */}
+                    view perception
+                </Button>
             );
         }
     };
