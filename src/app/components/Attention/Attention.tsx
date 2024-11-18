@@ -18,6 +18,7 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
         margin: 10px 0;
         li {
             margin: 10px 0;
+            padding: 2px 4px;
             transition: 0.2s;
             border-radius: 10px;
             :hover {
