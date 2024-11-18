@@ -10,7 +10,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
     const [perceptionId, setPerceptionId] = useState(null);
 
     const fetchPerception = () => {
-        if (perceptionId) {
+        if (perceptionId && !simulation.getWorldModel(step).getPerception(perceptionId)) {
             const fetchPerception = async (callStep: number) => {
                 if (callStep === 0) {
                     await simulation.initPerseption(callStep, perceptionId);
