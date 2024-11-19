@@ -90,8 +90,8 @@ export class Communication {
                             const damage = reader.getBits(1) === 1 ? reader.getBits(14) : -1;
                             const position = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
                             const target = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
+                            const action = reader.getBits(4);
                             const water = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
-                            const action = reader.getBits(1) === 1 ? reader.getBits(4) : -1;
 
                             this.components[key] = {
                                 id,
@@ -121,6 +121,23 @@ export class Communication {
                                 position,
                                 target,
                                 action,
+                            };
+                        } else if (messageType === 6) {
+                            const id = reader.getBits(32);
+
+                            const blockadeId = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
+                            const cost = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
+                            const x = reader.getBits(1) === 1 ? reader.getBits(32) : null;
+                            const y = reader.getBits(1) === 1 ? reader.getBits(32) : null;
+                            const passable = reader.getBits(1) === 1 ? reader.getBits(1) : null;
+
+                            this.components[key] = {
+                                id,
+                                blockadeId,
+                                cost,
+                                x,
+                                y,
+                                passable,
                             };
                         } else {
                             console.error("知らないやつきたぞ", "メッセージタイプ : ", messageType, "中身 : ", reader);
