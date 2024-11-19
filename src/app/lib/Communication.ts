@@ -33,8 +33,6 @@ export class Communication {
 
                         const messageType = reader.getBits(5);
 
-                        console.log(messageType);
-
                         if (messageType === 1) {
                             const id = reader.getBits(32);
 
@@ -139,6 +137,17 @@ export class Communication {
                                 y,
                                 passable,
                             };
+                        } else if (messageType === 9) {
+                            const to = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
+                            const target = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
+                            const action = reader.getBits(4);
+
+                            this.components[key] = {
+                                to,
+                                target,
+                                action,
+                            };
+                            console.log(this.components);
                         } else {
                             console.error("知らないやつきたぞ", "メッセージタイプ : ", messageType, "中身 : ", reader);
                         }
@@ -149,6 +158,5 @@ export class Communication {
                 }
             });
         });
-        console.log(this);
     }
 }
