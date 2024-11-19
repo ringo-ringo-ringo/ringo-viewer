@@ -24,6 +24,8 @@ export default function Home() {
 
     const [buttonDisable, setButtonDisable] = useState<boolean>(false);
 
+    const [IdSearch, setIdSearch] = useState<string>("");
+
     useEffect(() => {
         if (isLoading > 0) {
             setButtonDisable(true);
@@ -108,7 +110,7 @@ export default function Home() {
         <>
             <Linear isLoading={isLoading}></Linear>
             <Header step={step} score={score} maxScore={maxScore} isLoading={isLoading}></Header>
-            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter} setPerceptionFilter={setPerceptionFilter}></Viewer>
+            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter} setPerceptionFilter={setPerceptionFilter} IdSearch={IdSearch} setIdSearch={setIdSearch}></Viewer>
             <Bottomer sliderValue={sliderValue} changeSlider={changeSlider} changeCommittedSlider={changeCommittedSlider} buttonDisable={buttonDisable} setStep={setStep} stepDown={stepDown} stepUp={stepUp} perceptionId={perceptionId} deletePerceptionId={deletePerceptionId}></Bottomer>
         </>
     );

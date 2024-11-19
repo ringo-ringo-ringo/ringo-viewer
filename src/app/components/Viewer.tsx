@@ -10,7 +10,7 @@ import Attention from "@/app/components/Attention/Attention";
 import Sidebar from "@/app/components/Sidebar";
 import OpenSideBar from "@/app/components/OpenSideBar";
 
-export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter }: any) {
+export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter,IdSearch,setIdSearch }: any) {
     const body = css`
         position: relative;
         height: 100%;
@@ -116,7 +116,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                     }}
                 />
 
-                {showSideBar ? <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter} setShowSideBar={setShowSideBar}></Sidebar> : <OpenSideBar setShowSideBar={setShowSideBar}></OpenSideBar>}
+                {showSideBar ? <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter} setShowSideBar={setShowSideBar}  IdSearch={IdSearch} setIdSearch={setIdSearch}></Sidebar> : <OpenSideBar setShowSideBar={setShowSideBar}></OpenSideBar>}
 
                 {attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}
             </div>
