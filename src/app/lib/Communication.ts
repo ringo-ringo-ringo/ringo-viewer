@@ -103,9 +103,29 @@ export class Communication {
                                 water,
                                 action,
                             };
+                        } else if (messageType === 5) {
+                            const id = reader.getBits(32);
+
+                            const hp = reader.getBits(1) === 1 ? reader.getBits(14) : -1;
+                            const buriedness = reader.getBits(1) === 1 ? reader.getBits(13) : -1;
+                            const damage = reader.getBits(1) === 1 ? reader.getBits(14) : -1;
+                            const position = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
+                            const target = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
+                            const action = reader.getBits(1) === 1 ? reader.getBits(4) : -1;
+
+                            this.components[key] = {
+                                id,
+                                hp,
+                                buriedness,
+                                damage,
+                                position,
+                                target,
+                                action,
+                            };
                         } else {
                             console.error("知らないやつきたぞ", "メッセージタイプ : ", messageType, "中身 : ", reader);
                         }
+                        //アクションって何だ？？？？？？？？？
                     } else {
                         console.error("知らないやつ見つけたぞ");
                     }
