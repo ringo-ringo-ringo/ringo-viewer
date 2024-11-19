@@ -1,13 +1,24 @@
 "use client";
 
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import React, { ReactElement, useState, useEffect } from "react";
 import DeckGL from "@deck.gl/react";
 import { PolygonLayer, IconLayer } from "@deck.gl/layers";
 import { CreateLayer } from "@/app/lib/CreateLayer";
-import { stringify } from "querystring";
+import Attention from "@/app/components/Attention/Attention";
+import Sidebar from "@/app/components/Sidebar";
+import OpenSideBar from "@/app/components/OpenSideBar";
 
-export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter }: any) {
+export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter }: any) {
+    const body = css`
+        position: relative;
+        height: 100%;
+    `;
+
     const [layer, setLayer] = useState<any>([]);
+
+    const [showSideBar, setShowSideBar] = useState(false);
 
     useEffect(() => {
         if (simulation && simulation.getWorldModel(step)) {
@@ -25,8 +36,8 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                 isOkPerception = false;
             }
 
-            if (filter.BUILDING) layer.push(createLayer.getBuildingsLayer());
             if (filter.ROAD) layer.push(createLayer.getRoadsLayer());
+            if (filter.BUILDING) layer.push(createLayer.getBuildingsLayer());
             if (filter.POLICE_OFFICE) layer.push(createLayer.getPoliceOfficesLayer());
             if (filter.REFUGE) layer.push(createLayer.getRefugesLayer());
             if (filter.HYDRANT) layer.push(createLayer.getHydrantsLayer());
@@ -35,8 +46,8 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (filter.AMBULANCE_CENTRE) layer.push(createLayer.getAmbulanceCentresLayer());
             if (filter.BLOCKADE) layer.push(createLayer.getBlockadesLayer());
 
-            if (perceptionFilter.perceptionBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
             if (perceptionFilter.perceptionROAD && isOkPerception) layer.push(createLayer.getPerceptionRoadsLayer());
+            if (perceptionFilter.perceptionBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
             if (perceptionFilter.perceptionPOLICE_OFFICE && isOkPerception) layer.push(createLayer.getPerceptionPoliceOfficesLayer());
             if (perceptionFilter.perceptionREFUGE && isOkPerception) layer.push(createLayer.getPerceptionRefugesLayer());
             if (perceptionFilter.perceptionHYDRANT && isOkPerception) layer.push(createLayer.getPerceptionHydrantsLayer());
@@ -67,38 +78,48 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
     return (
         <>
-            <DeckGL
-                initialViewState={{
-                    longitude: 2,
-                    latitude: 2,
-                    zoom: 6,
-                }}
-                controller
-                layers={layer}
-                onClick={deckglClickHandler}
-                getTooltip={({ object }) => {
-                    //ここ適当!!直して!
+            <div css={body}>
+                <DeckGL
+                    initialViewState={{
+                        longitude: 2,
+                        latitude: 2,
+                        zoom: 6,
+                    }}
+                    controller
+                    layers={layer}
+                    onClick={deckglClickHandler}
+                    getTooltip={({ object }) => {
+                        //ここ適当!!直して!
 
-                    if (!object) return null;
+                        if (!object) return null;
 
-                    let text = "";
+                        let text = "";
 
-                    text += "entity : " + object.entity + "\n";
+                        text += "entity : " + object.entity + "\n";
 
-                    text += "entityId : " + object.entityId + "\n";
+                        text += "entityId : " + object.entityId + "\n";
 
-                    for (const key in object) {
-                        if (key && object.hasOwnProperty(key)) {
-                            const value = object[key];
-                            if (value.value) {
-                                text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                        for (const key in object) {
+                            if (key && object.hasOwnProperty(key)) {
+                                const value = object[key];
+                                if (value.value) {
+                                    if (key === "HP" || key === "STAMINA" || key === "BURIEDNESS" || key === "REPAIR_COST" || key === "OCCUPIED_BEDS" || key === "BED_CAPACITY" || key === "BED_CAPACITY" || key === "BROKENNESS") {
+                                        text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                                    } else {
+                                        // text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
+                                    }
+                                }
                             }
                         }
-                    }
 
-                    return { text };
-                }}
-            />
+                        return { text };
+                    }}
+                />
+
+                {showSideBar ? <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter} setShowSideBar={setShowSideBar}></Sidebar> : <OpenSideBar setShowSideBar={setShowSideBar}></OpenSideBar>}
+
+                {attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}
+            </div>
         </>
     );
 }

@@ -10,7 +10,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
     const [perceptionId, setPerceptionId] = useState(null);
 
     const fetchPerception = () => {
-        if (perceptionId) {
+        if (perceptionId && !simulation.getWorldModel(step).getPerception(perceptionId)) {
             const fetchPerception = async (callStep: number) => {
                 if (callStep === 0) {
                     await simulation.initPerseption(callStep, perceptionId);
@@ -45,7 +45,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
     useEffect(() => {
         if (!simulation.getWorldModel(step)) {
             if (step === 0) {
-                setIsLoading((e) => e + 1);
+                setIsLoading((e) => e + 2);
 
                 const start = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "START_OF_LOG");
                 const end = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "END_OF_LOG");
@@ -66,7 +66,11 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                             throw new Error("ログのパスが間違っているか，ログファイルではないか，ログファイルが破損しています");
                         }
 
+                        setIsLoading((e) => e - 2);
+
                         simulation.setLogPath(String(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH));
+
+                        setIsLoading((e) => e + 1);
 
                         LoadLog.load(simulation.getLogPath(), "INITIAL_CONDITIONS")
                             .then((res) => {

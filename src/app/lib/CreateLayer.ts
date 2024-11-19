@@ -108,16 +108,17 @@ export class CreateLayer {
                 const properties = entity.getPropertys();
                 const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
-                let color = 200;
+                let color = 100;
                 if (properties.BROKENNESS.value) {
-                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    color = 100 * (1 - properties.BROKENNESS.value / 100);
                 }
 
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [color + 50, 0, 0],
+                    lineColor: [255, 0, 255],
+                    backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
                 };
 
@@ -162,16 +163,17 @@ export class CreateLayer {
                 const properties = entity.getPropertys();
                 const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
-                let color = 200;
+                let color = 100;
                 if (properties.BROKENNESS.value) {
-                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    color = 100 * (1 - properties.BROKENNESS.value / 100);
                 }
 
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [color + 50, color + 50, 0],
+                    lineColor: [255, 0, 0],
+                    backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
                 };
 
@@ -180,16 +182,17 @@ export class CreateLayer {
                 const properties = entity.getPropertys();
                 const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
-                let color = 200;
+                let color = 100;
                 if (properties.BROKENNESS.value) {
-                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    color = 100 * (1 - properties.BROKENNESS.value / 100);
                 }
 
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [color + 50, 0, color + 50],
+                    lineColor: [240, 240, 240],
+                    backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
                 };
 
@@ -198,16 +201,17 @@ export class CreateLayer {
                 const properties = entity.getPropertys();
                 const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
-                let color = 200;
+                let color = 100;
                 if (properties.BROKENNESS.value) {
-                    color = 200 * (1 - properties.BROKENNESS.value / 100);
+                    color = 100 * (1 - properties.BROKENNESS.value / 100);
                 }
 
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
-                    backgroundColor: [0, color + 50, color + 50],
+                    lineColor: [0, 0, 255],
+                    backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
                 };
 
@@ -551,16 +555,17 @@ export class CreateLayer {
                     const properties = entity.getPropertys();
                     const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
-                    let color = 200;
+                    let color = 100;
                     if (properties.BROKENNESS.value) {
-                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                        color = 100 * (1 - properties.BROKENNESS.value / 100);
                     }
 
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
-                        backgroundColor: [color + 50, 0, 0],
+                        lineColor: [255, 0, 255],
+                        backgroundColor: [color + 50, color + 50, color + 50],
                         ...properties,
                     };
 
@@ -605,16 +610,17 @@ export class CreateLayer {
                     const properties = entity.getPropertys();
                     const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
-                    let color = 200;
+                    let color = 100;
                     if (properties.BROKENNESS.value) {
-                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                        color = 100 * (1 - properties.BROKENNESS.value / 100);
                     }
 
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
-                        backgroundColor: [color + 50, color + 50, 0],
+                        lineColor: [255, 0, 0],
+                        backgroundColor: [color + 50, color + 50, color + 50],
                         ...properties,
                     };
 
@@ -623,16 +629,17 @@ export class CreateLayer {
                     const properties = entity.getPropertys();
                     const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
-                    let color = 200;
+                    let color = 100;
                     if (properties.BROKENNESS.value) {
-                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                        color = 100 * (1 - properties.BROKENNESS.value / 100);
                     }
 
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
-                        backgroundColor: [color + 50, 0, color + 50],
+                        lineColor: [240, 240, 240],
+                        backgroundColor: [color + 50, color + 50, color + 50],
                         ...properties,
                     };
 
@@ -641,16 +648,17 @@ export class CreateLayer {
                     const properties = entity.getPropertys();
                     const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
-                    let color = 200;
+                    let color = 100;
                     if (properties.BROKENNESS.value) {
-                        color = 200 * (1 - properties.BROKENNESS.value / 100);
+                        color = 100 * (1 - properties.BROKENNESS.value / 100);
                     }
 
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
-                        backgroundColor: [0, color + 50, color + 50],
+                        lineColor: [0, 0, 255],
+                        backgroundColor: [color + 50, color + 50, color + 50],
                         ...properties,
                     };
 
@@ -774,7 +782,13 @@ export class CreateLayer {
             elevationScale: 20,
             getPolygon: (d) => d.apex,
             getFillColor: (d) => d.backgroundColor,
-            getLineColor: (d) => [150, 150, 150],
+            getLineColor: (d) => {
+                if (d.lineColor) {
+                    return d.lineColor;
+                } else {
+                    return [150, 150, 150];
+                }
+            },
             lineWidthMinPixels: 1,
             pickable: true,
         });
