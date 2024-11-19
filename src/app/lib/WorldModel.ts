@@ -68,6 +68,14 @@ export class WorldModel {
         }
     }
 
+    setCommunication(entityID: number, log: any) {
+        this.entity.map((entity) => {
+            if (entity.getEntityId() === entityID) {
+                entity.setCommunication(log);
+            }
+        });
+    }
+
     getEntity() {
         return this.entity;
     }

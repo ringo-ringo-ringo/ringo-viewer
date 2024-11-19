@@ -55,6 +55,12 @@ export class Simulation {
         return initPerceptionMapEntity;
     }
 
+    setCommunication(step: number, entityID: number, log: any) {
+        if (this.worldModel[step] && this.LogPath) {
+            this.worldModel[step].setCommunication(entityID, log.perception.communicationsList);
+        }
+    }
+
     getPerception(step: number, id: number) {
         return this.worldModel[step].getPerception(id);
     }
