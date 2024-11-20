@@ -59,6 +59,7 @@ export class CreateLayer {
     communicationAmbulanceTeamsLayer: HumanLayer[] = [];
     communicationCiviliansLayer: HumanLayer[] = [];
     communicationFireBrigadesLayer: HumanLayer[] = [];
+    communicationPoliceForcesLayer: HumanLayer[] = [];
     communicationTargetLayer: targetArcLayer[] = [];
 
     constructor() {}
@@ -1111,6 +1112,67 @@ export class CreateLayer {
                         } else {
                             console.error("だめだー");
                         }
+                    } else if (communication.components.messageType === 5) {
+                        //MessagePoliceForce
+
+                        const entitys = simulation.getWorldModel(step).getEntity();
+
+                        let positionEntity = null;
+                        let targetEntity = null;
+                        entitys.map((entity) => {
+                            if (entity.getEntityId() === communication.components.Message.position) {
+                                positionEntity = entity;
+                            }
+                            if (entity.getEntityId() === communication.components.Message.target) {
+                                targetEntity = entity;
+                            }
+                        });
+
+                        if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                            const x = (positionEntity as Entity).getPropertys().X.value;
+                            const y = (positionEntity as Entity).getPropertys().Y.value;
+
+                            let color = 0;
+                            if (communication.components.Message.hp) {
+                                color = 255 * (communication.components.Message.hp / 10000);
+                            }
+
+                            let bgc = [0, 0, color];
+                            if (communication.components.Message.id === perceptionId) {
+                                bgc = [0, color, color];
+                            }
+
+                            let isSearch = false;
+                            if (String(communication.components.Message.id) === IdSearch) {
+                                isSearch = true;
+                            }
+
+                            const data = {
+                                entity: "POLICE_FORCE",
+                                entityId: communication.components.Message.id,
+                                positions: [x / 20000, y / 20000],
+                                backgroundColor: bgc,
+                                isSearch,
+                                ...communication.components.Message,
+                            };
+
+                            this.communicationPoliceForcesLayer.push(data);
+
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                                const targetData = {
+                                    from: [x / 20000, y / 20000],
+                                    to: [targetX / 20000, targetY / 20000],
+                                    color: [0, 0, 255],
+                                };
+
+                                this.communicationTargetLayer.push(targetData);
+                            }
+                        } else {
+                            console.error("だめだー");
+                        }
                     } else {
                         console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
                     }
@@ -1333,6 +1395,11 @@ export class CreateLayer {
 
     getCommunicationFireBrigadesLayer() {
         const layer = this.createIconLayer("communication-fire-brigade", this.communicationFireBrigadesLayer);
+        return layer;
+    }
+
+    getCommunicationPoliceForcesLayer() {
+        const layer = this.createIconLayer("communication-police-force", this.communicationPoliceForcesLayer);
         return layer;
     }
 }
