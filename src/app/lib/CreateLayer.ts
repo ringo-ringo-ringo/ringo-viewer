@@ -67,7 +67,7 @@ export class CreateLayer {
         return edges;
     }
 
-    createLayer(step: number, simulation: Simulation, perceptionId: number) {
+    createLayer(step: number, simulation: Simulation, perceptionId: number, IdSearch: string) {
         //ここからがworldのレイヤー作成
         const worldModel: WorldModel = simulation.getWorldModel(step);
         const entitys = worldModel.getEntity();
@@ -82,11 +82,17 @@ export class CreateLayer {
                     color = 100 * (1 - properties.BROKENNESS.value / 100);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [color + 50, color + 50, color + 50],
+                    isSearch,
                     ...properties,
                 };
 
@@ -95,11 +101,17 @@ export class CreateLayer {
                 const properties = entity.getPropertys();
                 const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [200, 200, 200],
+                    isSearch,
                     ...properties,
                 };
 
@@ -113,11 +125,17 @@ export class CreateLayer {
                     color = 100 * (1 - properties.BROKENNESS.value / 100);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     lineColor: [255, 0, 255],
+                    isSearch,
                     backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
                 };
@@ -132,11 +150,17 @@ export class CreateLayer {
                     color = 200 * (1 - properties.BROKENNESS.value / 100);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [0, color + 50, 0],
+                    isSearch,
                     ...properties,
                 };
 
@@ -150,11 +174,17 @@ export class CreateLayer {
                     color = 200 * (1 - properties.BROKENNESS.value / 100);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [0, 0, color + 50],
+                    isSearch,
                     ...properties,
                 };
 
@@ -168,11 +198,17 @@ export class CreateLayer {
                     color = 100 * (1 - properties.BROKENNESS.value / 100);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     lineColor: [255, 0, 0],
+                    isSearch,
                     backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
                 };
@@ -187,11 +223,17 @@ export class CreateLayer {
                     color = 100 * (1 - properties.BROKENNESS.value / 100);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     lineColor: [240, 240, 240],
+                    isSearch,
                     backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
                 };
@@ -206,11 +248,17 @@ export class CreateLayer {
                     color = 100 * (1 - properties.BROKENNESS.value / 100);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     lineColor: [0, 0, 255],
+                    isSearch,
                     backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
                 };
@@ -262,11 +310,17 @@ export class CreateLayer {
                     color = 255 * (properties.HP.value / 10000);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [0, color, 0],
+                    isSearch,
                     ...properties,
                 };
 
@@ -317,11 +371,17 @@ export class CreateLayer {
                     color = 255 * (properties.HP.value / 10000);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [color, 0, 0],
+                    isSearch,
                     ...properties,
                 };
 
@@ -372,11 +432,17 @@ export class CreateLayer {
                     color = 255 * (properties.HP.value / 10000);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [color, color, color],
+                    isSearch,
                     ...properties,
                 };
 
@@ -427,11 +493,17 @@ export class CreateLayer {
                     color = 255 * (properties.HP.value / 10000);
                 }
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     position: [x / 20000, y / 20000],
                     backgroundColor: [0, 0, color],
+                    isSearch,
                     ...properties,
                 };
 
@@ -459,11 +531,17 @@ export class CreateLayer {
                     count++;
                 });
 
+                let isSearch = false;
+                if (String(entity.getEntityId()) === IdSearch) {
+                    isSearch = true;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     apex: edges,
                     backgroundColor: [10, 10, 10],
+                    isSearch,
                     ...properties,
                 };
 
@@ -488,11 +566,17 @@ export class CreateLayer {
                         color = 100 * (1 - properties.BROKENNESS.value / 100);
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
                         backgroundColor: [color + 50, color + 50, color + 50],
+                        isSearch,
                         ...properties,
                     };
 
@@ -501,11 +585,17 @@ export class CreateLayer {
                     const properties = entity.getPropertys();
                     const edges: Array<number[]> = this.getEdges(properties.EDGES.value.edgesList);
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
                         backgroundColor: [200, 200, 200],
+                        isSearch,
                         ...properties,
                     };
 
@@ -538,11 +628,17 @@ export class CreateLayer {
                                         count++;
                                     });
 
+                                    let isSearch = false;
+                                    if (String(entity.getEntityId()) === IdSearch) {
+                                        isSearch = true;
+                                    }
+
                                     const data = {
                                         entity: URN_MAP[entity.urn],
                                         entityId: entity.entityId,
                                         apex: edges,
                                         backgroundColor: [10, 10, 10],
+                                        isSearch,
                                         ...properties,
                                     };
 
@@ -560,11 +656,17 @@ export class CreateLayer {
                         color = 100 * (1 - properties.BROKENNESS.value / 100);
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
                         lineColor: [255, 0, 255],
+                        isSearch,
                         backgroundColor: [color + 50, color + 50, color + 50],
                         ...properties,
                     };
@@ -579,11 +681,17 @@ export class CreateLayer {
                         color = 200 * (1 - properties.BROKENNESS.value / 100);
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
                         backgroundColor: [0, color + 50, 0],
+                        isSearch,
                         ...properties,
                     };
 
@@ -597,11 +705,17 @@ export class CreateLayer {
                         color = 200 * (1 - properties.BROKENNESS.value / 100);
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
                         backgroundColor: [0, 0, color + 50],
+                        isSearch,
                         ...properties,
                     };
 
@@ -615,11 +729,17 @@ export class CreateLayer {
                         color = 100 * (1 - properties.BROKENNESS.value / 100);
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
                         lineColor: [255, 0, 0],
+                        isSearch,
                         backgroundColor: [color + 50, color + 50, color + 50],
                         ...properties,
                     };
@@ -634,11 +754,17 @@ export class CreateLayer {
                         color = 100 * (1 - properties.BROKENNESS.value / 100);
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
                         lineColor: [240, 240, 240],
+                        isSearch,
                         backgroundColor: [color + 50, color + 50, color + 50],
                         ...properties,
                     };
@@ -653,11 +779,17 @@ export class CreateLayer {
                         color = 100 * (1 - properties.BROKENNESS.value / 100);
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         apex: edges,
                         lineColor: [0, 0, 255],
+                        isSearch,
                         backgroundColor: [color + 50, color + 50, color + 50],
                         ...properties,
                     };
@@ -679,11 +811,17 @@ export class CreateLayer {
                         bgc = [0, color, color];
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         position: [x / 20000, y / 20000],
                         backgroundColor: bgc,
+                        isSearch,
                         ...properties,
                     };
 
@@ -704,11 +842,17 @@ export class CreateLayer {
                         bgc = [0, color, color];
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         position: [x / 20000, y / 20000],
                         backgroundColor: bgc,
+                        isSearch,
                         ...properties,
                     };
 
@@ -729,11 +873,17 @@ export class CreateLayer {
                         bgc = [0, color, color];
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         position: [x / 20000, y / 20000],
                         backgroundColor: bgc,
+                        isSearch,
                         ...properties,
                     };
 
@@ -754,11 +904,17 @@ export class CreateLayer {
                         bgc = [0, color, color];
                     }
 
+                    let isSearch = false;
+                    if (String(entity.getEntityId()) === IdSearch) {
+                        isSearch = true;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         position: [x / 20000, y / 20000],
                         backgroundColor: bgc,
+                        isSearch,
                         ...properties,
                     };
 
@@ -781,7 +937,7 @@ export class CreateLayer {
             stroked: true,
             elevationScale: 20,
             getPolygon: (d) => d.apex,
-            getFillColor: (d) => d.backgroundColor,
+            getFillColor: (d) => (d.isSearch ? [255, 255, 80] : d.backgroundColor),
             getLineColor: (d) => {
                 if (d.lineColor) {
                     return d.lineColor;
@@ -800,7 +956,7 @@ export class CreateLayer {
             id: id,
             iconAtlas: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
             iconMapping: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
-            getIcon: (d) => "marker",
+            getIcon: (d) => (d.isSearch ? "marker-warning" : "marker"),
             getPosition: (d) => d.position,
             getColor: (d) => d.backgroundColor,
             getSize: 30,

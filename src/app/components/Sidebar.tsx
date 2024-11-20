@@ -10,9 +10,9 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
-import { Tooltip } from "@mui/material";
+import { Tooltip, TextField } from "@mui/material";
 
-export default function Sidebar({ filter, setFilter, perceptionId, perceptionFilter, setPerceptionFilter, setShowSideBar }: any) {
+export default function Sidebar({ filter, setFilter, perceptionId, perceptionFilter, setPerceptionFilter, setShowSideBar, IdSearch, setIdSearch }: any) {
     const body = css`
         position: absolute;
         top: 100px;
@@ -64,6 +64,10 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
         setTabValue(newValue);
     };
 
+    const changeIdSearch = (e: any) => {
+        setIdSearch(e.target.value);
+    };
+
     const checkboxList = [];
     for (const key in filter) {
         checkboxList.push(key);
@@ -89,6 +93,7 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
                     <TabList onChange={tabHandler} aria-label="lab API tabs example">
                         <Tab label="world" value="1" />
                         <Tab label="perception" value="2" />
+                        <Tab label="ID-Search" value="3" />
                     </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -104,6 +109,9 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
                             return <FormControlLabel key={key} control={<Checkbox name={key} checked={perceptionFilter[key]} onClick={perceptionFilterHandler} />} label={key} />;
                         })}
                     </FormGroup>
+                </TabPanel>
+                <TabPanel value="3">
+                    <TextField id="ID-Search" label="ID-Search" variant="standard" value={IdSearch} onChange={changeIdSearch} />
                 </TabPanel>
             </TabContext>
         </div>
