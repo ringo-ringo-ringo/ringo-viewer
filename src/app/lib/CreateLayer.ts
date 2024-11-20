@@ -1053,8 +1053,6 @@ export class CreateLayer {
                     } else if (communication.components.messageType === 4) {
                         //MessageFireBrigade
 
-                        console.log(communication.components)
-
                         const entitys = simulation.getWorldModel(step).getEntity();
 
                         let positionEntity = null;
