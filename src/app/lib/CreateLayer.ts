@@ -943,8 +943,9 @@ export class CreateLayer {
             //communicationの情報をひとつづづ読んでいって，レイヤーに格納
             communications.map((communication) => {
                 if (URN_MAP[communication.urn] === "AK_SPEAK") {
-                    //MessageAmbulanceTeam
                     if (communication.components.messageType === 1) {
+                        //MessageAmbulanceTeam
+
                         const entitys = simulation.getWorldModel(step).getEntity();
 
                         let positionEntity = null;
