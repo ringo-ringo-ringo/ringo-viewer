@@ -57,6 +57,7 @@ export class CreateLayer {
     perceptionBlockadesLayer: BuildLayer[] = [];
 
     communicationAmbulanceTeamsLayer: HumanLayer[] = [];
+    communicationCiviliansLayer: HumanLayer[] = [];
     communicationTargetLayer: targetArcLayer[] = [];
 
     constructor() {}
@@ -1004,6 +1005,52 @@ export class CreateLayer {
                         } else {
                             console.error("だめだー");
                         }
+                    } else if (communication.components.messageType === 3) {
+                        //MessageCivilian
+
+                        console.log(communication.components);
+
+                        const entitys = simulation.getWorldModel(step).getEntity();
+
+                        let positionEntity = null;
+                        entitys.map((entity) => {
+                            if (entity.getEntityId() === communication.components.Message.position) {
+                                positionEntity = entity;
+                            }
+                        });
+
+                        if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                            const x = (positionEntity as Entity).getPropertys().X.value;
+                            const y = (positionEntity as Entity).getPropertys().Y.value;
+
+                            let color = 0;
+                            if (communication.components.Message.hp) {
+                                color = 255 * (communication.components.Message.hp / 10000);
+                            }
+
+                            let bgc = [0, color, 0];
+                            if (communication.components.Message.id === perceptionId) {
+                                bgc = [0, color, color];
+                            }
+
+                            let isSearch = false;
+                            if (String(communication.components.Message.id) === IdSearch) {
+                                isSearch = true;
+                            }
+
+                            const data = {
+                                entity: "CIVILIAN",
+                                entityId: communication.components.Message.id,
+                                positions: [x / 20000, y / 20000],
+                                backgroundColor: bgc,
+                                isSearch,
+                                ...communication.components.Message,
+                            };
+
+                            this.communicationCiviliansLayer.push(data);
+                        } else {
+                            console.error("だめだー");
+                        }
                     } else {
                         console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
                     }
@@ -1216,6 +1263,11 @@ export class CreateLayer {
 
     getCommunicationAmbulanceTeamsLayer() {
         const layer = this.createIconLayer("communication-ambulance-team", this.communicationAmbulanceTeamsLayer);
+        return layer;
+    }
+
+    getCommunicationCiviliansLayer() {
+        const layer = this.createIconLayer("communication-civilian", this.communicationCiviliansLayer);
         return layer;
     }
 }
