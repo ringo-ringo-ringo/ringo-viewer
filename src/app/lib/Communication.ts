@@ -155,13 +155,13 @@ export class Communication {
                                         action,
                                     };
                                 } else {
-                                    console.error("知らないメッセージタイプきたぞ", "メッセージタイプ : ", messageType, "中身 : ", reader);
+                                    console.error("知らないメッセージタイプきたぞ", "メッセージタイプ : ", messageType, "中身 : ", log);
                                 }
                             }
 
                             //アクションって何だ？？？？？？？？？
                         } catch (e) {
-                            console.error("えらー", log, component, li, e);
+                            console.error("えらー", log, component, li, this.components, e);
                         }
                     } else {
                         console.error("知らないやつ見つけたぞ");
