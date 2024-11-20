@@ -39,6 +39,7 @@ export class Communication {
                                 const reader = new BitStreamReader(bytes.buffer);
 
                                 const messageType = reader.getBits(5);
+                                this.components["messageType"] = messageType;
 
                                 if (messageType === 1) {
                                     const id = reader.getBits(32);
