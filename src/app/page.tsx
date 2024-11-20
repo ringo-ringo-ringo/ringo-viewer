@@ -67,6 +67,7 @@ export default function Home() {
         perceptionPOLICE_FORCE: true,
         communicationAMBULANCE_TEAM: true,
         communicationCIVILIAN: true,
+        communicationFIRE_BRIGADE: true,
         communicationTarget: true,
     });
 

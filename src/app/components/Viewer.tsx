@@ -68,6 +68,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
             if (perceptionFilter.communicationAMBULANCE_TEAM && isOkPerception) layer.push(createLayer.getCommunicationAmbulanceTeamsLayer());
             if (perceptionFilter.communicationCIVILIAN && isOkPerception) layer.push(createLayer.getCommunicationCiviliansLayer());
+            if (perceptionFilter.communicationFIRE_BRIGADE && isOkPerception) layer.push(createLayer.getCommunicationFireBrigadesLayer());
 
             if (filter.POSITION_HISTORY) layer.push(createLayer.getPositionHistoryLayer());
 
