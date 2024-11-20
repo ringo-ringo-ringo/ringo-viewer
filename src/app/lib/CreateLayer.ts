@@ -1,7 +1,7 @@
 import { Simulation } from "@/app/lib/Simulation";
 import { WorldModel } from "@/app/lib/WorldModel";
 import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
-import { PolygonLayer, IconLayer, LineLayer } from "@deck.gl/layers";
+import { PolygonLayer, IconLayer, LineLayer, ArcLayer } from "@deck.gl/layers";
 import { Entity } from "./Entity";
 import { Communication } from "@/app/lib/Communication";
 
@@ -17,6 +17,11 @@ interface HumanLayer {
 
 interface PositionHistoryLayer {
     backgroundColor: number[];
+    from: number[];
+    to: number[];
+}
+
+interface targetArcLayer {
     from: number[];
     to: number[];
 }
@@ -52,6 +57,7 @@ export class CreateLayer {
     perceptionBlockadesLayer: BuildLayer[] = [];
 
     communicationAmbulanceTeamsLayer: HumanLayer[] = [];
+    communicationTargetLayer: targetArcLayer[] = [];
 
     constructor() {}
 
@@ -943,9 +949,13 @@ export class CreateLayer {
                         const entitys = simulation.getWorldModel(step).getEntity();
 
                         let positionEntity = null;
+                        let targetEntity = null;
                         entitys.map((entity) => {
                             if (entity.getEntityId() === communication.components.Message.position) {
                                 positionEntity = entity;
+                            }
+                            if (entity.getEntityId() === communication.components.Message.target) {
+                                targetEntity = entity;
                             }
                         });
 
@@ -977,9 +987,24 @@ export class CreateLayer {
                                 ...communication.components.Message,
                             };
 
-                            console.log(data)
+                            console.log(data);
 
                             this.communicationAmbulanceTeamsLayer.push(data);
+
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                                const targetData = {
+                                    from: [x / 20000, y / 20000],
+                                    to: [targetX / 20000, targetY / 20000],
+                                    color: [255, 255, 255],
+                                };
+
+                                console.log(targetData);
+
+                                this.communicationTargetLayer.push(targetData);
+                            }
                         } else {
                             console.error("だめだー");
                         }
@@ -1038,6 +1063,18 @@ export class CreateLayer {
             getTargetPosition: (d) => d.to,
             getWidth: 1,
             // pickable: true,
+        });
+    }
+
+    createCommunicationTargetArcLayer() {
+        return new ArcLayer({
+            data: this.communicationTargetLayer,
+            id: "target",
+            getSourcePosition: (d) => d.from,
+            getTargetPosition: (d) => d.to,
+            getSourceColor: (d) => d.color,
+            getTargetColor: (d) => d.color,
+            getWidth: 2,
         });
     }
 
@@ -1173,6 +1210,11 @@ export class CreateLayer {
 
     getPerceptionPoliceForcesLayer() {
         const layer = this.createIconLayer("perception-police-force", this.perceptionPoliceForcesLayer);
+        return layer;
+    }
+
+    getCommunicationTargetLayer() {
+        const layer = this.createCommunicationTargetArcLayer();
         return layer;
     }
 

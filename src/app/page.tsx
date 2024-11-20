@@ -66,6 +66,7 @@ export default function Home() {
         perceptionAMBULANCE_TEAM: true,
         perceptionPOLICE_FORCE: true,
         communicationAMBULANCE_TEAM: true,
+        communicationTarget: true,
     });
 
     const stepUp = (count: number) => {

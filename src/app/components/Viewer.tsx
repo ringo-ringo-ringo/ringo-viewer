@@ -70,6 +70,8 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
             if (filter.POSITION_HISTORY) layer.push(createLayer.getPositionHistoryLayer());
 
+            if (perceptionFilter.communicationTarget && isOkPerception) layer.push(createLayer.getCommunicationTargetLayer());
+
             setLayer(layer);
         }
     }, [simulation, step, filter, perceptionFilter, perceptionId, IdSearch]);
