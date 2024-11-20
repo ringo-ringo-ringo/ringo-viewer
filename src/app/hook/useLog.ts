@@ -26,7 +26,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                         .then((res) => {
                             //ここに処理を書く
                             simulation.changePerception(callStep, res, perceptionId);
-                            simulation.setCommunication(step, perceptionId, res);
+                            simulation.setCommunication(callStep, perceptionId, res);
                             setSimulation(new Simulation(simulation));
                             setIsLoading((e) => e - 1);
                         })
