@@ -11,7 +11,7 @@ interface BuildLayer {
 }
 
 interface HumanLayer {
-    position: number[];
+    positions: number[];
     backgroundColor: number[];
 }
 
@@ -321,7 +321,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    position: [x / 20000, y / 20000],
+                    positions: [x / 20000, y / 20000],
                     backgroundColor: [0, color, 0],
                     isSearch,
                     ...properties,
@@ -382,7 +382,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    position: [x / 20000, y / 20000],
+                    positions: [x / 20000, y / 20000],
                     backgroundColor: [color, 0, 0],
                     isSearch,
                     ...properties,
@@ -443,7 +443,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    position: [x / 20000, y / 20000],
+                    positions: [x / 20000, y / 20000],
                     backgroundColor: [color, color, color],
                     isSearch,
                     ...properties,
@@ -504,7 +504,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    position: [x / 20000, y / 20000],
+                    positions: [x / 20000, y / 20000],
                     backgroundColor: [0, 0, color],
                     isSearch,
                     ...properties,
@@ -827,7 +827,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        position: [x / 20000, y / 20000],
+                        positions: [x / 20000, y / 20000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -858,7 +858,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        position: [x / 20000, y / 20000],
+                        positions: [x / 20000, y / 20000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -889,7 +889,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        position: [x / 20000, y / 20000],
+                        positions: [x / 20000, y / 20000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -920,7 +920,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        position: [x / 20000, y / 20000],
+                        positions: [x / 20000, y / 20000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -950,15 +950,44 @@ export class CreateLayer {
                         });
 
                         if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
-                            console.log("okだぞ")
-                        }else{
-                            console.error("だめだー")
+                            const x = (positionEntity as Entity).getPropertys().X.value;
+                            const y = (positionEntity as Entity).getPropertys().Y.value;
+
+                            let color = 0;
+                            if (communication.components.Message.hp) {
+                                color = 255 * (communication.components.Message.hp / 10000);
+                            }
+
+                            let bgc = [color, color, color];
+                            if (communication.components.Message.id === perceptionId) {
+                                bgc = [0, color, color];
+                            }
+
+                            let isSearch = false;
+                            if (String(communication.components.Message.id) === IdSearch) {
+                                isSearch = true;
+                            }
+
+                            const data = {
+                                entity: "AMBULANCE_TEAM",
+                                entityId: communication.components.Message.id,
+                                positions: [x / 20000, y / 20000],
+                                backgroundColor: bgc,
+                                isSearch,
+                                ...communication.components.Message,
+                            };
+
+                            console.log(data)
+
+                            this.communicationAmbulanceTeamsLayer.push(data);
+                        } else {
+                            console.error("だめだー");
                         }
                     } else {
-                        console.error("メッセージタイプ別で未処理なやつみっけ");
+                        // console.error("メッセージタイプ別で未処理なやつみっけ");
                     }
                 } else {
-                    console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
+                    // console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
                 }
             });
         }
@@ -993,7 +1022,7 @@ export class CreateLayer {
             iconAtlas: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
             iconMapping: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
             getIcon: (d) => (d.isSearch ? "marker-warning" : "marker"),
-            getPosition: (d) => d.position,
+            getPosition: (d) => d.positions,
             getColor: (d) => d.backgroundColor,
             getSize: 30,
             pickable: true,
@@ -1144,6 +1173,11 @@ export class CreateLayer {
 
     getPerceptionPoliceForcesLayer() {
         const layer = this.createIconLayer("perception-police-force", this.perceptionPoliceForcesLayer);
+        return layer;
+    }
+
+    getCommunicationAmbulanceTeamsLayer() {
+        const layer = this.createIconLayer("communication-ambulance-team", this.communicationAmbulanceTeamsLayer);
         return layer;
     }
 }
