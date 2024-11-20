@@ -51,6 +51,8 @@ export class CreateLayer {
     perceptionPoliceForcesLayer: HumanLayer[] = [];
     perceptionBlockadesLayer: BuildLayer[] = [];
 
+    communicationAmbulanceTeamsLayer: HumanLayer[] = [];
+
     constructor() {}
 
     getEdges(edgesList: any) {
@@ -933,7 +935,32 @@ export class CreateLayer {
             });
 
             //communicationの情報をひとつづづ読んでいって，レイヤーに格納
-            communications.map((communication) => {});
+            communications.map((communication) => {
+                if (URN_MAP[communication.urn] === "AK_SPEAK") {
+                    //MessageAmbulanceTeam
+                    if (communication.components.messageType === 1) {
+                        console.log(communication.components);
+                        const entitys = simulation.getWorldModel(step).getEntity();
+
+                        let positionEntity = null;
+                        entitys.map((entity) => {
+                            if (entity.getEntityId() === communication.components.Message.position) {
+                                positionEntity = entity;
+                            }
+                        });
+
+                        if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                            console.log("okだぞ")
+                        }else{
+                            console.error("だめだー")
+                        }
+                    } else {
+                        console.error("メッセージタイプ別で未処理なやつみっけ");
+                    }
+                } else {
+                    console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
+                }
+            });
         }
     }
 
