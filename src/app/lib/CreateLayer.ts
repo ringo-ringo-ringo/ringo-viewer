@@ -1008,8 +1008,6 @@ export class CreateLayer {
                     } else if (communication.components.messageType === 3) {
                         //MessageCivilian
 
-                        console.log(communication.components);
-
                         const entitys = simulation.getWorldModel(step).getEntity();
 
                         let positionEntity = null;
