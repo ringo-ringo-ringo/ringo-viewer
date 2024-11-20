@@ -24,7 +24,6 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
 
                     await LoadLog.load(simulation.getLogPath(), `${callStep}/PERCEPTION/${perceptionId}`)
                         .then((res) => {
-                            console.log(res);
                             //ここに処理を書く
                             simulation.changePerception(callStep, res, perceptionId);
                             simulation.setCommunication(step, perceptionId, res);
