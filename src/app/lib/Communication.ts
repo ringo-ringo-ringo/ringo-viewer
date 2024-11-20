@@ -41,6 +41,7 @@ export class Communication {
                                 const messageType = reader.getBits(5);
                                 this.components["messageType"] = messageType;
 
+                                // MessageAmbulanceTeam
                                 if (messageType === 1) {
                                     const id = reader.getBits(32);
 
