@@ -87,4 +87,14 @@ export class WorldModel {
     getEntity() {
         return this.entity;
     }
+
+    getOneEntityById(id: number) {
+        this.entity.map((entity) => {
+            if (entity.getEntityId() === id) {
+                return entity;
+            }
+        });
+
+        return null;
+    }
 }
