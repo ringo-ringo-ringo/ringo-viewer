@@ -7,6 +7,9 @@ export class Communication {
 
     constructor(log: any) {
         this.urn = log.urn;
+        if (this.urn !== 4876) {
+            console.error("AK_SPEARじゃないやつ来たぞ", this.urn, URN_MAP[this.urn]);
+        }
 
         log.componentsMap.map((component: any) => {
             let count = 0;
