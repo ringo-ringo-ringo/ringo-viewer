@@ -945,7 +945,6 @@ export class CreateLayer {
                 if (URN_MAP[communication.urn] === "AK_SPEAK") {
                     //MessageAmbulanceTeam
                     if (communication.components.messageType === 1) {
-                        console.log(communication.components);
                         const entitys = simulation.getWorldModel(step).getEntity();
 
                         let positionEntity = null;
@@ -987,8 +986,6 @@ export class CreateLayer {
                                 ...communication.components.Message,
                             };
 
-                            console.log(data);
-
                             this.communicationAmbulanceTeamsLayer.push(data);
 
                             if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
@@ -1000,8 +997,6 @@ export class CreateLayer {
                                     to: [targetX / 20000, targetY / 20000],
                                     color: [255, 255, 255],
                                 };
-
-                                console.log(targetData);
 
                                 this.communicationTargetLayer.push(targetData);
                             }
