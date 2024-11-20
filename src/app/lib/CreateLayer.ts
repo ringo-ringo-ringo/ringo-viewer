@@ -1005,10 +1005,10 @@ export class CreateLayer {
                             console.error("だめだー");
                         }
                     } else {
-                        // console.error("メッセージタイプ別で未処理なやつみっけ");
+                        console.error("メッセージタイプ別で未処理なやつみっけ");
                     }
                 } else {
-                    // console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
+                    console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
                 }
             });
         }
