@@ -95,4 +95,8 @@ export class Entity {
     getEntityId() {
         return this.entityId;
     }
+
+    getCommunication() {
+        return this.communication;
+    }
 }

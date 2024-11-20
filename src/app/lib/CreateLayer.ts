@@ -3,6 +3,7 @@ import { WorldModel } from "@/app/lib/WorldModel";
 import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
 import { PolygonLayer, IconLayer, LineLayer } from "@deck.gl/layers";
 import { Entity } from "./Entity";
+import { Communication } from "@/app/lib/Communication";
 
 interface BuildLayer {
     apex: number[][];
@@ -555,6 +556,8 @@ export class CreateLayer {
         //ここからがperceptionのレイヤー作成
         if (perceptionId !== null && simulation.getPerception(step, perceptionId)) {
             const perceptionEntitys: Entity[] = simulation.getWorldModel(step).getPerception(perceptionId);
+
+            const communications: Communication[] = simulation.getWorldModel(step).getCommunications(perceptionId);
 
             perceptionEntitys.map((entity) => {
                 if (URN_MAP[entity.urn] === "BUILDING") {
