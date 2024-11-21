@@ -571,7 +571,7 @@ export class CreateLayer {
 
             const communications: Communication[] = simulation.getWorldModel(step).getCommunications(perceptionId);
 
-            //パーセプションを一つずつ読んでいって，レイヤーに格納
+            //perceptionのvisibleを一つずつ読んでいって，レイヤーに格納
             //パーセプションって名前だけど，正確にはperceptionのvisibleっていう情報が入っている
             //つまり，エージェントが見た情報について入っている
             perceptionEntitys.map((entity) => {
