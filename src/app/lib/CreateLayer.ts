@@ -1230,6 +1230,10 @@ export class CreateLayer {
 
                         console.log(communication.components);
 
+                        if (communication.components.Message?.to !== -1) {
+                            console.log("toが-1じゃないやつ来たぞ");
+                        }
+
                         const entitys = simulation.getWorldModel(step).getEntity();
 
                         let targetEntity = null;
