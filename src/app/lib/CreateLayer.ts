@@ -989,6 +989,9 @@ export class CreateLayer {
                                 positions: [x / 20000, y / 20000],
                                 backgroundColor: bgc,
                                 isSearch,
+                                MessageFrom: communication.components.AgentID,
+                                MessageChannel: communication.components.Channel,
+                                MessageTime: communication.components.Time,
                                 ...communication.components.Message,
                             };
 
@@ -1046,6 +1049,9 @@ export class CreateLayer {
                                 positions: [x / 20000, y / 20000],
                                 backgroundColor: bgc,
                                 isSearch,
+                                MessageFrom: communication.components.AgentID,
+                                MessageChannel: communication.components.Channel,
+                                MessageTime: communication.components.Time,
                                 ...communication.components.Message,
                             };
 
@@ -1094,6 +1100,9 @@ export class CreateLayer {
                                 positions: [x / 20000, y / 20000],
                                 backgroundColor: bgc,
                                 isSearch,
+                                MessageFrom: communication.components.AgentID,
+                                MessageChannel: communication.components.Channel,
+                                MessageTime: communication.components.Time,
                                 ...communication.components.Message,
                             };
 
@@ -1155,6 +1164,9 @@ export class CreateLayer {
                                 positions: [x / 20000, y / 20000],
                                 backgroundColor: bgc,
                                 isSearch,
+                                MessageFrom: communication.components.AgentID,
+                                MessageChannel: communication.components.Channel,
+                                MessageTime: communication.components.Time,
                                 ...communication.components.Message,
                             };
 
