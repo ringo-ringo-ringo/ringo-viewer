@@ -1253,7 +1253,7 @@ export class CreateLayer {
                                 entity: "centralized",
                                 entityId: (targetEntity as Entity).getEntityId(),
                                 apex: edges,
-                                backgroundColor: communication.components.Message.action === "CLEAR" ? [0, 170, 255] : [255, 170, 255],
+                                backgroundColor: communication.components.Message.action === "CLEAR" ? [0, 170, 255, 75] : [255, 170, 255, 75],
                                 isSearch,
                                 MessageFrom: communication.components.AgentID,
                                 MessageChannel: communication.components.Channel,
