@@ -1173,11 +1173,18 @@ export class CreateLayer {
                         } else {
                             console.error("だめだー");
                         }
+                    } else if (communication.components.messageType === 6) {
+                        // MessageRoad
+                        console.log(communication.components);
+                        if(communication.components.Message.cost !== -1){
+
+                        console.error("communicationで瓦礫のやつ発見")
+                        }
                     } else {
-                        console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
+                        // console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
                     }
                 } else {
-                    console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
+                    // console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
                 }
             });
         }
