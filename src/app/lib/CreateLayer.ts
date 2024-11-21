@@ -60,6 +60,7 @@ export class CreateLayer {
     communicationCiviliansLayer: HumanLayer[] = [];
     communicationFireBrigadesLayer: HumanLayer[] = [];
     communicationPoliceForcesLayer: HumanLayer[] = [];
+    communicationRoadsLayer: BuildLayer[] = [];
     communicationTargetLayer: targetArcLayer[] = [];
 
     constructor() {}
@@ -1175,16 +1176,46 @@ export class CreateLayer {
                         }
                     } else if (communication.components.messageType === 6) {
                         // MessageRoad
-                        console.log(communication.components);
-                        if(communication.components.Message.cost !== -1){
 
-                        console.error("communicationで瓦礫のやつ発見")
+                        if (communication.components.Message.cost !== -1) {
+                            console.error("communicationで瓦礫のやつ発見");
+                        }
+
+                        const entitys = simulation.getWorldModel(step).getEntity();
+
+                        let positionEntity = null;
+                        entitys.map((entity) => {
+                            if (entity.getEntityId() === communication.components.Message.id) {
+                                positionEntity = entity;
+                            }
+                        });
+
+                        if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.EDGES?.idDefined) {
+                            const edges: Array<number[]> = this.getEdges((positionEntity as Entity).getPropertys().EDGES.value.edgesList);
+
+                            let isSearch = false;
+                            if (String(communication.components.Message.id) === IdSearch) {
+                                isSearch = true;
+                            }
+
+                            const data = {
+                                entity: "ROAD",
+                                entityId: communication.components.Message.id,
+                                apex: edges,
+                                backgroundColor: communication.components.Message.passable ? [200, 200, 200] : [100, 100, 100],
+                                isSearch,
+                                ...communication.components.Message,
+                            };
+
+                            this.communicationRoadsLayer.push(data);
+                        } else {
+                            console.error("だめだー");
                         }
                     } else {
-                        // console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
+                        console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
                     }
                 } else {
-                    // console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
+                    console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
                 }
             });
         }
@@ -1407,6 +1438,11 @@ export class CreateLayer {
 
     getCommunicationPoliceForcesLayer() {
         const layer = this.createIconLayer("communication-police-force", this.communicationPoliceForcesLayer);
+        return layer;
+    }
+
+    getCommunicationRoadsLayer() {
+        const layer = this.createPolygoneLayer("communication-roads", this.communicationRoadsLayer);
         return layer;
     }
 }

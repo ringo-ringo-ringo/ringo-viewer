@@ -58,6 +58,9 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (perceptionFilter.perceptionAMBULANCE_CENTRE && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceCentresLayer());
             if (perceptionFilter.perceptionBLOCKADE && isOkPerception) layer.push(createLayer.getPerceptionBlockadesLayer());
 
+            //communicationの建物たち
+            if (perceptionFilter.communicationROAD && isOkPerception) layer.push(createLayer.getCommunicationRoadsLayer());
+
             //実世界の人間たち
             if (filter.CIVILIAN) layer.push(createLayer.getCiviliansLayer());
             if (filter.FIRE_BRIGADE) layer.push(createLayer.getFireBrigadesLayer());
@@ -116,7 +119,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                         for (const key in object) {
                             if (key && object.hasOwnProperty(key)) {
                                 const value = object[key];
-                                if (value.value) {
+                                if (value?.value) {
                                     if (key === "HP" || key === "STAMINA" || key === "BURIEDNESS" || key === "REPAIR_COST" || key === "OCCUPIED_BEDS" || key === "BED_CAPACITY" || key === "BED_CAPACITY" || key === "BROKENNESS") {
                                         text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
                                     } else {
