@@ -47,6 +47,9 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (filter.AMBULANCE_CENTRE) layer.push(createLayer.getAmbulanceCentresLayer());
             if (filter.BLOCKADE) layer.push(createLayer.getBlockadesLayer());
 
+            //communicationの建物たち
+            if (perceptionFilter.communicationROAD && isOkPerception) layer.push(createLayer.getCommunicationRoadsLayer());
+
             //visibleの建物たち
             if (perceptionFilter.perceptionROAD && isOkPerception) layer.push(createLayer.getPerceptionRoadsLayer());
             if (perceptionFilter.perceptionBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
@@ -57,9 +60,6 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (perceptionFilter.perceptionFIRE_STATION && isOkPerception) layer.push(createLayer.getPerceptionFireStationsLayer());
             if (perceptionFilter.perceptionAMBULANCE_CENTRE && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceCentresLayer());
             if (perceptionFilter.perceptionBLOCKADE && isOkPerception) layer.push(createLayer.getPerceptionBlockadesLayer());
-
-            //communicationの建物たち
-            if (perceptionFilter.communicationROAD && isOkPerception) layer.push(createLayer.getCommunicationRoadsLayer());
 
             //communicationのcentralized
             if (perceptionFilter.communicationCENTRALIZED && isOkPerception) layer.push(createLayer.getCommunicationCentralizedLayer());
