@@ -947,6 +947,7 @@ export class CreateLayer {
             //communicationの情報をひとつづづ読んでいって，レイヤーに格納
             communications.map((communication) => {
                 if (URN_MAP[communication.urn] === "AK_SPEAK") {
+                    //AK_SPEAKについてのメッセージ
                     if (communication.components.messageType === 1) {
                         //MessageAmbulanceTeam
 
@@ -1212,9 +1213,14 @@ export class CreateLayer {
                             console.error("だめだー");
                         }
                     } else {
+                        //AK_SPEAK内のコンポーネントの種類の処理がなされていない場合
+
                         console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
                     }
                 } else {
+                    //コミュニケーションのメッセージ内容の処理がなされていない場合
+                    //現状は，AK_SPEAK以外の場合
+
                     console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
                 }
             });
