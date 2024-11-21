@@ -61,6 +61,7 @@ export class CreateLayer {
     communicationFireBrigadesLayer: HumanLayer[] = [];
     communicationPoliceForcesLayer: HumanLayer[] = [];
     communicationRoadsLayer: BuildLayer[] = [];
+    communicationCentralizedLayer: BuildLayer[] = [];
     communicationTargetLayer: targetArcLayer[] = [];
 
     constructor() {}
@@ -1224,6 +1225,44 @@ export class CreateLayer {
                         } else {
                             console.error("だめだー");
                         }
+                    } else if (communication.components.messageType === 9) {
+                        //CommandPolice
+
+                        console.log(communication.components);
+
+                        const entitys = simulation.getWorldModel(step).getEntity();
+
+                        let targetEntity = null;
+                        entitys.map((entity) => {
+                            if (entity.getEntityId() === communication.components.Message?.target) {
+                                targetEntity = entity;
+                            }
+                        });
+
+                        if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.EDGES?.idDefined) {
+                            const edges: Array<number[]> = this.getEdges((targetEntity as Entity).getPropertys().EDGES.value.edgesList);
+
+                            let isSearch = false;
+                            if (String((targetEntity as Entity).getEntityId()) === IdSearch) {
+                                isSearch = true;
+                            }
+
+                            const data = {
+                                entity: "centralized",
+                                entityId: (targetEntity as Entity).getEntityId(),
+                                apex: edges,
+                                backgroundColor: communication.components.Message.action === "CLEAR" ? [0, 170, 255] : [255, 170, 255],
+                                isSearch,
+                                MessageFrom: communication.components.AgentID,
+                                MessageChannel: communication.components.Channel,
+                                MessageTime: communication.components.Time,
+                                ...communication.components.Message,
+                            };
+
+                            this.communicationCentralizedLayer.push(data);
+                        } else {
+                            console.error("だめだー");
+                        }
                     } else {
                         //AK_SPEAK内のコンポーネントの種類の処理がなされていない場合
 
@@ -1461,6 +1500,11 @@ export class CreateLayer {
 
     getCommunicationRoadsLayer() {
         const layer = this.createPolygoneLayer("communication-roads", this.communicationRoadsLayer);
+        return layer;
+    }
+
+    getCommunicationCentralizedLayer() {
+        const layer = this.createPolygoneLayer("communication-centralized", this.communicationCentralizedLayer);
         return layer;
     }
 }

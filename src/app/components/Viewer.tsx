@@ -61,6 +61,9 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             //communicationの建物たち
             if (perceptionFilter.communicationROAD && isOkPerception) layer.push(createLayer.getCommunicationRoadsLayer());
 
+            //communicationのcentralized
+            if (perceptionFilter.communicationCENTRALIZED && isOkPerception) layer.push(createLayer.getCommunicationCentralizedLayer());
+
             //実世界の人間たち
             if (filter.CIVILIAN) layer.push(createLayer.getCiviliansLayer());
             if (filter.FIRE_BRIGADE) layer.push(createLayer.getFireBrigadesLayer());

@@ -70,6 +70,8 @@ export default function Home() {
         communicationCIVILIAN: true,
         communicationFIRE_BRIGADE: true,
         communicationPOLICE_FORCE: true,
+        communicationCENTRALIZED: true,
+
         communicationTarget: true,
     });
 
