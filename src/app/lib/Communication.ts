@@ -188,8 +188,21 @@ export class Communication {
                                 } else if (messageType === 9) {
                                     const to = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
                                     const target = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
-                                    const action = reader.getBits(4);
+                                    const ACTION = reader.getBits(4);
                                     const broadcast = to === -1;
+
+                                    let action = "";
+                                    if (ACTION === 0) {
+                                        action = "REST";
+                                    } else if (ACTION === 1) {
+                                        action = "MOVE";
+                                    } else if (ACTION === 2) {
+                                        action = "CLEAR";
+                                    } else if (ACTION === 3) {
+                                        action = "AAUTONOMY";
+                                    } else {
+                                        action = "";
+                                    }
 
                                     this.components[key] = {
                                         to,
