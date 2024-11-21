@@ -1228,8 +1228,6 @@ export class CreateLayer {
                     } else if (communication.components.messageType === 9) {
                         //CommandPolice
 
-                        console.log(communication.components);
-
                         if (communication.components.Message?.to !== -1) {
                             console.log("toが-1じゃないやつ来たぞ");
                         }
