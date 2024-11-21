@@ -189,11 +189,13 @@ export class Communication {
                                     const to = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
                                     const target = reader.getBits(1) === 1 ? reader.getBits(32) : -1;
                                     const action = reader.getBits(4);
+                                    const broadcast = to === -1;
 
                                     this.components[key] = {
                                         to,
                                         target,
                                         action,
+                                        broadcast,
                                     };
                                 } else {
                                     console.error("知らないメッセージタイプきたぞ", "メッセージタイプ : ", messageType, "中身 : ", log);
