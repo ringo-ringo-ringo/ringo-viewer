@@ -8,7 +8,7 @@
 | INITIAL_CONDITIONS file                                  | 0 ステップ目の情報                           | ok                                                |
 | UPDATES file                                             | 前ステップからの差分情報                     | ok                                                |
 | COMMANDS file                                            | 発行されたコマンド                           | no                                                |
-| PERCEPTION file -> visible                               | 知覚情報                                     | ok                                                |
+| PERCEPTION file -> visible                               | 見た情報                                     | ok                                                |
 | PERCEPTION file -> communication -> MessageAmbulanceTeam |                                              | ok                                                |
 | PERCEPTION file -> communication -> MessageBuilding      |                                              | ng                                                |
 | PERCEPTION file -> communication -> MessageCivilian      |                                              | ok                                                |
