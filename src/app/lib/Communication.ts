@@ -227,3 +227,26 @@ export class Communication {
         });
     }
 }
+
+
+/*
+messageのinformationとcentralizedとはなに？？
+    informationが個人？
+    centralizedは司令塔？
+
+informationのbuildingsがないのはなぜ？
+
+centralizedはほぼ通信がないのはなぜ？
+    司令塔はあまり開発されてないと聞いてるけど，本当？
+        だからないのかな？
+    csuがcentralizedのpoliceだけ使ってた？
+        けいかいしてーー
+
+メッセージ12とは？
+    存在していいものなの？
+
+たまにメッセージの解読ができないのはなぜ？
+    通信のノイズで，targetがわからなくなることはあり得るのか？
+
+いみわからん
+*/
