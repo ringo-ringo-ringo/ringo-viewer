@@ -1,8 +1,9 @@
 import { Simulation } from "@/app/lib/Simulation";
 import { WorldModel } from "@/app/lib/WorldModel";
 import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
-import { PolygonLayer, IconLayer, LineLayer } from "@deck.gl/layers";
+import { PolygonLayer, IconLayer, LineLayer, ArcLayer } from "@deck.gl/layers";
 import { Entity } from "./Entity";
+import { Communication } from "@/app/lib/Communication";
 
 interface BuildLayer {
     apex: number[][];
@@ -10,12 +11,17 @@ interface BuildLayer {
 }
 
 interface HumanLayer {
-    position: number[];
+    positions: number[];
     backgroundColor: number[];
 }
 
 interface PositionHistoryLayer {
     backgroundColor: number[];
+    from: number[];
+    to: number[];
+}
+
+interface targetArcLayer {
     from: number[];
     to: number[];
 }
@@ -50,6 +56,14 @@ export class CreateLayer {
     perceptionPoliceForcesLayer: HumanLayer[] = [];
     perceptionBlockadesLayer: BuildLayer[] = [];
 
+    communicationAmbulanceTeamsLayer: HumanLayer[] = [];
+    communicationCiviliansLayer: HumanLayer[] = [];
+    communicationFireBrigadesLayer: HumanLayer[] = [];
+    communicationPoliceForcesLayer: HumanLayer[] = [];
+    communicationRoadsLayer: BuildLayer[] = [];
+    communicationCentralizedLayer: BuildLayer[] = [];
+    communicationTargetLayer: targetArcLayer[] = [];
+
     constructor() {}
 
     getEdges(edgesList: any) {
@@ -58,10 +72,10 @@ export class CreateLayer {
 
         edgesList.map((edge: any) => {
             if (first) {
-                edges.push([edge.startx / 20000, edge.starty / 20000]);
+                edges.push([edge.startx / 400000, edge.starty / 400000]);
                 first = false;
             }
-            edges.push([edge.endx / 20000, edge.endy / 20000]);
+            edges.push([edge.endx / 400000, edge.endy / 400000]);
         });
 
         return edges;
@@ -284,8 +298,8 @@ export class CreateLayer {
                             } else {
                                 const positionHistoryData = {
                                     backgroundColor: [250, 0, 0],
-                                    from: [x1 / 20000, y1 / 20000],
-                                    to: [x2 / 20000, y2 / 20000],
+                                    from: [x1 / 400000, y1 / 400000],
+                                    to: [x2 / 400000, y2 / 400000],
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -296,8 +310,8 @@ export class CreateLayer {
                     }
                     const positionHistoryData = {
                         backgroundColor: [250, 0, 0],
-                        from: [x2 / 20000, y2 / 20000],
-                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                        from: [x2 / 400000, y2 / 400000],
+                        to: [properties.X.value / 400000, properties.Y.value / 400000],
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -318,7 +332,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    position: [x / 20000, y / 20000],
+                    positions: [x / 400000, y / 400000],
                     backgroundColor: [0, color, 0],
                     isSearch,
                     ...properties,
@@ -345,8 +359,8 @@ export class CreateLayer {
                             } else {
                                 const positionHistoryData = {
                                     backgroundColor: [250, 0, 0],
-                                    from: [x1 / 20000, y1 / 20000],
-                                    to: [x2 / 20000, y2 / 20000],
+                                    from: [x1 / 400000, y1 / 400000],
+                                    to: [x2 / 400000, y2 / 400000],
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -357,8 +371,8 @@ export class CreateLayer {
                     }
                     const positionHistoryData = {
                         backgroundColor: [250, 0, 0],
-                        from: [x2 / 20000, y2 / 20000],
-                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                        from: [x2 / 400000, y2 / 400000],
+                        to: [properties.X.value / 400000, properties.Y.value / 400000],
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -379,7 +393,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    position: [x / 20000, y / 20000],
+                    positions: [x / 400000, y / 400000],
                     backgroundColor: [color, 0, 0],
                     isSearch,
                     ...properties,
@@ -406,8 +420,8 @@ export class CreateLayer {
                             } else {
                                 const positionHistoryData = {
                                     backgroundColor: [250, 0, 0],
-                                    from: [x1 / 20000, y1 / 20000],
-                                    to: [x2 / 20000, y2 / 20000],
+                                    from: [x1 / 400000, y1 / 400000],
+                                    to: [x2 / 400000, y2 / 400000],
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -418,8 +432,8 @@ export class CreateLayer {
                     }
                     const positionHistoryData = {
                         backgroundColor: [250, 0, 0],
-                        from: [x2 / 20000, y2 / 20000],
-                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                        from: [x2 / 400000, y2 / 400000],
+                        to: [properties.X.value / 400000, properties.Y.value / 400000],
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -440,7 +454,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    position: [x / 20000, y / 20000],
+                    positions: [x / 400000, y / 400000],
                     backgroundColor: [color, color, color],
                     isSearch,
                     ...properties,
@@ -467,8 +481,8 @@ export class CreateLayer {
                             } else {
                                 const positionHistoryData = {
                                     backgroundColor: [250, 0, 0],
-                                    from: [x1 / 20000, y1 / 20000],
-                                    to: [x2 / 20000, y2 / 20000],
+                                    from: [x1 / 400000, y1 / 400000],
+                                    to: [x2 / 400000, y2 / 400000],
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -479,8 +493,8 @@ export class CreateLayer {
                     }
                     const positionHistoryData = {
                         backgroundColor: [250, 0, 0],
-                        from: [x2 / 20000, y2 / 20000],
-                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                        from: [x2 / 400000, y2 / 400000],
+                        to: [properties.X.value / 400000, properties.Y.value / 400000],
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -501,7 +515,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    position: [x / 20000, y / 20000],
+                    positions: [x / 400000, y / 400000],
                     backgroundColor: [0, 0, color],
                     isSearch,
                     ...properties,
@@ -523,7 +537,7 @@ export class CreateLayer {
                     } else {
                         y = apex;
                         if (x && y) {
-                            edges.push([x / 20000, y / 20000]);
+                            edges.push([x / 400000, y / 400000]);
                         } else {
                             console.error("中に入ってる値がnullだぞ");
                         }
@@ -556,6 +570,11 @@ export class CreateLayer {
         if (perceptionId !== null && simulation.getPerception(step, perceptionId)) {
             const perceptionEntitys: Entity[] = simulation.getWorldModel(step).getPerception(perceptionId);
 
+            const communications: Communication[] = simulation.getWorldModel(step).getCommunications(perceptionId);
+
+            //perceptionのvisibleを一つずつ読んでいって，レイヤーに格納
+            //パーセプションって名前だけど，正確にはperceptionのvisibleっていう情報が入っている
+            //つまり，エージェントが見た情報について入っている
             perceptionEntitys.map((entity) => {
                 if (URN_MAP[entity.urn] === "BUILDING") {
                     const properties = entity.getPropertys();
@@ -620,7 +639,7 @@ export class CreateLayer {
                                         } else {
                                             y = apex;
                                             if (x && y) {
-                                                edges.push([x / 20000, y / 20000]);
+                                                edges.push([x / 400000, y / 400000]);
                                             } else {
                                                 console.error("中に入ってる値がnullだぞ");
                                             }
@@ -819,7 +838,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        position: [x / 20000, y / 20000],
+                        positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -850,7 +869,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        position: [x / 20000, y / 20000],
+                        positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -881,7 +900,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        position: [x / 20000, y / 20000],
+                        positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -912,7 +931,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        position: [x / 20000, y / 20000],
+                        positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -923,6 +942,346 @@ export class CreateLayer {
                 } else {
                     console.log("未使用のエンティティ発見 : " + URN_MAP[entity.urn]);
                     console.log(entity);
+                }
+            });
+
+            //communicationの情報をひとつづづ読んでいって，レイヤーに格納
+            communications.map((communication) => {
+                try {
+                    if (URN_MAP[communication.urn] === "AK_SPEAK") {
+                        //AK_SPEAKについてのメッセージ
+                        if (communication.components.messageType === 1) {
+                            //MessageAmbulanceTeam
+
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let positionEntity = null;
+                            let targetEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.position) {
+                                    positionEntity = entity;
+                                }
+                                if (entity.getEntityId() === communication.components.Message.target) {
+                                    targetEntity = entity;
+                                }
+                            });
+
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const x = (positionEntity as Entity).getPropertys().X.value;
+                                const y = (positionEntity as Entity).getPropertys().Y.value;
+
+                                let color = 0;
+                                if (communication.components.Message.hp) {
+                                    color = 255 * (communication.components.Message.hp / 10000);
+                                }
+
+                                let bgc = [color, color, color];
+                                if (communication.components.Message.id === perceptionId) {
+                                    bgc = [0, color, color];
+                                }
+
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
+
+                                const data = {
+                                    entity: "AMBULANCE_TEAM",
+                                    entityId: communication.components.Message.id,
+                                    positions: [x / 400000, y / 400000],
+                                    backgroundColor: bgc,
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
+                                };
+
+                                this.communicationAmbulanceTeamsLayer.push(data);
+
+                                if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                    const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                    const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                                    const targetData = {
+                                        from: [x / 400000, y / 400000],
+                                        to: [targetX / 400000, targetY / 400000],
+                                        color: [255, 255, 255],
+                                    };
+
+                                    this.communicationTargetLayer.push(targetData);
+                                }
+                            } else {
+                                console.error("だめだー");
+                            }
+                        } else if (communication.components.messageType === 3) {
+                            //MessageCivilian
+
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let positionEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.position) {
+                                    positionEntity = entity;
+                                }
+                            });
+
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const x = (positionEntity as Entity).getPropertys().X.value;
+                                const y = (positionEntity as Entity).getPropertys().Y.value;
+
+                                let color = 0;
+                                if (communication.components.Message.hp) {
+                                    color = 255 * (communication.components.Message.hp / 10000);
+                                }
+
+                                let bgc = [0, color, 0];
+                                if (communication.components.Message.id === perceptionId) {
+                                    bgc = [0, color, color];
+                                }
+
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
+
+                                const data = {
+                                    entity: "CIVILIAN",
+                                    entityId: communication.components.Message.id,
+                                    positions: [x / 400000, y / 400000],
+                                    backgroundColor: bgc,
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
+                                };
+
+                                this.communicationCiviliansLayer.push(data);
+                            } else {
+                                console.error("だめだー");
+                            }
+                        } else if (communication.components.messageType === 4) {
+                            //MessageFireBrigade
+
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let positionEntity = null;
+                            let targetEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.position) {
+                                    positionEntity = entity;
+                                }
+                                if (entity.getEntityId() === communication.components.Message.target) {
+                                    targetEntity = entity;
+                                }
+                            });
+
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const x = (positionEntity as Entity).getPropertys().X.value;
+                                const y = (positionEntity as Entity).getPropertys().Y.value;
+
+                                let color = 0;
+                                if (communication.components.Message.hp) {
+                                    color = 255 * (communication.components.Message.hp / 10000);
+                                }
+
+                                let bgc = [color, 0, 0];
+                                if (communication.components.Message.id === perceptionId) {
+                                    bgc = [0, color, color];
+                                }
+
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
+
+                                const data = {
+                                    entity: "FIRE_BRIGADE",
+                                    entityId: communication.components.Message.id,
+                                    positions: [x / 400000, y / 400000],
+                                    backgroundColor: bgc,
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
+                                };
+
+                                this.communicationFireBrigadesLayer.push(data);
+
+                                if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                    const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                    const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                                    const targetData = {
+                                        from: [x / 400000, y / 400000],
+                                        to: [targetX / 400000, targetY / 400000],
+                                        color: [255, 0, 0],
+                                    };
+
+                                    this.communicationTargetLayer.push(targetData);
+                                }
+                            } else {
+                                console.error("だめだー");
+                            }
+                        } else if (communication.components.messageType === 5) {
+                            //MessagePoliceForce
+
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let positionEntity = null;
+                            let targetEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.position) {
+                                    positionEntity = entity;
+                                }
+                                if (entity.getEntityId() === communication.components.Message.target) {
+                                    targetEntity = entity;
+                                }
+                            });
+
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const x = (positionEntity as Entity).getPropertys().X.value;
+                                const y = (positionEntity as Entity).getPropertys().Y.value;
+
+                                let color = 0;
+                                if (communication.components.Message.hp) {
+                                    color = 255 * (communication.components.Message.hp / 10000);
+                                }
+
+                                let bgc = [0, 0, color];
+                                if (communication.components.Message.id === perceptionId) {
+                                    bgc = [0, color, color];
+                                }
+
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
+
+                                const data = {
+                                    entity: "POLICE_FORCE",
+                                    entityId: communication.components.Message.id,
+                                    positions: [x / 400000, y / 400000],
+                                    backgroundColor: bgc,
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
+                                };
+
+                                this.communicationPoliceForcesLayer.push(data);
+
+                                if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                    const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                    const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                                    const targetData = {
+                                        from: [x / 400000, y / 400000],
+                                        to: [targetX / 400000, targetY / 400000],
+                                        color: [0, 0, 255],
+                                    };
+
+                                    this.communicationTargetLayer.push(targetData);
+                                }
+                            } else {
+                                console.error("だめだー");
+                            }
+                        } else if (communication.components.messageType === 6) {
+                            // MessageRoad
+
+                            if (communication.components.Message.cost !== -1) {
+                                console.error("communicationで瓦礫のやつ発見");
+                            }
+
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let positionEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.id) {
+                                    positionEntity = entity;
+                                }
+                            });
+
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.EDGES?.idDefined) {
+                                const edges: Array<number[]> = this.getEdges((positionEntity as Entity).getPropertys().EDGES.value.edgesList);
+
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
+
+                                const data = {
+                                    entity: "ROAD",
+                                    entityId: communication.components.Message.id,
+                                    apex: edges,
+                                    backgroundColor: communication.components.Message.passable ? [200, 200, 200] : [100, 100, 100],
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
+                                };
+
+                                this.communicationRoadsLayer.push(data);
+                            } else {
+                                console.error("だめだー");
+                            }
+                        } else if (communication.components.messageType === 9) {
+                            //CommandPolice
+
+                            if (communication.components.Message?.to !== -1) {
+                                console.log("toが-1じゃないやつ来たぞ");
+                            }
+
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let targetEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message?.target) {
+                                    targetEntity = entity;
+                                }
+                            });
+
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.EDGES?.idDefined) {
+                                const edges: Array<number[]> = this.getEdges((targetEntity as Entity).getPropertys().EDGES.value.edgesList);
+
+                                let isSearch = false;
+                                if (String((targetEntity as Entity).getEntityId()) === IdSearch) {
+                                    isSearch = true;
+                                }
+
+                                const data = {
+                                    entity: "centralized",
+                                    entityId: (targetEntity as Entity).getEntityId(),
+                                    apex: edges,
+                                    backgroundColor: communication.components.Message.action === "CLEAR" ? [0, 170, 255, 75] : [255, 170, 255, 75],
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
+                                };
+
+                                this.communicationCentralizedLayer.push(data);
+                            } else {
+                                console.error("だめだー");
+                            }
+                        } else {
+                            //AK_SPEAK内のコンポーネントの種類の処理がなされていない場合
+
+                            console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
+                        }
+                    } else {
+                        //コミュニケーションのメッセージ内容の処理がなされていない場合
+                        //現状は，AK_SPEAK以外の場合
+
+                        console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
+                    }
+                } catch (e) {
+                    console.error("コミュニケーションの描画，失敗，残念", e);
                 }
             });
         }
@@ -957,7 +1316,7 @@ export class CreateLayer {
             iconAtlas: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
             iconMapping: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
             getIcon: (d) => (d.isSearch ? "marker-warning" : "marker"),
-            getPosition: (d) => d.position,
+            getPosition: (d) => d.positions,
             getColor: (d) => d.backgroundColor,
             getSize: 30,
             pickable: true,
@@ -973,6 +1332,18 @@ export class CreateLayer {
             getTargetPosition: (d) => d.to,
             getWidth: 1,
             // pickable: true,
+        });
+    }
+
+    createCommunicationTargetArcLayer() {
+        return new ArcLayer({
+            data: this.communicationTargetLayer,
+            id: "target",
+            getSourcePosition: (d) => d.from,
+            getTargetPosition: (d) => d.to,
+            getSourceColor: (d) => d.color,
+            getTargetColor: (d) => d.color,
+            getWidth: 2,
         });
     }
 
@@ -1108,6 +1479,41 @@ export class CreateLayer {
 
     getPerceptionPoliceForcesLayer() {
         const layer = this.createIconLayer("perception-police-force", this.perceptionPoliceForcesLayer);
+        return layer;
+    }
+
+    getCommunicationTargetLayer() {
+        const layer = this.createCommunicationTargetArcLayer();
+        return layer;
+    }
+
+    getCommunicationAmbulanceTeamsLayer() {
+        const layer = this.createIconLayer("communication-ambulance-team", this.communicationAmbulanceTeamsLayer);
+        return layer;
+    }
+
+    getCommunicationCiviliansLayer() {
+        const layer = this.createIconLayer("communication-civilian", this.communicationCiviliansLayer);
+        return layer;
+    }
+
+    getCommunicationFireBrigadesLayer() {
+        const layer = this.createIconLayer("communication-fire-brigade", this.communicationFireBrigadesLayer);
+        return layer;
+    }
+
+    getCommunicationPoliceForcesLayer() {
+        const layer = this.createIconLayer("communication-police-force", this.communicationPoliceForcesLayer);
+        return layer;
+    }
+
+    getCommunicationRoadsLayer() {
+        const layer = this.createPolygoneLayer("communication-roads", this.communicationRoadsLayer);
+        return layer;
+    }
+
+    getCommunicationCentralizedLayer() {
+        const layer = this.createPolygoneLayer("communication-centralized", this.communicationCentralizedLayer);
         return layer;
     }
 }

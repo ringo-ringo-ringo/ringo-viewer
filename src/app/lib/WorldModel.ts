@@ -68,7 +68,33 @@ export class WorldModel {
         }
     }
 
+    getCommunications(id: number): any {
+        for (const entity of this.entity) {
+            if (entity.getEntityId() === id) {
+                return entity.getCommunication();
+            }
+        }
+    }
+
+    setCommunication(entityID: number, log: any) {
+        this.entity.map((entity) => {
+            if (entity.getEntityId() === entityID) {
+                entity.setCommunication(log);
+            }
+        });
+    }
+
     getEntity() {
         return this.entity;
+    }
+
+    getOneEntityById(id: number) {
+        this.entity.map((entity) => {
+            if (entity.getEntityId() === id) {
+                return entity;
+            }
+        });
+
+        return null;
     }
 }

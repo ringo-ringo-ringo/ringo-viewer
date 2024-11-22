@@ -1,11 +1,13 @@
 import { Property } from "@/app/lib/Property";
 import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
+import { Communication } from "@/app/lib/Communication";
 
 export class Entity {
     urn: number;
     entityId: number;
     properties: { [key: string]: any } = {};
     perception: Entity[] | null = null;
+    communication: Communication[] = [];
 
     constructor(entity: any) {
         this.urn = entity.urn;
@@ -76,6 +78,12 @@ export class Entity {
         }
     }
 
+    setCommunication(log: any) {
+        log.map((communication: any) => {
+            this.communication.push(new Communication(communication));
+        });
+    }
+
     getPerception() {
         return this.perception;
     }
@@ -86,5 +94,9 @@ export class Entity {
 
     getEntityId() {
         return this.entityId;
+    }
+
+    getCommunication() {
+        return this.communication;
     }
 }

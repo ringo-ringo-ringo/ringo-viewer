@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import Text from "@/app/components/Header/Text";
 import { LinearProgress } from "@mui/material";
 
-export default function Header({ step, score, maxScore, isLoading }: any) {
+export default function Header({ step, score, maxScore, isLoading, maxStep }: any) {
     const header = css`
         background-color: #9f9f9fbe;
         position: absolute;
@@ -23,7 +23,7 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
         width: 100%;
         z-index: 3;
         background-color: #7c997c;
-        span{
+        span {
             background-color: #7fdf7f;
         }
     `;
@@ -31,7 +31,9 @@ export default function Header({ step, score, maxScore, isLoading }: any) {
     return (
         <>
             <header css={header}>
-                <Text>step : {step}</Text>
+                <Text>
+                    step : {step} / {maxStep}
+                </Text>
                 <Text>
                     score : {score} / {maxScore}
                 </Text>

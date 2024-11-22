@@ -11,7 +11,7 @@ import Linear from "@/app/components/Linear";
 import Bottomer from "@/app/components/Bottomer";
 
 export default function Home() {
-    const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading] = useLog();
+    const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading, maxStep] = useLog();
     const [score, maxScore] = useScore(step, simulation);
 
     const [attentionData, setAttentionData] = useState(null);
@@ -65,10 +65,18 @@ export default function Home() {
         perceptionFIRE_BRIGADE: true,
         perceptionAMBULANCE_TEAM: true,
         perceptionPOLICE_FORCE: true,
+        communicationROAD: true,
+        communicationAMBULANCE_TEAM: true,
+        communicationCIVILIAN: true,
+        communicationFIRE_BRIGADE: true,
+        communicationPOLICE_FORCE: true,
+        communicationCENTRALIZED: true,
+
+        communicationTarget: true,
     });
 
     const stepUp = (count: number) => {
-        if (step + count <= 300) {
+        if (step + count <= maxStep) {
             setStep((prevStep: number) => prevStep + count);
         }
     };
@@ -109,9 +117,9 @@ export default function Home() {
     return (
         <>
             <Linear isLoading={isLoading}></Linear>
-            <Header step={step} score={score} maxScore={maxScore} isLoading={isLoading}></Header>
+            <Header step={step} score={score} maxScore={maxScore} isLoading={isLoading} maxStep={maxStep}></Header>
             <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter} setPerceptionFilter={setPerceptionFilter} IdSearch={IdSearch} setIdSearch={setIdSearch}></Viewer>
-            <Bottomer sliderValue={sliderValue} changeSlider={changeSlider} changeCommittedSlider={changeCommittedSlider} buttonDisable={buttonDisable} setStep={setStep} stepDown={stepDown} stepUp={stepUp} perceptionId={perceptionId} deletePerceptionId={deletePerceptionId}></Bottomer>
+            <Bottomer sliderValue={sliderValue} changeSlider={changeSlider} changeCommittedSlider={changeCommittedSlider} buttonDisable={buttonDisable} setStep={setStep} stepDown={stepDown} stepUp={stepUp} perceptionId={perceptionId} deletePerceptionId={deletePerceptionId} maxStep={maxStep}></Bottomer>
         </>
     );
 }

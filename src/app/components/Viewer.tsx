@@ -36,6 +36,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                 isOkPerception = false;
             }
 
+            //実世界の建物たち
             if (filter.ROAD) layer.push(createLayer.getRoadsLayer());
             if (filter.BUILDING) layer.push(createLayer.getBuildingsLayer());
             if (filter.POLICE_OFFICE) layer.push(createLayer.getPoliceOfficesLayer());
@@ -46,7 +47,10 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (filter.AMBULANCE_CENTRE) layer.push(createLayer.getAmbulanceCentresLayer());
             if (filter.BLOCKADE) layer.push(createLayer.getBlockadesLayer());
 
+            //visibleの建物たち
             if (perceptionFilter.perceptionROAD && isOkPerception) layer.push(createLayer.getPerceptionRoadsLayer());
+            //communicationの建物たち
+            if (perceptionFilter.communicationROAD && isOkPerception) layer.push(createLayer.getCommunicationRoadsLayer());
             if (perceptionFilter.perceptionBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
             if (perceptionFilter.perceptionPOLICE_OFFICE && isOkPerception) layer.push(createLayer.getPerceptionPoliceOfficesLayer());
             if (perceptionFilter.perceptionREFUGE && isOkPerception) layer.push(createLayer.getPerceptionRefugesLayer());
@@ -56,17 +60,32 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (perceptionFilter.perceptionAMBULANCE_CENTRE && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceCentresLayer());
             if (perceptionFilter.perceptionBLOCKADE && isOkPerception) layer.push(createLayer.getPerceptionBlockadesLayer());
 
+            //communicationのcentralized
+            if (perceptionFilter.communicationCENTRALIZED && isOkPerception) layer.push(createLayer.getCommunicationCentralizedLayer());
+
+            //実世界の人間たち
             if (filter.CIVILIAN) layer.push(createLayer.getCiviliansLayer());
             if (filter.FIRE_BRIGADE) layer.push(createLayer.getFireBrigadesLayer());
             if (filter.AMBULANCE_TEAM) layer.push(createLayer.getAmbulanceTeamsLayer());
             if (filter.POLICE_FORCE) layer.push(createLayer.getPoliceForcesLayer());
 
+            //visibleの人間たち
             if (perceptionFilter.perceptionCIVILIAN && isOkPerception) layer.push(createLayer.getPerceptionCiviliansLayer());
             if (perceptionFilter.perceptionFIRE_BRIGADE && isOkPerception) layer.push(createLayer.getPerceptionFireBrigadesLayer());
             if (perceptionFilter.perceptionAMBULANCE_TEAM && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceTeamsLayer());
             if (perceptionFilter.perceptionPOLICE_FORCE && isOkPerception) layer.push(createLayer.getPerceptionPoliceForcesLayer());
 
+            //communicationの人間たち
+            if (perceptionFilter.communicationAMBULANCE_TEAM && isOkPerception) layer.push(createLayer.getCommunicationAmbulanceTeamsLayer());
+            if (perceptionFilter.communicationCIVILIAN && isOkPerception) layer.push(createLayer.getCommunicationCiviliansLayer());
+            if (perceptionFilter.communicationFIRE_BRIGADE && isOkPerception) layer.push(createLayer.getCommunicationFireBrigadesLayer());
+            if (perceptionFilter.communicationPOLICE_FORCE && isOkPerception) layer.push(createLayer.getCommunicationPoliceForcesLayer());
+
+            //軌跡
             if (filter.POSITION_HISTORY) layer.push(createLayer.getPositionHistoryLayer());
+
+            //アーク
+            if (perceptionFilter.communicationTarget && isOkPerception) layer.push(createLayer.getCommunicationTargetLayer());
 
             setLayer(layer);
         }
@@ -81,9 +100,9 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             <div css={body}>
                 <DeckGL
                     initialViewState={{
-                        longitude: 2,
-                        latitude: 2,
-                        zoom: 6,
+                        longitude: 1,
+                        latitude: 1,
+                        zoom: 8,
                     }}
                     controller
                     layers={layer}
@@ -102,7 +121,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                         for (const key in object) {
                             if (key && object.hasOwnProperty(key)) {
                                 const value = object[key];
-                                if (value.value) {
+                                if (value?.value) {
                                     if (key === "HP" || key === "STAMINA" || key === "BURIEDNESS" || key === "REPAIR_COST" || key === "OCCUPIED_BEDS" || key === "BED_CAPACITY" || key === "BED_CAPACITY" || key === "BROKENNESS") {
                                         text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
                                     } else {
