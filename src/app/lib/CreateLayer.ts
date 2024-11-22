@@ -947,334 +947,338 @@ export class CreateLayer {
 
             //communicationの情報をひとつづづ読んでいって，レイヤーに格納
             communications.map((communication) => {
-                if (URN_MAP[communication.urn] === "AK_SPEAK") {
-                    //AK_SPEAKについてのメッセージ
-                    if (communication.components.messageType === 1) {
-                        //MessageAmbulanceTeam
+                try {
+                    if (URN_MAP[communication.urn] === "AK_SPEAK") {
+                        //AK_SPEAKについてのメッセージ
+                        if (communication.components.messageType === 1) {
+                            //MessageAmbulanceTeam
 
-                        const entitys = simulation.getWorldModel(step).getEntity();
+                            const entitys = simulation.getWorldModel(step).getEntity();
 
-                        let positionEntity = null;
-                        let targetEntity = null;
-                        entitys.map((entity) => {
-                            if (entity.getEntityId() === communication.components.Message.position) {
-                                positionEntity = entity;
-                            }
-                            if (entity.getEntityId() === communication.components.Message.target) {
-                                targetEntity = entity;
-                            }
-                        });
+                            let positionEntity = null;
+                            let targetEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.position) {
+                                    positionEntity = entity;
+                                }
+                                if (entity.getEntityId() === communication.components.Message.target) {
+                                    targetEntity = entity;
+                                }
+                            });
 
-                        if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
-                            const x = (positionEntity as Entity).getPropertys().X.value;
-                            const y = (positionEntity as Entity).getPropertys().Y.value;
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const x = (positionEntity as Entity).getPropertys().X.value;
+                                const y = (positionEntity as Entity).getPropertys().Y.value;
 
-                            let color = 0;
-                            if (communication.components.Message.hp) {
-                                color = 255 * (communication.components.Message.hp / 10000);
-                            }
+                                let color = 0;
+                                if (communication.components.Message.hp) {
+                                    color = 255 * (communication.components.Message.hp / 10000);
+                                }
 
-                            let bgc = [color, color, color];
-                            if (communication.components.Message.id === perceptionId) {
-                                bgc = [0, color, color];
-                            }
+                                let bgc = [color, color, color];
+                                if (communication.components.Message.id === perceptionId) {
+                                    bgc = [0, color, color];
+                                }
 
-                            let isSearch = false;
-                            if (String(communication.components.Message.id) === IdSearch) {
-                                isSearch = true;
-                            }
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
 
-                            const data = {
-                                entity: "AMBULANCE_TEAM",
-                                entityId: communication.components.Message.id,
-                                positions: [x / 400000, y / 400000],
-                                backgroundColor: bgc,
-                                isSearch,
-                                MessageFrom: communication.components.AgentID,
-                                MessageChannel: communication.components.Channel,
-                                MessageTime: communication.components.Time,
-                                ...communication.components.Message,
-                            };
-
-                            this.communicationAmbulanceTeamsLayer.push(data);
-
-                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
-                                const targetX = (targetEntity as Entity).getPropertys().X.value;
-                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
-
-                                const targetData = {
-                                    from: [x / 400000, y / 400000],
-                                    to: [targetX / 400000, targetY / 400000],
-                                    color: [255, 255, 255],
+                                const data = {
+                                    entity: "AMBULANCE_TEAM",
+                                    entityId: communication.components.Message.id,
+                                    positions: [x / 400000, y / 400000],
+                                    backgroundColor: bgc,
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
                                 };
 
-                                this.communicationTargetLayer.push(targetData);
+                                this.communicationAmbulanceTeamsLayer.push(data);
+
+                                if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                    const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                    const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                                    const targetData = {
+                                        from: [x / 400000, y / 400000],
+                                        to: [targetX / 400000, targetY / 400000],
+                                        color: [255, 255, 255],
+                                    };
+
+                                    this.communicationTargetLayer.push(targetData);
+                                }
+                            } else {
+                                console.error("だめだー");
                             }
-                        } else {
-                            console.error("だめだー");
-                        }
-                    } else if (communication.components.messageType === 3) {
-                        //MessageCivilian
+                        } else if (communication.components.messageType === 3) {
+                            //MessageCivilian
 
-                        const entitys = simulation.getWorldModel(step).getEntity();
+                            const entitys = simulation.getWorldModel(step).getEntity();
 
-                        let positionEntity = null;
-                        entitys.map((entity) => {
-                            if (entity.getEntityId() === communication.components.Message.position) {
-                                positionEntity = entity;
-                            }
-                        });
+                            let positionEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.position) {
+                                    positionEntity = entity;
+                                }
+                            });
 
-                        if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
-                            const x = (positionEntity as Entity).getPropertys().X.value;
-                            const y = (positionEntity as Entity).getPropertys().Y.value;
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const x = (positionEntity as Entity).getPropertys().X.value;
+                                const y = (positionEntity as Entity).getPropertys().Y.value;
 
-                            let color = 0;
-                            if (communication.components.Message.hp) {
-                                color = 255 * (communication.components.Message.hp / 10000);
-                            }
+                                let color = 0;
+                                if (communication.components.Message.hp) {
+                                    color = 255 * (communication.components.Message.hp / 10000);
+                                }
 
-                            let bgc = [0, color, 0];
-                            if (communication.components.Message.id === perceptionId) {
-                                bgc = [0, color, color];
-                            }
+                                let bgc = [0, color, 0];
+                                if (communication.components.Message.id === perceptionId) {
+                                    bgc = [0, color, color];
+                                }
 
-                            let isSearch = false;
-                            if (String(communication.components.Message.id) === IdSearch) {
-                                isSearch = true;
-                            }
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
 
-                            const data = {
-                                entity: "CIVILIAN",
-                                entityId: communication.components.Message.id,
-                                positions: [x / 400000, y / 400000],
-                                backgroundColor: bgc,
-                                isSearch,
-                                MessageFrom: communication.components.AgentID,
-                                MessageChannel: communication.components.Channel,
-                                MessageTime: communication.components.Time,
-                                ...communication.components.Message,
-                            };
-
-                            this.communicationCiviliansLayer.push(data);
-                        } else {
-                            console.error("だめだー");
-                        }
-                    } else if (communication.components.messageType === 4) {
-                        //MessageFireBrigade
-
-                        const entitys = simulation.getWorldModel(step).getEntity();
-
-                        let positionEntity = null;
-                        let targetEntity = null;
-                        entitys.map((entity) => {
-                            if (entity.getEntityId() === communication.components.Message.position) {
-                                positionEntity = entity;
-                            }
-                            if (entity.getEntityId() === communication.components.Message.target) {
-                                targetEntity = entity;
-                            }
-                        });
-
-                        if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
-                            const x = (positionEntity as Entity).getPropertys().X.value;
-                            const y = (positionEntity as Entity).getPropertys().Y.value;
-
-                            let color = 0;
-                            if (communication.components.Message.hp) {
-                                color = 255 * (communication.components.Message.hp / 10000);
-                            }
-
-                            let bgc = [color, 0, 0];
-                            if (communication.components.Message.id === perceptionId) {
-                                bgc = [0, color, color];
-                            }
-
-                            let isSearch = false;
-                            if (String(communication.components.Message.id) === IdSearch) {
-                                isSearch = true;
-                            }
-
-                            const data = {
-                                entity: "FIRE_BRIGADE",
-                                entityId: communication.components.Message.id,
-                                positions: [x / 400000, y / 400000],
-                                backgroundColor: bgc,
-                                isSearch,
-                                MessageFrom: communication.components.AgentID,
-                                MessageChannel: communication.components.Channel,
-                                MessageTime: communication.components.Time,
-                                ...communication.components.Message,
-                            };
-
-                            this.communicationFireBrigadesLayer.push(data);
-
-                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
-                                const targetX = (targetEntity as Entity).getPropertys().X.value;
-                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
-
-                                const targetData = {
-                                    from: [x / 400000, y / 400000],
-                                    to: [targetX / 400000, targetY / 400000],
-                                    color: [255, 0, 0],
+                                const data = {
+                                    entity: "CIVILIAN",
+                                    entityId: communication.components.Message.id,
+                                    positions: [x / 400000, y / 400000],
+                                    backgroundColor: bgc,
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
                                 };
 
-                                this.communicationTargetLayer.push(targetData);
+                                this.communicationCiviliansLayer.push(data);
+                            } else {
+                                console.error("だめだー");
                             }
-                        } else {
-                            console.error("だめだー");
-                        }
-                    } else if (communication.components.messageType === 5) {
-                        //MessagePoliceForce
+                        } else if (communication.components.messageType === 4) {
+                            //MessageFireBrigade
 
-                        const entitys = simulation.getWorldModel(step).getEntity();
+                            const entitys = simulation.getWorldModel(step).getEntity();
 
-                        let positionEntity = null;
-                        let targetEntity = null;
-                        entitys.map((entity) => {
-                            if (entity.getEntityId() === communication.components.Message.position) {
-                                positionEntity = entity;
-                            }
-                            if (entity.getEntityId() === communication.components.Message.target) {
-                                targetEntity = entity;
-                            }
-                        });
+                            let positionEntity = null;
+                            let targetEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.position) {
+                                    positionEntity = entity;
+                                }
+                                if (entity.getEntityId() === communication.components.Message.target) {
+                                    targetEntity = entity;
+                                }
+                            });
 
-                        if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
-                            const x = (positionEntity as Entity).getPropertys().X.value;
-                            const y = (positionEntity as Entity).getPropertys().Y.value;
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const x = (positionEntity as Entity).getPropertys().X.value;
+                                const y = (positionEntity as Entity).getPropertys().Y.value;
 
-                            let color = 0;
-                            if (communication.components.Message.hp) {
-                                color = 255 * (communication.components.Message.hp / 10000);
-                            }
+                                let color = 0;
+                                if (communication.components.Message.hp) {
+                                    color = 255 * (communication.components.Message.hp / 10000);
+                                }
 
-                            let bgc = [0, 0, color];
-                            if (communication.components.Message.id === perceptionId) {
-                                bgc = [0, color, color];
-                            }
+                                let bgc = [color, 0, 0];
+                                if (communication.components.Message.id === perceptionId) {
+                                    bgc = [0, color, color];
+                                }
 
-                            let isSearch = false;
-                            if (String(communication.components.Message.id) === IdSearch) {
-                                isSearch = true;
-                            }
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
 
-                            const data = {
-                                entity: "POLICE_FORCE",
-                                entityId: communication.components.Message.id,
-                                positions: [x / 400000, y / 400000],
-                                backgroundColor: bgc,
-                                isSearch,
-                                MessageFrom: communication.components.AgentID,
-                                MessageChannel: communication.components.Channel,
-                                MessageTime: communication.components.Time,
-                                ...communication.components.Message,
-                            };
-
-                            this.communicationPoliceForcesLayer.push(data);
-
-                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
-                                const targetX = (targetEntity as Entity).getPropertys().X.value;
-                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
-
-                                const targetData = {
-                                    from: [x / 400000, y / 400000],
-                                    to: [targetX / 400000, targetY / 400000],
-                                    color: [0, 0, 255],
+                                const data = {
+                                    entity: "FIRE_BRIGADE",
+                                    entityId: communication.components.Message.id,
+                                    positions: [x / 400000, y / 400000],
+                                    backgroundColor: bgc,
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
                                 };
 
-                                this.communicationTargetLayer.push(targetData);
+                                this.communicationFireBrigadesLayer.push(data);
+
+                                if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                    const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                    const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                                    const targetData = {
+                                        from: [x / 400000, y / 400000],
+                                        to: [targetX / 400000, targetY / 400000],
+                                        color: [255, 0, 0],
+                                    };
+
+                                    this.communicationTargetLayer.push(targetData);
+                                }
+                            } else {
+                                console.error("だめだー");
+                            }
+                        } else if (communication.components.messageType === 5) {
+                            //MessagePoliceForce
+
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let positionEntity = null;
+                            let targetEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.position) {
+                                    positionEntity = entity;
+                                }
+                                if (entity.getEntityId() === communication.components.Message.target) {
+                                    targetEntity = entity;
+                                }
+                            });
+
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.X?.idDefined && (positionEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                const x = (positionEntity as Entity).getPropertys().X.value;
+                                const y = (positionEntity as Entity).getPropertys().Y.value;
+
+                                let color = 0;
+                                if (communication.components.Message.hp) {
+                                    color = 255 * (communication.components.Message.hp / 10000);
+                                }
+
+                                let bgc = [0, 0, color];
+                                if (communication.components.Message.id === perceptionId) {
+                                    bgc = [0, color, color];
+                                }
+
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
+
+                                const data = {
+                                    entity: "POLICE_FORCE",
+                                    entityId: communication.components.Message.id,
+                                    positions: [x / 400000, y / 400000],
+                                    backgroundColor: bgc,
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
+                                };
+
+                                this.communicationPoliceForcesLayer.push(data);
+
+                                if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                    const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                    const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                                    const targetData = {
+                                        from: [x / 400000, y / 400000],
+                                        to: [targetX / 400000, targetY / 400000],
+                                        color: [0, 0, 255],
+                                    };
+
+                                    this.communicationTargetLayer.push(targetData);
+                                }
+                            } else {
+                                console.error("だめだー");
+                            }
+                        } else if (communication.components.messageType === 6) {
+                            // MessageRoad
+
+                            if (communication.components.Message.cost !== -1) {
+                                console.error("communicationで瓦礫のやつ発見");
+                            }
+
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let positionEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message.id) {
+                                    positionEntity = entity;
+                                }
+                            });
+
+                            if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.EDGES?.idDefined) {
+                                const edges: Array<number[]> = this.getEdges((positionEntity as Entity).getPropertys().EDGES.value.edgesList);
+
+                                let isSearch = false;
+                                if (String(communication.components.Message.id) === IdSearch) {
+                                    isSearch = true;
+                                }
+
+                                const data = {
+                                    entity: "ROAD",
+                                    entityId: communication.components.Message.id,
+                                    apex: edges,
+                                    backgroundColor: communication.components.Message.passable ? [200, 200, 200] : [100, 100, 100],
+                                    isSearch,
+                                    ...communication.components.Message,
+                                };
+
+                                this.communicationRoadsLayer.push(data);
+                            } else {
+                                console.error("だめだー");
+                            }
+                        } else if (communication.components.messageType === 9) {
+                            //CommandPolice
+
+                            if (communication.components.Message?.to !== -1) {
+                                console.log("toが-1じゃないやつ来たぞ");
+                            }
+
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let targetEntity = null;
+                            entitys.map((entity) => {
+                                if (entity.getEntityId() === communication.components.Message?.target) {
+                                    targetEntity = entity;
+                                }
+                            });
+
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.EDGES?.idDefined) {
+                                const edges: Array<number[]> = this.getEdges((targetEntity as Entity).getPropertys().EDGES.value.edgesList);
+
+                                let isSearch = false;
+                                if (String((targetEntity as Entity).getEntityId()) === IdSearch) {
+                                    isSearch = true;
+                                }
+
+                                const data = {
+                                    entity: "centralized",
+                                    entityId: (targetEntity as Entity).getEntityId(),
+                                    apex: edges,
+                                    backgroundColor: communication.components.Message.action === "CLEAR" ? [0, 170, 255, 75] : [255, 170, 255, 75],
+                                    isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
+                                    ...communication.components.Message,
+                                };
+
+                                this.communicationCentralizedLayer.push(data);
+                            } else {
+                                console.error("だめだー");
                             }
                         } else {
-                            console.error("だめだー");
-                        }
-                    } else if (communication.components.messageType === 6) {
-                        // MessageRoad
+                            //AK_SPEAK内のコンポーネントの種類の処理がなされていない場合
 
-                        if (communication.components.Message.cost !== -1) {
-                            console.error("communicationで瓦礫のやつ発見");
-                        }
-
-                        const entitys = simulation.getWorldModel(step).getEntity();
-
-                        let positionEntity = null;
-                        entitys.map((entity) => {
-                            if (entity.getEntityId() === communication.components.Message.id) {
-                                positionEntity = entity;
-                            }
-                        });
-
-                        if (positionEntity !== null && (positionEntity as Entity).getPropertys()?.EDGES?.idDefined) {
-                            const edges: Array<number[]> = this.getEdges((positionEntity as Entity).getPropertys().EDGES.value.edgesList);
-
-                            let isSearch = false;
-                            if (String(communication.components.Message.id) === IdSearch) {
-                                isSearch = true;
-                            }
-
-                            const data = {
-                                entity: "ROAD",
-                                entityId: communication.components.Message.id,
-                                apex: edges,
-                                backgroundColor: communication.components.Message.passable ? [200, 200, 200] : [100, 100, 100],
-                                isSearch,
-                                ...communication.components.Message,
-                            };
-
-                            this.communicationRoadsLayer.push(data);
-                        } else {
-                            console.error("だめだー");
-                        }
-                    } else if (communication.components.messageType === 9) {
-                        //CommandPolice
-
-                        if (communication.components.Message?.to !== -1) {
-                            console.log("toが-1じゃないやつ来たぞ");
-                        }
-
-                        const entitys = simulation.getWorldModel(step).getEntity();
-
-                        let targetEntity = null;
-                        entitys.map((entity) => {
-                            if (entity.getEntityId() === communication.components.Message?.target) {
-                                targetEntity = entity;
-                            }
-                        });
-
-                        if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.EDGES?.idDefined) {
-                            const edges: Array<number[]> = this.getEdges((targetEntity as Entity).getPropertys().EDGES.value.edgesList);
-
-                            let isSearch = false;
-                            if (String((targetEntity as Entity).getEntityId()) === IdSearch) {
-                                isSearch = true;
-                            }
-
-                            const data = {
-                                entity: "centralized",
-                                entityId: (targetEntity as Entity).getEntityId(),
-                                apex: edges,
-                                backgroundColor: communication.components.Message.action === "CLEAR" ? [0, 170, 255, 75] : [255, 170, 255, 75],
-                                isSearch,
-                                MessageFrom: communication.components.AgentID,
-                                MessageChannel: communication.components.Channel,
-                                MessageTime: communication.components.Time,
-                                ...communication.components.Message,
-                            };
-
-                            this.communicationCentralizedLayer.push(data);
-                        } else {
-                            console.error("だめだー");
+                            console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
                         }
                     } else {
-                        //AK_SPEAK内のコンポーネントの種類の処理がなされていない場合
+                        //コミュニケーションのメッセージ内容の処理がなされていない場合
+                        //現状は，AK_SPEAK以外の場合
 
-                        console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
+                        console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
                     }
-                } else {
-                    //コミュニケーションのメッセージ内容の処理がなされていない場合
-                    //現状は，AK_SPEAK以外の場合
-
-                    console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
+                } catch (e) {
+                    console.error("コミュニケーションの描画，失敗，残念", e);
                 }
             });
         }
