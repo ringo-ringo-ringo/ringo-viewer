@@ -230,6 +230,9 @@ export class Communication {
 
 
 /*
+
+
+
 messageのinformationとcentralizedとはなに？？
     informationが個人？
     centralizedは司令塔？
@@ -251,4 +254,13 @@ centralizedはほぼ通信がないのはなぜ？
     通信のノイズで，targetがわからなくなることはあり得るのか？
 
 いみわからん
+*/
+
+
+
+/*
+communicationは主にAK_SPEAK
+
+informationが個々人
+centralizedは司令塔
 */
