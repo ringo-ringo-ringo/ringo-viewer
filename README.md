@@ -84,6 +84,10 @@ npm run dev
 <a href="docs/Instructions.md">説明書はこちら</a>
 
 
+## 開発状況
+<a href="docs/develop-status.md">開発状況はこちら</a>
+
+
 ## 困った時は
 
 -  ログが読み込まれません
