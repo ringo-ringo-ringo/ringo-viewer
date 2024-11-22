@@ -29,7 +29,6 @@ export class Command {
                     }
                 });
             });
-            console.log(this.componentsMap);
 
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
