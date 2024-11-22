@@ -1,6 +1,7 @@
 import { Property } from "@/app/lib/Property";
 import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
 import { Communication } from "@/app/lib/Communication";
+import { Command } from "@/app/lib/Command";
 
 export class Entity {
     urn: number;
@@ -8,6 +9,7 @@ export class Entity {
     properties: { [key: string]: any } = {};
     perception: Entity[] | null = null;
     communication: Communication[] = [];
+    command: Command | null = null;
 
     constructor(entity: any) {
         this.urn = entity.urn;
