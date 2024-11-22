@@ -1219,6 +1219,9 @@ export class CreateLayer {
                                     apex: edges,
                                     backgroundColor: communication.components.Message.passable ? [200, 200, 200] : [100, 100, 100],
                                     isSearch,
+                                    MessageFrom: communication.components.AgentID,
+                                    MessageChannel: communication.components.Channel,
+                                    MessageTime: communication.components.Time,
                                     ...communication.components.Message,
                                 };
 
