@@ -100,9 +100,9 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             <div css={body}>
                 <DeckGL
                     initialViewState={{
-                        longitude: 2,
-                        latitude: 2,
-                        zoom: 6,
+                        longitude: 1,
+                        latitude: 1,
+                        zoom: 8,
                     }}
                     controller
                     layers={layer}

@@ -72,10 +72,10 @@ export class CreateLayer {
 
         edgesList.map((edge: any) => {
             if (first) {
-                edges.push([edge.startx / 20000, edge.starty / 20000]);
+                edges.push([edge.startx / 400000, edge.starty / 400000]);
                 first = false;
             }
-            edges.push([edge.endx / 20000, edge.endy / 20000]);
+            edges.push([edge.endx / 400000, edge.endy / 400000]);
         });
 
         return edges;
@@ -298,8 +298,8 @@ export class CreateLayer {
                             } else {
                                 const positionHistoryData = {
                                     backgroundColor: [250, 0, 0],
-                                    from: [x1 / 20000, y1 / 20000],
-                                    to: [x2 / 20000, y2 / 20000],
+                                    from: [x1 / 400000, y1 / 400000],
+                                    to: [x2 / 400000, y2 / 400000],
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -310,8 +310,8 @@ export class CreateLayer {
                     }
                     const positionHistoryData = {
                         backgroundColor: [250, 0, 0],
-                        from: [x2 / 20000, y2 / 20000],
-                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                        from: [x2 / 400000, y2 / 400000],
+                        to: [properties.X.value / 400000, properties.Y.value / 400000],
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -332,7 +332,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    positions: [x / 20000, y / 20000],
+                    positions: [x / 400000, y / 400000],
                     backgroundColor: [0, color, 0],
                     isSearch,
                     ...properties,
@@ -359,8 +359,8 @@ export class CreateLayer {
                             } else {
                                 const positionHistoryData = {
                                     backgroundColor: [250, 0, 0],
-                                    from: [x1 / 20000, y1 / 20000],
-                                    to: [x2 / 20000, y2 / 20000],
+                                    from: [x1 / 400000, y1 / 400000],
+                                    to: [x2 / 400000, y2 / 400000],
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -371,8 +371,8 @@ export class CreateLayer {
                     }
                     const positionHistoryData = {
                         backgroundColor: [250, 0, 0],
-                        from: [x2 / 20000, y2 / 20000],
-                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                        from: [x2 / 400000, y2 / 400000],
+                        to: [properties.X.value / 400000, properties.Y.value / 400000],
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -393,7 +393,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    positions: [x / 20000, y / 20000],
+                    positions: [x / 400000, y / 400000],
                     backgroundColor: [color, 0, 0],
                     isSearch,
                     ...properties,
@@ -420,8 +420,8 @@ export class CreateLayer {
                             } else {
                                 const positionHistoryData = {
                                     backgroundColor: [250, 0, 0],
-                                    from: [x1 / 20000, y1 / 20000],
-                                    to: [x2 / 20000, y2 / 20000],
+                                    from: [x1 / 400000, y1 / 400000],
+                                    to: [x2 / 400000, y2 / 400000],
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -432,8 +432,8 @@ export class CreateLayer {
                     }
                     const positionHistoryData = {
                         backgroundColor: [250, 0, 0],
-                        from: [x2 / 20000, y2 / 20000],
-                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                        from: [x2 / 400000, y2 / 400000],
+                        to: [properties.X.value / 400000, properties.Y.value / 400000],
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -454,7 +454,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    positions: [x / 20000, y / 20000],
+                    positions: [x / 400000, y / 400000],
                     backgroundColor: [color, color, color],
                     isSearch,
                     ...properties,
@@ -481,8 +481,8 @@ export class CreateLayer {
                             } else {
                                 const positionHistoryData = {
                                     backgroundColor: [250, 0, 0],
-                                    from: [x1 / 20000, y1 / 20000],
-                                    to: [x2 / 20000, y2 / 20000],
+                                    from: [x1 / 400000, y1 / 400000],
+                                    to: [x2 / 400000, y2 / 400000],
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -493,8 +493,8 @@ export class CreateLayer {
                     }
                     const positionHistoryData = {
                         backgroundColor: [250, 0, 0],
-                        from: [x2 / 20000, y2 / 20000],
-                        to: [properties.X.value / 20000, properties.Y.value / 20000],
+                        from: [x2 / 400000, y2 / 400000],
+                        to: [properties.X.value / 400000, properties.Y.value / 400000],
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -515,7 +515,7 @@ export class CreateLayer {
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
-                    positions: [x / 20000, y / 20000],
+                    positions: [x / 400000, y / 400000],
                     backgroundColor: [0, 0, color],
                     isSearch,
                     ...properties,
@@ -537,7 +537,7 @@ export class CreateLayer {
                     } else {
                         y = apex;
                         if (x && y) {
-                            edges.push([x / 20000, y / 20000]);
+                            edges.push([x / 400000, y / 400000]);
                         } else {
                             console.error("中に入ってる値がnullだぞ");
                         }
@@ -639,7 +639,7 @@ export class CreateLayer {
                                         } else {
                                             y = apex;
                                             if (x && y) {
-                                                edges.push([x / 20000, y / 20000]);
+                                                edges.push([x / 400000, y / 400000]);
                                             } else {
                                                 console.error("中に入ってる値がnullだぞ");
                                             }
@@ -838,7 +838,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        positions: [x / 20000, y / 20000],
+                        positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -869,7 +869,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        positions: [x / 20000, y / 20000],
+                        positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -900,7 +900,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        positions: [x / 20000, y / 20000],
+                        positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -931,7 +931,7 @@ export class CreateLayer {
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
-                        positions: [x / 20000, y / 20000],
+                        positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
                         ...properties,
@@ -987,7 +987,7 @@ export class CreateLayer {
                             const data = {
                                 entity: "AMBULANCE_TEAM",
                                 entityId: communication.components.Message.id,
-                                positions: [x / 20000, y / 20000],
+                                positions: [x / 400000, y / 400000],
                                 backgroundColor: bgc,
                                 isSearch,
                                 MessageFrom: communication.components.AgentID,
@@ -1003,8 +1003,8 @@ export class CreateLayer {
                                 const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
                                 const targetData = {
-                                    from: [x / 20000, y / 20000],
-                                    to: [targetX / 20000, targetY / 20000],
+                                    from: [x / 400000, y / 400000],
+                                    to: [targetX / 400000, targetY / 400000],
                                     color: [255, 255, 255],
                                 };
 
@@ -1047,7 +1047,7 @@ export class CreateLayer {
                             const data = {
                                 entity: "CIVILIAN",
                                 entityId: communication.components.Message.id,
-                                positions: [x / 20000, y / 20000],
+                                positions: [x / 400000, y / 400000],
                                 backgroundColor: bgc,
                                 isSearch,
                                 MessageFrom: communication.components.AgentID,
@@ -1098,7 +1098,7 @@ export class CreateLayer {
                             const data = {
                                 entity: "FIRE_BRIGADE",
                                 entityId: communication.components.Message.id,
-                                positions: [x / 20000, y / 20000],
+                                positions: [x / 400000, y / 400000],
                                 backgroundColor: bgc,
                                 isSearch,
                                 MessageFrom: communication.components.AgentID,
@@ -1114,8 +1114,8 @@ export class CreateLayer {
                                 const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
                                 const targetData = {
-                                    from: [x / 20000, y / 20000],
-                                    to: [targetX / 20000, targetY / 20000],
+                                    from: [x / 400000, y / 400000],
+                                    to: [targetX / 400000, targetY / 400000],
                                     color: [255, 0, 0],
                                 };
 
@@ -1162,7 +1162,7 @@ export class CreateLayer {
                             const data = {
                                 entity: "POLICE_FORCE",
                                 entityId: communication.components.Message.id,
-                                positions: [x / 20000, y / 20000],
+                                positions: [x / 400000, y / 400000],
                                 backgroundColor: bgc,
                                 isSearch,
                                 MessageFrom: communication.components.AgentID,
@@ -1178,8 +1178,8 @@ export class CreateLayer {
                                 const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
                                 const targetData = {
-                                    from: [x / 20000, y / 20000],
-                                    to: [targetX / 20000, targetY / 20000],
+                                    from: [x / 400000, y / 400000],
+                                    to: [targetX / 400000, targetY / 400000],
                                     color: [0, 0, 255],
                                 };
 
