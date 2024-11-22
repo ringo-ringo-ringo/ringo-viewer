@@ -110,7 +110,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                     });
             } else {
                 const fetchUpdate = async (callStep: number) => {
-                    setIsLoading((e) => e + 1);
+                    setIsLoading((e) => e + 2);
 
                     if (!simulation.getWorldModel(callStep - 1)) {
                         await fetchUpdate(callStep - 1);
@@ -119,6 +119,18 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                     await LoadLog.load(simulation.getLogPath(), `${callStep}/UPDATES`)
                         .then((res) => {
                             simulation.setWorldModel(callStep, res);
+                            setSimulation(new Simulation(simulation));
+                            setIsLoading((e) => e - 1);
+                        })
+                        .catch((error) => {
+                            console.error("ログの読み込みエラー:", error);
+
+                            throw new Error("ログを読み込めませんでした");
+                        });
+
+                    await LoadLog.load(simulation.getLogPath(), `${callStep}/COMMANDS`)
+                        .then((res) => {
+                            simulation.setCommand(callStep, res);
                             setSimulation(new Simulation(simulation));
                             setIsLoading((e) => e - 1);
                         })

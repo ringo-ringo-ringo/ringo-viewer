@@ -1,8 +1,10 @@
 import { Entity } from "@/app/lib/Entity";
+import { Command } from "@/app/lib/Command";
 
 export class WorldModel {
     step: number;
     entity: Entity[] = [];
+    command: Command[] = [];
 
     constructor(step: number, entity?: Entity[]) {
         this.step = step;
@@ -82,6 +84,14 @@ export class WorldModel {
                 entity.setCommunication(log);
             }
         });
+    }
+
+    setCommand(log: any) {
+        if (this.step === log.time) {
+            log.commandsList.map((command: any) => {
+                this.command.push(new Command(command));
+            });
+        }
     }
 
     getEntity() {
