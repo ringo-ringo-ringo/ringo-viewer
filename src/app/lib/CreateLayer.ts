@@ -1342,7 +1342,7 @@ export class CreateLayer {
             getSourcePosition: (d) => d.from,
             getTargetPosition: (d) => d.to,
             getSourceColor: (d) => d.color,
-            getTargetColor: (d) => d.color,
+            getTargetColor: (d) => [255,255,200],
             getWidth: 2,
         });
     }
