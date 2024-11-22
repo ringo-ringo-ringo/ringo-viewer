@@ -89,7 +89,7 @@ export class WorldModel {
     setCommand(log: any) {
         if (this.step === log.time) {
             log.commandsList.map((command: any) => {
-                this.command.push(new Command(command));
+                this.command.push(new Command(command, this.entity));
             });
         }
     }

@@ -86,6 +86,10 @@ export class Entity {
         });
     }
 
+    setCommand(command: Command) {
+        this.command = command;
+    }
+
     getPerception() {
         return this.perception;
     }
