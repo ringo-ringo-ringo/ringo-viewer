@@ -9,7 +9,7 @@ export class Entity {
     properties: { [key: string]: any } = {};
     perception: Entity[] | null = null;
     communication: Communication[] = [];
-    command: Command | null = null;
+    command: Command[] = [];
 
     constructor(entity: any) {
         this.urn = entity.urn;
@@ -87,7 +87,7 @@ export class Entity {
     }
 
     setCommand(command: Command) {
-        this.command = command;
+        this.command.push(command);
     }
 
     getPerception() {
