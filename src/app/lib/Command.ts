@@ -245,7 +245,6 @@ export class Command {
                     }
                 });
             });
-            console.log(this.componentsMap);
         } else {
             console.error("未知のコマンド発見！", URN_MAP[this.urn], command);
         }
