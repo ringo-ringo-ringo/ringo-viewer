@@ -13,7 +13,7 @@ import Forward10Icon from "@mui/icons-material/Forward10";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Tooltip from "@mui/material/Tooltip";
 
-export default function Bottomer({ sliderValue, changeSlider, changeCommittedSlider, buttonDisable, setStep, stepDown, stepUp, perceptionId, deletePerceptionId }: any) {
+export default function Bottomer({ sliderValue, changeSlider, changeCommittedSlider, buttonDisable, setStep, stepDown, stepUp, perceptionId, deletePerceptionId, maxStep }: any) {
     const defaultBody = css`
         position: absolute;
         /* bottom: 0px; */
@@ -221,7 +221,7 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                     <Tooltip title="go to last step">
                         <Button
                             onClick={() => {
-                                setStep(300);
+                                setStep(maxStep);
                             }}
                             disabled={buttonDisable}
                         >
@@ -245,7 +245,7 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                         ""
                     )}
                 </div>
-                <Slider size="small" value={sliderValue} aria-label="Small" valueLabelDisplay="auto" min={0} max={300} onChange={changeSlider} onChangeCommitted={changeCommittedSlider} disabled={buttonDisable} />
+                <Slider size="small" value={sliderValue} aria-label="Small" valueLabelDisplay="auto" min={0} max={maxStep} onChange={changeSlider} onChangeCommitted={changeCommittedSlider} disabled={buttonDisable} />
             </div>
         </>
     );
