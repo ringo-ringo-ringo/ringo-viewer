@@ -276,6 +276,33 @@ export class Command {
                     entity.setCommand(this);
                 }
             });
+        } else if (URN_MAP[this.urn] === "AK_SUBSCRIBE") {
+            command.componentsMap.map((component: any) => {
+                let count = 0;
+                let key = "";
+                component.map((res: any) => {
+                    if (count === 0) {
+                        key = res;
+                        count++;
+                    } else {
+                        if (URN_MAP[key] === "AgentID") {
+                            this.componentsMap[URN_MAP[key]] = res.entityid;
+                        } else if (URN_MAP[key] === "Time") {
+                            this.componentsMap[URN_MAP[key]] = res.intvalue;
+                        } else if (URN_MAP[key] === "Channels") {
+                            this.componentsMap[URN_MAP[key]] = res.intlist.valuesList;
+                        } else {
+                            console.error("知らないコンポーネント見つけたぞ", URN_MAP[key], res);
+                        }
+                    }
+                });
+            });
+
+            entity.map((entity: Entity) => {
+                if (entity.getEntityId() === this.componentsMap.AgentID) {
+                    entity.setCommand(this);
+                }
+            });
         } else {
             console.error("未知のコマンド発見！", URN_MAP[this.urn], command);
         }
