@@ -236,6 +236,8 @@ messageのinformationとcentralizedとはなに？？
 
 informationのbuildingsがないのはなぜ？
 
+AITは土木隊の通信未実装？
+
 centralizedはほぼ通信がないのはなぜ？
     司令塔はあまり開発されてないと聞いてるけど，本当？
         だからないのかな？
