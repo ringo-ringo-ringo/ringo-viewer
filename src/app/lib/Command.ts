@@ -245,6 +245,12 @@ export class Command {
                     }
                 });
             });
+
+            entity.map((entity: Entity) => {
+                if (entity.getEntityId() === this.componentsMap.AgentID) {
+                    entity.setCommand(this);
+                }
+            });
         } else {
             console.error("未知のコマンド発見！", URN_MAP[this.urn], command);
         }
