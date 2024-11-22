@@ -16,7 +16,6 @@ export class Command {
                         key = res;
                         count++;
                     } else {
-                        this.componentsMap[URN_MAP[key]] = res;
                         if (URN_MAP[key] === "AgentID") {
                             this.componentsMap[URN_MAP[key]] = res.entityid;
                         } else if (URN_MAP[key] === "DestinationX" || URN_MAP[key] === "DestinationY" || URN_MAP[key] === "Time") {
