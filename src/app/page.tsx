@@ -49,6 +49,7 @@ export default function Home() {
         AMBULANCE_TEAM: true,
         POLICE_FORCE: true,
         POSITION_HISTORY: true,
+        COMMAND_PATH: false,
     });
 
     const [perceptionFilter, setPerceptionFilter] = useState({

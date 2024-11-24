@@ -15,7 +15,7 @@ interface HumanLayer {
     backgroundColor: number[];
 }
 
-interface PositionHistoryLayer {
+interface LinesLayer {
     backgroundColor: number[];
     from: number[];
     to: number[];
@@ -40,7 +40,9 @@ export class CreateLayer {
     AmbulanceTeamsLayer: HumanLayer[] = [];
     PoliceForcesLayer: HumanLayer[] = [];
     BlockadesLayer: BuildLayer[] = [];
-    PositionHistoryLayer: PositionHistoryLayer[] = [];
+    PositionHistoryLayer: LinesLayer[] = [];
+
+    commandPathLayer: LinesLayer[] = [];
 
     perceptionBuildingsLayer: BuildLayer[] = [];
     perceptionRoadsLayer: BuildLayer[] = [];
@@ -101,7 +103,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -123,7 +125,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -150,7 +152,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -178,7 +180,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -205,7 +207,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -232,7 +234,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -260,7 +262,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -288,7 +290,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -353,7 +355,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -417,7 +419,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -481,7 +483,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -545,7 +547,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -586,7 +588,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity);
+                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -1326,14 +1328,69 @@ export class CreateLayer {
         }
     }
 
-    searchCommand(worldModel: WorldModel, entity: Entity) {
+    searchCommand(worldModel: WorldModel, entity: Entity, IdSearch: string) {
         const searchProp: any = {};
+
+        let isSearch = false;
+        if (String(entity.getEntityId()) === IdSearch) {
+            isSearch = true;
+        }
 
         if (entity.command.length > 0) {
             entity.command.map((cmd) => {
-                if (URN_MAP[cmd.urn] === "") {
-                    console.log(cmd);
-                    searchProp["a"] = "a";
+                if (URN_MAP[cmd.urn] === "AK_MOVE") {
+                    const ignoreList = ["AgentID", "Time"];
+
+                    for (const key in cmd.componentsMap) {
+                        if (!ignoreList.includes(key)) {
+                            searchProp[key] = cmd.componentsMap[key];
+                        }
+                    }
+
+                    if ((searchProp["DestinationX"] && searchProp["DestinationX"] !== -1) || (searchProp["DestinationY"] && searchProp["DestinationY"] !== -1)) console.error("Destinationが-1じゃないの発見");
+
+                    if (searchProp["Path"]) {
+                        let first: boolean = true;
+                        let x1: number = 0;
+                        let y1: number = 0;
+                        let x2: number = 0;
+                        let y2: number = 0;
+                        for (const position of searchProp["Path"]) {
+                            worldModel.getEntity().map((positionEntity) => {
+                                if (positionEntity.getEntityId() === position) {
+                                    if (positionEntity.properties.X?.value && positionEntity.properties.Y?.value) {
+                                        x2 = positionEntity.properties.X.value;
+                                        y2 = positionEntity.properties.Y.value;
+                                        if (first) {
+                                            const pathData = {
+                                                backgroundColor: [0, 0, 200],
+                                                from: [entity.properties.X.value / 400000, entity.properties.Y.value / 400000],
+                                                to: [x2 / 400000, y2 / 400000],
+                                                isSearch,
+                                            };
+                                            this.commandPathLayer.push(pathData);
+                                            first = false;
+                                        } else {
+                                            const pathData = {
+                                                backgroundColor: [0, 0, 200],
+                                                from: [x1 / 400000, y1 / 400000],
+                                                to: [x2 / 400000, y2 / 400000],
+                                                isSearch,
+                                            };
+                                            this.commandPathLayer.push(pathData);
+                                        }
+                                    }
+                                }
+                            });
+                            x1 = x2;
+                            y1 = y2;
+                        }
+                        // const pathData = {
+                        //     backgroundColor: [0, 0, 200],
+                        //     from: [x2 / 400000, y2 / 400000],
+                        //     to: [properties.X.value / 400000, properties.Y.value / 400000],
+                        // };
+                    }
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
@@ -1379,14 +1436,14 @@ export class CreateLayer {
         });
     }
 
-    createPositionHistoryLayer() {
+    createLinesLayer(id: string, data: Array<any>) {
         return new LineLayer({
-            data: this.PositionHistoryLayer,
-            id: "positionHistory",
-            getColor: (d) => d.backgroundColor,
+            data: data,
+            id: id,
+            getColor: (d) => (d.isSearch ? [255, 255, 80] : d.backgroundColor),
             getSourcePosition: (d) => d.from,
             getTargetPosition: (d) => d.to,
-            getWidth: 1,
+            getWidth: (d) => (d.isSearch ? 4 : 1),
             // pickable: true,
         });
     }
@@ -1469,7 +1526,7 @@ export class CreateLayer {
     }
 
     getPositionHistoryLayer() {
-        const layer = this.createPositionHistoryLayer();
+        const layer = this.createLinesLayer("positionHistory", this.PositionHistoryLayer);
         return layer;
     }
 
@@ -1570,6 +1627,11 @@ export class CreateLayer {
 
     getCommunicationCentralizedLayer() {
         const layer = this.createPolygoneLayer("communication-centralized", this.communicationCentralizedLayer);
+        return layer;
+    }
+
+    getCommandPathLayer() {
+        const layer = this.createLinesLayer("command-path", this.commandPathLayer);
         return layer;
     }
 }
