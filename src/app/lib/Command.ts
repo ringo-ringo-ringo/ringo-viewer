@@ -69,6 +69,7 @@ export class Command {
                                     const reader = new BitStreamReader(bytes.buffer);
 
                                     const messageType = reader.getBits(5);
+                                    this.componentsMap["messageType"] = messageType;
 
                                     // MessageAmbulanceTeam
                                     if (messageType === 1) {
