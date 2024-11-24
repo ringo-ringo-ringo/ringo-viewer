@@ -44,7 +44,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
     };
 
     const fetchCommand = async (callStep: number) => {
-        if (simulation.getCommand(callStep).length === 0) {
+        if (simulation.getCommand(callStep).length === 0 && callStep !== 0) {
             setIsLoading((e) => e + 1);
 
             await LoadLog.load(simulation.getLogPath(), `${callStep}/COMMANDS`)
