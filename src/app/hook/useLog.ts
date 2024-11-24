@@ -43,6 +43,24 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
         }
     };
 
+    const fetchCommand = async (callStep: number) => {
+        if (simulation.getCommand(callStep).length === 0) {
+            setIsLoading((e) => e + 1);
+
+            await LoadLog.load(simulation.getLogPath(), `${callStep}/COMMANDS`)
+                .then((res) => {
+                    simulation.setCommand(callStep, res);
+                    setSimulation(new Simulation(simulation));
+                    setIsLoading((e) => e - 1);
+                })
+                .catch((error) => {
+                    console.error("ログの読み込みエラー:", error);
+
+                    throw new Error("ログを読み込めませんでした");
+                });
+        }
+    };
+
     useEffect(() => {
         if (!simulation.getWorldModel(step)) {
             if (step === 0) {
@@ -110,7 +128,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
                     });
             } else {
                 const fetchUpdate = async (callStep: number) => {
-                    setIsLoading((e) => e + 2);
+                    setIsLoading((e) => e + 1);
 
                     if (!simulation.getWorldModel(callStep - 1)) {
                         await fetchUpdate(callStep - 1);
@@ -127,27 +145,19 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
 
                             throw new Error("ログを読み込めませんでした");
                         });
-
-                    await LoadLog.load(simulation.getLogPath(), `${callStep}/COMMANDS`)
-                        .then((res) => {
-                            simulation.setCommand(callStep, res);
-                            setSimulation(new Simulation(simulation));
-                            setIsLoading((e) => e - 1);
-                        })
-                        .catch((error) => {
-                            console.error("ログの読み込みエラー:", error);
-
-                            throw new Error("ログを読み込めませんでした");
-                        });
                 };
 
                 (async () => {
                     await fetchUpdate(step);
 
+                    await fetchCommand(step);
+
                     await fetchPerception();
                 })();
             }
         } else {
+            fetchCommand(step);
+
             fetchPerception();
         }
     }, [step, perceptionId]);

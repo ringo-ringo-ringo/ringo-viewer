@@ -94,6 +94,10 @@ export class WorldModel {
         }
     }
 
+    getCommand() {
+        return this.command;
+    }
+
     getEntity() {
         return this.entity;
     }

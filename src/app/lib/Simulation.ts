@@ -71,6 +71,10 @@ export class Simulation {
         return this.worldModel[step].getPerception(id);
     }
 
+    getCommand(step: number) {
+        return this.worldModel[step].getCommand();
+    }
+
     setLogPath(path: string) {
         this.LogPath = path;
     }
