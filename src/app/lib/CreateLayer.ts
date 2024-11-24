@@ -101,6 +101,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -108,6 +110,7 @@ export class CreateLayer {
                     backgroundColor: [color + 50, color + 50, color + 50],
                     isSearch,
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.BuildingsLayer.push(data);
@@ -120,6 +123,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -127,6 +132,7 @@ export class CreateLayer {
                     backgroundColor: [200, 200, 200],
                     isSearch,
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.RoadsLayer.push(data);
@@ -144,6 +150,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -152,6 +160,7 @@ export class CreateLayer {
                     isSearch,
                     backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.RefugesLayer.push(data);
@@ -169,6 +178,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -176,6 +187,7 @@ export class CreateLayer {
                     backgroundColor: [0, color + 50, 0],
                     isSearch,
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.HydrantsLayer.push(data);
@@ -193,6 +205,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -200,6 +214,7 @@ export class CreateLayer {
                     backgroundColor: [0, 0, color + 50],
                     isSearch,
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.GasStationsLayer.push(data);
@@ -217,6 +232,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -225,6 +242,7 @@ export class CreateLayer {
                     isSearch,
                     backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.FireStationsLayer.push(data);
@@ -242,6 +260,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -250,6 +270,7 @@ export class CreateLayer {
                     isSearch,
                     backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.AmbulanceCentresLayer.push(data);
@@ -267,6 +288,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -275,6 +298,7 @@ export class CreateLayer {
                     isSearch,
                     backgroundColor: [color + 50, color + 50, color + 50],
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.PoliceOfficesLayer.push(data);
@@ -329,6 +353,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -336,6 +362,7 @@ export class CreateLayer {
                     backgroundColor: [0, color, 0],
                     isSearch,
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.CiviliansLayer.push(data);
@@ -390,6 +417,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -397,6 +426,7 @@ export class CreateLayer {
                     backgroundColor: [color, 0, 0],
                     isSearch,
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.FireBrigadesLayer.push(data);
@@ -451,6 +481,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -458,6 +490,7 @@ export class CreateLayer {
                     backgroundColor: [color, color, color],
                     isSearch,
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.AmbulanceTeamsLayer.push(data);
@@ -512,6 +545,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -519,6 +554,7 @@ export class CreateLayer {
                     backgroundColor: [0, 0, color],
                     isSearch,
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.PoliceForcesLayer.push(data);
@@ -550,6 +586,8 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
+                const commandProp = this.searchCommand(worldModel, entity);
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -557,6 +595,7 @@ export class CreateLayer {
                     backgroundColor: [10, 10, 10],
                     isSearch,
                     ...properties,
+                    ...commandProp,
                 };
 
                 this.BlockadesLayer.push(data);
@@ -1287,6 +1326,23 @@ export class CreateLayer {
         }
     }
 
+    searchCommand(worldModel: WorldModel, entity: Entity) {
+        const searchProp: any = {};
+
+        if (entity.command.length > 0) {
+            entity.command.map((cmd) => {
+                if (URN_MAP[cmd.urn] === "") {
+                    console.log(cmd);
+                    searchProp["a"] = "a";
+                } else {
+                    console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
+                }
+            });
+        }
+
+        return searchProp;
+    }
+
     createPolygoneLayer(id: string, data: Array<any>) {
         return new PolygonLayer({
             data: data,
@@ -1342,7 +1398,7 @@ export class CreateLayer {
             getSourcePosition: (d) => d.from,
             getTargetPosition: (d) => d.to,
             getSourceColor: (d) => d.color,
-            getTargetColor: (d) => [255,255,200],
+            getTargetColor: (d) => [255, 255, 200],
             getWidth: 2,
         });
     }
