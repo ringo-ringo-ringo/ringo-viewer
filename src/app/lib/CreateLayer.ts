@@ -423,6 +423,10 @@ export class CreateLayer {
 
                 const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
+                if (commandProp["Rescue"]) {
+                    bgc = [255, 100, 0];
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -1504,13 +1508,7 @@ export class CreateLayer {
             iconMapping: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
             getIcon: (d) => (d.isSearch ? "marker-warning" : "marker"),
             getPosition: (d) => d.positions,
-            getColor: (d) => {
-                if (d.Rescue) {
-                    return [255, 100, 0];
-                } else {
-                    return d.backgroundColor;
-                }
-            },
+            getColor: (d) => d.backgroundColor,
             getSize: 30,
             pickable: true,
         });
