@@ -1440,6 +1440,13 @@ export class CreateLayer {
                         }
                     });
                 } else if (URN_MAP[cmd.urn] === "AK_CLEAR_AREA") {
+                    if (cmd.componentsMap["DestinationX"]) {
+                        searchProp["CLEAR_AREA_DestinationX"] = cmd.componentsMap["DestinationX"];
+                    }
+
+                    if (cmd.componentsMap["DestinationY"]) {
+                        searchProp["CLEAR_AREA_DestinationY"] = cmd.componentsMap["DestinationY"];
+                    }
                     if (entity.properties.X?.value && entity.properties.Y?.value) {
                         const x1 = entity.properties.X.value;
                         const y1 = entity.properties.Y.value;
