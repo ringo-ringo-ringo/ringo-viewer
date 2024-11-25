@@ -1336,11 +1336,11 @@ export class CreateLayer {
             isSearch = true;
         }
 
+        const ignoreList = ["AgentID", "Time"];
+
         if (entity.command.length > 0) {
             entity.command.map((cmd) => {
                 if (URN_MAP[cmd.urn] === "AK_MOVE") {
-                    const ignoreList = ["AgentID", "Time"];
-
                     for (const key in cmd.componentsMap) {
                         if (!ignoreList.includes(key)) {
                             searchProp[key] = cmd.componentsMap[key];
@@ -1391,6 +1391,14 @@ export class CreateLayer {
                         //     to: [properties.X.value / 400000, properties.Y.value / 400000],
                         // };
                     }
+                } else if (URN_MAP[cmd.urn] === "AK_REST") {
+                    for (const key in cmd.componentsMap) {
+                        if (!ignoreList.includes(key)) {
+                            searchProp[key] = cmd.componentsMap[key];
+                        }
+                    }
+
+                    searchProp["Rest"] = true;
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
