@@ -43,6 +43,7 @@ export class CreateLayer {
     PositionHistoryLayer: LinesLayer[] = [];
 
     commandPathLayer: LinesLayer[] = [];
+    commandClearLayer: BuildLayer[] = [];
 
     perceptionBuildingsLayer: BuildLayer[] = [];
     perceptionRoadsLayer: BuildLayer[] = [];
@@ -103,7 +104,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -125,7 +126,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -152,7 +153,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -180,7 +181,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -207,7 +208,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -234,7 +235,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -262,7 +263,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -290,7 +291,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -355,7 +356,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -419,7 +420,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -483,7 +484,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -547,7 +548,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -588,7 +589,7 @@ export class CreateLayer {
                     isSearch = true;
                 }
 
-                const commandProp = this.searchCommand(worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -1328,7 +1329,7 @@ export class CreateLayer {
         }
     }
 
-    searchCommand(worldModel: WorldModel, entity: Entity, IdSearch: string) {
+    searchCommand(simulation: Simulation, step: number, worldModel: WorldModel, entity: Entity, IdSearch: string) {
         const searchProp: any = {};
 
         let isSearch = false;
@@ -1395,6 +1396,48 @@ export class CreateLayer {
                     if (cmd.componentsMap["Channels"]) {
                         searchProp["SubscribeChannels"] = cmd.componentsMap["Channels"];
                     }
+                } else if (URN_MAP[cmd.urn] === "AK_CLEAR") {
+                    if (cmd.componentsMap["Target"]) {
+                        searchProp["ClearTarget"] = cmd.componentsMap["Target"];
+                    }
+
+                    const prevEntity = simulation.getWorldModel(step - 1).getEntity();
+                    prevEntity.map((prevEntity) => {
+                        if (prevEntity.getEntityId() === searchProp["ClearTarget"]) {
+                            const properties = prevEntity.getPropertys();
+
+                            const apexes = properties.APEXES.value;
+
+                            let count: number = 0;
+                            const edges: Array<number[]> = [];
+                            let x: number | null = null;
+                            let y: number | null = null;
+                            apexes.map((apex: number) => {
+                                if (count % 2 === 0) {
+                                    x = apex;
+                                } else {
+                                    y = apex;
+                                    if (x && y) {
+                                        edges.push([x / 400000, y / 400000]);
+                                    } else {
+                                        console.error("中に入ってる値がnullだぞ");
+                                    }
+                                }
+                                count++;
+                            });
+
+                            const data = {
+                                entity: URN_MAP[prevEntity.urn],
+                                entityId: prevEntity.entityId,
+                                apex: edges,
+                                backgroundColor: [0, 0, 200],
+                                isSearch,
+                                ...properties,
+                            };
+
+                            this.commandClearLayer.push(data);
+                        }
+                    });
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
@@ -1636,6 +1679,11 @@ export class CreateLayer {
 
     getCommandPathLayer() {
         const layer = this.createLinesLayer("command-path", this.commandPathLayer);
+        return layer;
+    }
+
+    getCommandClearLayer() {
+        const layer = this.createPolygoneLayer("command-clear-blockade", this.commandClearLayer);
         return layer;
     }
 }

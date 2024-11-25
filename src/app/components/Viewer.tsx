@@ -47,6 +47,9 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (filter.AMBULANCE_CENTRE) layer.push(createLayer.getAmbulanceCentresLayer());
             if (filter.BLOCKADE) layer.push(createLayer.getBlockadesLayer());
 
+            //commandの建物たち
+            if (filter.COMMAND_CLEAR) layer.push(createLayer.getCommandClearLayer());
+
             //visibleの建物たち
             if (perceptionFilter.perceptionROAD && isOkPerception) layer.push(createLayer.getPerceptionRoadsLayer());
             //communicationの建物たち

@@ -50,6 +50,7 @@ export default function Home() {
         POLICE_FORCE: true,
         POSITION_HISTORY: true,
         COMMAND_PATH: false,
+        COMMAND_CLEAR: true,
     });
 
     const [perceptionFilter, setPerceptionFilter] = useState({
