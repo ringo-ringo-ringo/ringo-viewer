@@ -1341,21 +1341,19 @@ export class CreateLayer {
         if (entity.command.length > 0) {
             entity.command.map((cmd) => {
                 if (URN_MAP[cmd.urn] === "AK_MOVE") {
-                    for (const key in cmd.componentsMap) {
-                        if (!ignoreList.includes(key)) {
-                            searchProp[key] = cmd.componentsMap[key];
-                        }
+                    if (cmd.componentsMap["Path"]) {
+                        searchProp["MovePath"] = cmd.componentsMap["Path"];
                     }
 
                     if ((searchProp["DestinationX"] && searchProp["DestinationX"] !== -1) || (searchProp["DestinationY"] && searchProp["DestinationY"] !== -1)) console.error("Destinationが-1じゃないの発見");
 
-                    if (searchProp["Path"]) {
+                    if (searchProp["MovePath"]) {
                         let first: boolean = true;
                         let x1: number = 0;
                         let y1: number = 0;
                         let x2: number = 0;
                         let y2: number = 0;
-                        for (const position of searchProp["Path"]) {
+                        for (const position of searchProp["MovePath"]) {
                             worldModel.getEntity().map((positionEntity) => {
                                 if (positionEntity.getEntityId() === position) {
                                     if (positionEntity.properties.X?.value && positionEntity.properties.Y?.value) {
