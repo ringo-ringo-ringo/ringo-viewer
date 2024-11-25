@@ -491,7 +491,7 @@ export class CreateLayer {
 
                 const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
-                if (commandProp["Load"]) {
+                if (commandProp["Load"] || commandProp["Un-Load"]) {
                     bgc = [255, 180, 255];
                 }
 
@@ -1475,7 +1475,9 @@ export class CreateLayer {
                     searchProp["Rescue"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_LOAD") {
                     searchProp["Load"] = true;
-                } else {
+                } else if(URN_MAP[cmd.urn] === "AK_UNLOAD"){
+                    searchProp["Un-Load"] = true;
+                }else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
             });
