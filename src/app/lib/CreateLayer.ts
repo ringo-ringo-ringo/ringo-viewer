@@ -1465,7 +1465,6 @@ export class CreateLayer {
                     }
                 } else if (URN_MAP[cmd.urn] === "AK_RESCUE") {
                     searchProp["Rescue"] = true;
-                    console.log(entity.getEntityId());
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
