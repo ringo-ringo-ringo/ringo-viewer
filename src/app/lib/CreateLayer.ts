@@ -1463,6 +1463,9 @@ export class CreateLayer {
 
                         this.commandClearAreaLayer.push(pathData);
                     }
+                } else if (URN_MAP[cmd.urn] === "AK_RESCUE") {
+                    searchProp["Rescue"] = true;
+                    console.log(entity.getEntityId());
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
@@ -1502,7 +1505,13 @@ export class CreateLayer {
             iconMapping: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
             getIcon: (d) => (d.isSearch ? "marker-warning" : "marker"),
             getPosition: (d) => d.positions,
-            getColor: (d) => d.backgroundColor,
+            getColor: (d) => {
+                if (d.Rescue) {
+                    return [255, 100, 0];
+                } else {
+                    return d.backgroundColor;
+                }
+            },
             getSize: 30,
             pickable: true,
         });
