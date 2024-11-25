@@ -51,6 +51,7 @@ export default function Home() {
         POSITION_HISTORY: true,
         COMMAND_PATH: false,
         COMMAND_CLEAR: false,
+        COMMAND_CLEAR_AREA: true,
     });
 
     const [perceptionFilter, setPerceptionFilter] = useState({

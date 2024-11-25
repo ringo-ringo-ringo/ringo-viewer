@@ -87,6 +87,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             //軌跡
             if (filter.POSITION_HISTORY) layer.push(createLayer.getPositionHistoryLayer());
             if (filter.COMMAND_PATH) layer.push(createLayer.getCommandPathLayer());
+            if (filter.COMMAND_CLEAR_AREA) layer.push(createLayer.getCommandClearAreaLayer());
 
             //アーク
             if (perceptionFilter.communicationTarget && isOkPerception) layer.push(createLayer.getCommunicationTargetLayer());

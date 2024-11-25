@@ -44,6 +44,7 @@ export class CreateLayer {
 
     commandPathLayer: LinesLayer[] = [];
     commandClearLayer: BuildLayer[] = [];
+    commandClearAreaLayer: LinesLayer[] = [];
 
     perceptionBuildingsLayer: BuildLayer[] = [];
     perceptionRoadsLayer: BuildLayer[] = [];
@@ -1438,6 +1439,23 @@ export class CreateLayer {
                             this.commandClearLayer.push(data);
                         }
                     });
+                } else if (URN_MAP[cmd.urn] === "AK_CLEAR_AREA") {
+                    if (entity.properties.X?.value && entity.properties.Y?.value) {
+                        const x1 = entity.properties.X.value;
+                        const y1 = entity.properties.Y.value;
+
+                        const x2 = cmd.componentsMap["DestinationX"];
+                        const y2 = cmd.componentsMap["DestinationY"];
+
+                        const pathData = {
+                            backgroundColor: [0, 0, 200],
+                            from: [x1 / 400000, y1 / 400000],
+                            to: [x2 / 400000, y2 / 400000],
+                            isSearch,
+                        };
+
+                        this.commandClearAreaLayer.push(pathData);
+                    }
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
@@ -1684,6 +1702,11 @@ export class CreateLayer {
 
     getCommandClearLayer() {
         const layer = this.createPolygoneLayer("command-clear-blockade", this.commandClearLayer);
+        return layer;
+    }
+
+    getCommandClearAreaLayer() {
+        const layer = this.createLinesLayer("command-clear-area-blockade", this.commandClearAreaLayer);
         return layer;
     }
 }
