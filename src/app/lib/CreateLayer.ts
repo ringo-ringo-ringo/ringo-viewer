@@ -411,9 +411,9 @@ export class CreateLayer {
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
-                let bgc = [255,0,0];
+                let bgc = [255, 0, 0];
                 if (properties.HP.value) {
-                    bgc = [(255 * (properties.HP.value / 10000)) , 0 ,0];
+                    bgc = [255 * (properties.HP.value / 10000), 0, 0];
                 }
 
                 let isSearch = false;
