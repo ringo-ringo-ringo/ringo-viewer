@@ -491,6 +491,10 @@ export class CreateLayer {
 
                 const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
+                if (commandProp["Load"]) {
+                    bgc = [255, 180, 255];
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
@@ -1469,6 +1473,8 @@ export class CreateLayer {
                     }
                 } else if (URN_MAP[cmd.urn] === "AK_RESCUE") {
                     searchProp["Rescue"] = true;
+                } else if (URN_MAP[cmd.urn] === "AK_LOAD") {
+                    searchProp["Load"] = true;
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
