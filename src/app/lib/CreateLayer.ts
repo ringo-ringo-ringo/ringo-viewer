@@ -1475,9 +1475,9 @@ export class CreateLayer {
                     searchProp["Rescue"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_LOAD") {
                     searchProp["Load"] = true;
-                } else if(URN_MAP[cmd.urn] === "AK_UNLOAD"){
+                } else if (URN_MAP[cmd.urn] === "AK_UNLOAD") {
                     searchProp["Un-Load"] = true;
-                }else {
+                } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
             });
