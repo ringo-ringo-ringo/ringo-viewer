@@ -1392,12 +1392,6 @@ export class CreateLayer {
                         // };
                     }
                 } else if (URN_MAP[cmd.urn] === "AK_REST") {
-                    for (const key in cmd.componentsMap) {
-                        if (!ignoreList.includes(key)) {
-                            searchProp[key] = cmd.componentsMap[key];
-                        }
-                    }
-
                     searchProp["Rest"] = true;
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
