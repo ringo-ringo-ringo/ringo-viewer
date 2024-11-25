@@ -479,9 +479,9 @@ export class CreateLayer {
                 const x: number = properties.X.value;
                 const y: number = properties.Y.value;
 
-                let color = 0;
+                let bgc = [255, 255, 255];
                 if (properties.HP.value) {
-                    color = 255 * (properties.HP.value / 10000);
+                    bgc = [255 * (properties.HP.value / 10000), 255 * (properties.HP.value / 10000), 255 * (properties.HP.value / 10000)];
                 }
 
                 let isSearch = false;
@@ -495,7 +495,7 @@ export class CreateLayer {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     positions: [x / 400000, y / 400000],
-                    backgroundColor: [color, color, color],
+                    backgroundColor: bgc,
                     isSearch,
                     ...properties,
                     ...commandProp,
