@@ -1393,6 +1393,10 @@ export class CreateLayer {
                     }
                 } else if (URN_MAP[cmd.urn] === "AK_REST") {
                     searchProp["Rest"] = true;
+                } else if (URN_MAP[cmd.urn] === "AK_SUBSCRIBE") {
+                    if (cmd.componentsMap["Channels"]) {
+                        searchProp["SubscribeChannels"] = cmd.componentsMap["Channels"];
+                    }
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
