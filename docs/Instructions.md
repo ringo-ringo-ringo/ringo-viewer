@@ -32,7 +32,7 @@
 | 要素の表現              | 名称       |
 | ----------------------- | ---------- |
 | ![](./imgs/ROAD.png)    | 道路       |
-| 　![](./imgs/BLOCK.png) | がれき     |
+| ![](./imgs/BLOCK.png) | がれき     |
 | ![](./imgs/CIV.png)     | 市民       |
 | ![](./imgs/FIRE.png)    | 消防隊     |
 | ![](./imgs/AMB.png)     | 救急隊     |
