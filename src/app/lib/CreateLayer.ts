@@ -1481,7 +1481,6 @@ export class CreateLayer {
                 } else if (URN_MAP[cmd.urn] === "AK_SPEAK") {
                     //トライの配下にする？
                     if (cmd.componentsMap.messageType === 1) {
-                        console.log(cmd.componentsMap);
                         searchProp["MessageType"] = cmd.componentsMap.messageType;
                         searchProp["MessageChannel"] = cmd.componentsMap.MessageChannel;
 
