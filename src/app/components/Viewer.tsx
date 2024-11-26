@@ -91,6 +91,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
             //アーク
             if (perceptionFilter.communicationTarget && isOkPerception) layer.push(createLayer.getCommunicationTargetLayer());
+            if (filter.COMMAND_COMMUNICATION_TARGET) layer.push(createLayer.getCommandCommunicationTargetLayer());
 
             setLayer(layer);
         }

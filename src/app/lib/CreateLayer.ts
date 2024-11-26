@@ -45,6 +45,7 @@ export class CreateLayer {
     commandPathLayer: LinesLayer[] = [];
     commandClearLayer: BuildLayer[] = [];
     commandClearAreaLayer: LinesLayer[] = [];
+    commandCommunicationTargetLayer: targetArcLayer[] = [];
 
     perceptionBuildingsLayer: BuildLayer[] = [];
     perceptionRoadsLayer: BuildLayer[] = [];
@@ -1477,6 +1478,45 @@ export class CreateLayer {
                     searchProp["Load"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_UNLOAD") {
                     searchProp["UnLoad"] = true;
+                } else if (URN_MAP[cmd.urn] === "AK_SPEAK") {
+                    //トライの配下にする？
+                    if (cmd.componentsMap.messageType === 1) {
+                        console.log(cmd.componentsMap);
+                        searchProp["MessageType"] = cmd.componentsMap.messageType;
+                        searchProp["MessageChannel"] = cmd.componentsMap.MessageChannel;
+
+                        for (const key in cmd.componentsMap.Message) {
+                            const outKey = "Message-" + key;
+                            searchProp[outKey] = cmd.componentsMap.Message[key];
+                        }
+
+                        const entitys = simulation.getWorldModel(step).getEntity();
+
+                        let targetEntity = null;
+                        entitys.map((res) => {
+                            if (res.getEntityId() === cmd.componentsMap.Message.target) {
+                                targetEntity = res;
+                            }
+                        });
+
+                        if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
+                            const targetX = (targetEntity as Entity).getPropertys().X.value;
+                            const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                            const x = entity.getPropertys().X.value;
+                            const y = entity.getPropertys().Y.value;
+
+                            const targetData = {
+                                from: [x / 400000, y / 400000],
+                                to: [targetX / 400000, targetY / 400000],
+                                color: [255, 255, 255],
+                            };
+
+                            this.commandCommunicationTargetLayer.push(targetData);
+                        }
+                    } else {
+                        console.error("メッセージタイプ別で未処理なやつみっけ", cmd.componentsMap.messageType);
+                    }
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
@@ -1567,10 +1607,10 @@ export class CreateLayer {
         });
     }
 
-    createCommunicationTargetArcLayer() {
+    createCommunicationTargetArcLayer(id: string, data: Array<any>) {
         return new ArcLayer({
-            data: this.communicationTargetLayer,
-            id: "target",
+            data: data,
+            id: id,
             getSourcePosition: (d) => d.from,
             getTargetPosition: (d) => d.to,
             getSourceColor: (d) => d.color,
@@ -1715,7 +1755,7 @@ export class CreateLayer {
     }
 
     getCommunicationTargetLayer() {
-        const layer = this.createCommunicationTargetArcLayer();
+        const layer = this.createCommunicationTargetArcLayer("Communication-target-arc", this.communicationTargetLayer);
         return layer;
     }
 
@@ -1761,6 +1801,11 @@ export class CreateLayer {
 
     getCommandClearAreaLayer() {
         const layer = this.createLinesLayer("command-clear-area-blockade", this.commandClearAreaLayer);
+        return layer;
+    }
+
+    getCommandCommunicationTargetLayer() {
+        const layer = this.createCommunicationTargetArcLayer("command-communication-target-arc", this.commandCommunicationTargetLayer);
         return layer;
     }
 }
