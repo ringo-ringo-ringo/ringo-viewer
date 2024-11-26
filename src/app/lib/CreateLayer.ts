@@ -1495,9 +1495,6 @@ export class CreateLayer {
 
                     try {
                         if (cmd.componentsMap.Message.toLowerCase() === "help" || cmd.componentsMap.Message.toLowerCase() === "ouch") {
-                            console.log("ヘルプ");
-                            console.log(cmd.componentsMap);
-
                             if ((entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
                                 const x = entity.getPropertys().X.value;
                                 const y = entity.getPropertys().Y.value;
