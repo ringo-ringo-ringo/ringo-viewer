@@ -491,7 +491,7 @@ export class CreateLayer {
 
                 const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
-                if (commandProp["Load"] || commandProp["Un-Load"]) {
+                if (commandProp["Load"] || commandProp["UnLoad"]) {
                     bgc = [255, 180, 255];
                 }
 
@@ -1476,7 +1476,7 @@ export class CreateLayer {
                 } else if (URN_MAP[cmd.urn] === "AK_LOAD") {
                     searchProp["Load"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_UNLOAD") {
-                    searchProp["Un-Load"] = true;
+                    searchProp["UnLoad"] = true;
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
@@ -1512,13 +1512,46 @@ export class CreateLayer {
         return new IconLayer({
             data: data,
             id: id,
-            iconAtlas: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
-            iconMapping: "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.json",
-            getIcon: (d) => (d.isSearch ? "marker-warning" : "marker"),
+            getIcon: (d) => {
+                if (d.isSearch) {
+                    return {
+                        url: "/images/star.svg",
+                        width: 128,
+                        height: 128,
+                        mask: true,
+                    };
+                } else if (d.Rescue || d.Load || d.UnLoad) {
+                    return {
+                        url: "/images/rescue.svg",
+                        width: 128,
+                        height: 128,
+                        mask: true,
+                    };
+                } else {
+                    return {
+                        url: "/images/cir.svg",
+                        width: 128,
+                        height: 128,
+                        mask: true,
+                    };
+                }
+            },
             getPosition: (d) => d.positions,
-            getColor: (d) => d.backgroundColor,
-            getSize: 30,
+            getColor: (d) => (d.isSearch ? [255, 255, 80] : d.backgroundColor),
+            getSize: (d) => {
+                if (d.isSearch) {
+                    return 28;
+                } else if (d.Rescue || d.Load || d.UnLoad) {
+                    return 16;
+                } else {
+                    return 10;
+                }
+            },
             pickable: true,
+            // sizeUnits: "common",
+            sizeMaxPixels: 30,
+            sizeMinPixels: 10,
+            billboard: false,
         });
     }
 
