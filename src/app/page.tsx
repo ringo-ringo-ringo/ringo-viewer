@@ -52,8 +52,8 @@ export default function Home() {
         COMMAND_PATH: false,
         COMMAND_CLEAR: false,
         COMMAND_CLEAR_AREA: true,
-        COMMAND_COMMUNICATION_TARGET: true,
-        COMMAND_HELP_MESSAGE: true,
+        COMMAND_COMMUNICATION_TARGET: false,
+        COMMAND_HELP_MESSAGE: false,
     });
 
     const [perceptionFilter, setPerceptionFilter] = useState({
@@ -97,7 +97,11 @@ export default function Home() {
         setFilter((prevFilter: any) => {
             const newFilter = prevFilter;
             for (const key in newFilter) {
-                newFilter[key] = true;
+                if (key === "COMMAND_PATH" || key === "COMMAND_CLEAR" || key === "COMMAND_COMMUNICATION_TARGET" || key === "COMMAND_HELP_MESSAGE") {
+                    newFilter[key] = false;
+                } else {
+                    newFilter[key] = true;
+                }
             }
             return newFilter;
         });
