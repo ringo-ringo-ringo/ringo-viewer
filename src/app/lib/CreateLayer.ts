@@ -1480,15 +1480,15 @@ export class CreateLayer {
                     searchProp["UnLoad"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_SPEAK") {
                     //トライの配下にする？
+                    searchProp["MessageType"] = cmd.componentsMap.messageType;
+                    searchProp["MessageChannel"] = cmd.componentsMap.MessageChannel;
+
+                    for (const key in cmd.componentsMap.Message) {
+                        const outKey = "Message-" + key;
+                        searchProp[outKey] = cmd.componentsMap.Message[key];
+                    }
+
                     if (cmd.componentsMap.messageType === 1) {
-                        searchProp["MessageType"] = cmd.componentsMap.messageType;
-                        searchProp["MessageChannel"] = cmd.componentsMap.MessageChannel;
-
-                        for (const key in cmd.componentsMap.Message) {
-                            const outKey = "Message-" + key;
-                            searchProp[outKey] = cmd.componentsMap.Message[key];
-                        }
-
                         const entitys = simulation.getWorldModel(step).getEntity();
 
                         let targetEntity = null;
