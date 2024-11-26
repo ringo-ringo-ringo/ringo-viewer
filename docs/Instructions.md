@@ -185,6 +185,8 @@ ROADは通信によって道路が通行可能か不可能かを示すレイヤ�
 ![](./imgs/communicatioin-road.png)
 
 AMBULANCE_TEAM，CIVILIAN，FIRE_BRIGADE，POLICE_FORCEは，そのエージェントがどこにいるのかを示すレイヤーです．
+ここには，知覚情報を見ているエージェント自身が発信して，自身の発信したものも含めた通信を受信している場合があります．
+通信の送信と受信にはステップ数が数回必要であり，過去の自分の情報を受信し，描画されるため，水色のエージェントが2体表示される場合があります．
 ![](./imgs/communication-human.png)
 
 CENTRALIZEDは司令塔によって命令された対象を示すレイヤーです．
