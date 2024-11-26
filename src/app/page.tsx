@@ -53,6 +53,7 @@ export default function Home() {
         COMMAND_CLEAR: false,
         COMMAND_CLEAR_AREA: true,
         COMMAND_COMMUNICATION_TARGET: true,
+        COMMAND_HELP_MESSAGE: true,
     });
 
     const [perceptionFilter, setPerceptionFilter] = useState({

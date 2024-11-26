@@ -93,6 +93,9 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (perceptionFilter.communicationTarget && isOkPerception) layer.push(createLayer.getCommunicationTargetLayer());
             if (filter.COMMAND_COMMUNICATION_TARGET) layer.push(createLayer.getCommandCommunicationTargetLayer());
 
+            //テキスト
+            if (filter.COMMAND_HELP_MESSAGE) layer.push(createLayer.getCommandHelpMessageLayer());
+
             setLayer(layer);
         }
     }, [simulation, step, filter, perceptionFilter, perceptionId, IdSearch]);

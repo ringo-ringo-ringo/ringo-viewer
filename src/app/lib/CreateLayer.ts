@@ -1,7 +1,7 @@
 import { Simulation } from "@/app/lib/Simulation";
 import { WorldModel } from "@/app/lib/WorldModel";
 import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
-import { PolygonLayer, IconLayer, LineLayer, ArcLayer } from "@deck.gl/layers";
+import { PolygonLayer, IconLayer, LineLayer, ArcLayer, TextLayer } from "@deck.gl/layers";
 import { Entity } from "./Entity";
 import { Communication } from "@/app/lib/Communication";
 
@@ -26,6 +26,12 @@ interface targetArcLayer {
     to: number[];
 }
 
+interface textLayer {
+    color: number[];
+    position: number[];
+    message: any;
+}
+
 export class CreateLayer {
     BuildingsLayer: BuildLayer[] = [];
     RoadsLayer: BuildLayer[] = [];
@@ -46,6 +52,7 @@ export class CreateLayer {
     commandClearLayer: BuildLayer[] = [];
     commandClearAreaLayer: LinesLayer[] = [];
     commandCommunicationTargetLayer: targetArcLayer[] = [];
+    commandHelpMessageLayer: textLayer[] = [];
 
     perceptionBuildingsLayer: BuildLayer[] = [];
     perceptionRoadsLayer: BuildLayer[] = [];
@@ -1486,175 +1493,196 @@ export class CreateLayer {
                     const MessageChannel = "MessageChannel-" + messageCount;
                     searchProp[MessageChannel] = cmd.componentsMap.MessageChannel;
 
-                    for (const key in cmd.componentsMap.Message) {
-                        const outKey = "Message-" + messageCount + "-" + key;
-                        searchProp[outKey] = cmd.componentsMap.Message[key];
-                    }
+                    try {
+                        if (cmd.componentsMap.Message.toLowerCase() === "help" || cmd.componentsMap.Message.toLowerCase() === "ouch") {
+                            console.log("ヘルプ");
+                            console.log(cmd.componentsMap);
 
-                    if (cmd.componentsMap.messageType === 1) {
-                        if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
+                            if ((entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
+                                const x = entity.getPropertys().X.value;
+                                const y = entity.getPropertys().Y.value;
 
-                        const entitys = simulation.getWorldModel(step).getEntity();
+                                console.log(y / 400000);
 
-                        let targetEntity = null;
-                        entitys.map((res) => {
-                            if (res.getEntityId() === cmd.componentsMap.Message.target) {
-                                targetEntity = res;
+                                const Data = {
+                                    color: [255, 0, 0],
+                                    position: [x / 400000, y / 400000],
+                                    message: cmd.componentsMap.Message,
+                                };
+                                this.commandHelpMessageLayer.push(Data);
                             }
-                        });
-
-                        if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
-                            const targetX = (targetEntity as Entity).getPropertys().X.value;
-                            const targetY = (targetEntity as Entity).getPropertys().Y.value;
-
-                            const x = entity.getPropertys().X.value;
-                            const y = entity.getPropertys().Y.value;
-
-                            const targetData = {
-                                from: [x / 400000, y / 400000],
-                                to: [targetX / 400000, targetY / 400000],
-                                color: [255, 255, 255],
-                            };
-
-                            this.commandCommunicationTargetLayer.push(targetData);
                         }
-                    } else if (cmd.componentsMap.messageType === 3) {
-                        if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
+                    } catch (e) {
+                        for (const key in cmd.componentsMap.Message) {
+                            const outKey = "Message-" + messageCount + "-" + key;
+                            searchProp[outKey] = cmd.componentsMap.Message[key];
+                        }
 
-                        const entitys = simulation.getWorldModel(step).getEntity();
+                        if (cmd.componentsMap.messageType === 1) {
+                            if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
 
-                        let targetEntity = null;
-                        entitys.map((res) => {
-                            if (res.getEntityId() === cmd.componentsMap.Message.position) {
-                                targetEntity = res;
+                            const entitys = simulation.getWorldModel(step).getEntity();
+
+                            let targetEntity = null;
+                            entitys.map((res) => {
+                                if (res.getEntityId() === cmd.componentsMap.Message.target) {
+                                    targetEntity = res;
+                                }
+                            });
+
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
+                                const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
+
+                                const x = entity.getPropertys().X.value;
+                                const y = entity.getPropertys().Y.value;
+
+                                const targetData = {
+                                    from: [x / 400000, y / 400000],
+                                    to: [targetX / 400000, targetY / 400000],
+                                    color: [255, 255, 255],
+                                };
+
+                                this.commandCommunicationTargetLayer.push(targetData);
                             }
-                        });
+                        } else if (cmd.componentsMap.messageType === 3) {
+                            if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
 
-                        if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
-                            const targetX = (targetEntity as Entity).getPropertys().X.value;
-                            const targetY = (targetEntity as Entity).getPropertys().Y.value;
+                            const entitys = simulation.getWorldModel(step).getEntity();
 
-                            const x = entity.getPropertys().X.value;
-                            const y = entity.getPropertys().Y.value;
+                            let targetEntity = null;
+                            entitys.map((res) => {
+                                if (res.getEntityId() === cmd.componentsMap.Message.position) {
+                                    targetEntity = res;
+                                }
+                            });
 
-                            const targetData = {
-                                from: [x / 400000, y / 400000],
-                                to: [targetX / 400000, targetY / 400000],
-                                color: [0, 255, 0],
-                            };
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
+                                const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
-                            this.commandCommunicationTargetLayer.push(targetData);
-                        }
-                    } else if (cmd.componentsMap.messageType === 4) {
-                        if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
+                                const x = entity.getPropertys().X.value;
+                                const y = entity.getPropertys().Y.value;
 
-                        const entitys = simulation.getWorldModel(step).getEntity();
+                                const targetData = {
+                                    from: [x / 400000, y / 400000],
+                                    to: [targetX / 400000, targetY / 400000],
+                                    color: [0, 255, 0],
+                                };
 
-                        let targetEntity = null;
-                        entitys.map((res) => {
-                            if (res.getEntityId() === cmd.componentsMap.Message.target) {
-                                targetEntity = res;
+                                this.commandCommunicationTargetLayer.push(targetData);
                             }
-                        });
+                        } else if (cmd.componentsMap.messageType === 4) {
+                            if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
 
-                        if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
-                            const targetX = (targetEntity as Entity).getPropertys().X.value;
-                            const targetY = (targetEntity as Entity).getPropertys().Y.value;
+                            const entitys = simulation.getWorldModel(step).getEntity();
 
-                            const x = entity.getPropertys().X.value;
-                            const y = entity.getPropertys().Y.value;
+                            let targetEntity = null;
+                            entitys.map((res) => {
+                                if (res.getEntityId() === cmd.componentsMap.Message.target) {
+                                    targetEntity = res;
+                                }
+                            });
 
-                            const targetData = {
-                                from: [x / 400000, y / 400000],
-                                to: [targetX / 400000, targetY / 400000],
-                                color: [255, 0, 0],
-                            };
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
+                                const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
-                            this.commandCommunicationTargetLayer.push(targetData);
-                        }
-                    } else if (cmd.componentsMap.messageType === 5) {
-                        if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
+                                const x = entity.getPropertys().X.value;
+                                const y = entity.getPropertys().Y.value;
 
-                        const entitys = simulation.getWorldModel(step).getEntity();
+                                const targetData = {
+                                    from: [x / 400000, y / 400000],
+                                    to: [targetX / 400000, targetY / 400000],
+                                    color: [255, 0, 0],
+                                };
 
-                        let targetEntity = null;
-                        entitys.map((res) => {
-                            if (res.getEntityId() === cmd.componentsMap.Message.target) {
-                                targetEntity = res;
+                                this.commandCommunicationTargetLayer.push(targetData);
                             }
-                        });
+                        } else if (cmd.componentsMap.messageType === 5) {
+                            if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
 
-                        if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
-                            const targetX = (targetEntity as Entity).getPropertys().X.value;
-                            const targetY = (targetEntity as Entity).getPropertys().Y.value;
+                            const entitys = simulation.getWorldModel(step).getEntity();
 
-                            const x = entity.getPropertys().X.value;
-                            const y = entity.getPropertys().Y.value;
+                            let targetEntity = null;
+                            entitys.map((res) => {
+                                if (res.getEntityId() === cmd.componentsMap.Message.target) {
+                                    targetEntity = res;
+                                }
+                            });
 
-                            const targetData = {
-                                from: [x / 400000, y / 400000],
-                                to: [targetX / 400000, targetY / 400000],
-                                color: [0, 0, 255],
-                            };
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
+                                const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
-                            this.commandCommunicationTargetLayer.push(targetData);
-                        }
-                    } else if (cmd.componentsMap.messageType === 6) {
-                        if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
+                                const x = entity.getPropertys().X.value;
+                                const y = entity.getPropertys().Y.value;
 
-                        const entitys = simulation.getWorldModel(step).getEntity();
+                                const targetData = {
+                                    from: [x / 400000, y / 400000],
+                                    to: [targetX / 400000, targetY / 400000],
+                                    color: [0, 0, 255],
+                                };
 
-                        let targetEntity = null;
-                        entitys.map((res) => {
-                            if (res.getEntityId() === cmd.componentsMap.Message.id) {
-                                targetEntity = res;
+                                this.commandCommunicationTargetLayer.push(targetData);
                             }
-                        });
+                        } else if (cmd.componentsMap.messageType === 6) {
+                            if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
 
-                        if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
-                            const targetX = (targetEntity as Entity).getPropertys().X.value;
-                            const targetY = (targetEntity as Entity).getPropertys().Y.value;
+                            const entitys = simulation.getWorldModel(step).getEntity();
 
-                            const x = entity.getPropertys().X.value;
-                            const y = entity.getPropertys().Y.value;
+                            let targetEntity = null;
+                            entitys.map((res) => {
+                                if (res.getEntityId() === cmd.componentsMap.Message.id) {
+                                    targetEntity = res;
+                                }
+                            });
 
-                            const targetData = {
-                                from: [x / 400000, y / 400000],
-                                to: [targetX / 400000, targetY / 400000],
-                                color: [100, 100, 100],
-                            };
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
+                                const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
-                            this.commandCommunicationTargetLayer.push(targetData);
-                        }
-                    } else if (cmd.componentsMap.messageType === 9) {
-                        if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
+                                const x = entity.getPropertys().X.value;
+                                const y = entity.getPropertys().Y.value;
 
-                        const entitys = simulation.getWorldModel(step).getEntity();
+                                const targetData = {
+                                    from: [x / 400000, y / 400000],
+                                    to: [targetX / 400000, targetY / 400000],
+                                    color: [100, 100, 100],
+                                };
 
-                        let targetEntity = null;
-                        entitys.map((res) => {
-                            if (res.getEntityId() === cmd.componentsMap.Message.target) {
-                                targetEntity = res;
+                                this.commandCommunicationTargetLayer.push(targetData);
                             }
-                        });
+                        } else if (cmd.componentsMap.messageType === 9) {
+                            if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
 
-                        if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
-                            const targetX = (targetEntity as Entity).getPropertys().X.value;
-                            const targetY = (targetEntity as Entity).getPropertys().Y.value;
+                            const entitys = simulation.getWorldModel(step).getEntity();
 
-                            const x = entity.getPropertys().X.value;
-                            const y = entity.getPropertys().Y.value;
+                            let targetEntity = null;
+                            entitys.map((res) => {
+                                if (res.getEntityId() === cmd.componentsMap.Message.target) {
+                                    targetEntity = res;
+                                }
+                            });
 
-                            const targetData = {
-                                from: [x / 400000, y / 400000],
-                                to: [targetX / 400000, targetY / 400000],
-                                color: [100, 100, 200],
-                            };
+                            if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
+                                const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
-                            this.commandCommunicationTargetLayer.push(targetData);
+                                const x = entity.getPropertys().X.value;
+                                const y = entity.getPropertys().Y.value;
+
+                                const targetData = {
+                                    from: [x / 400000, y / 400000],
+                                    to: [targetX / 400000, targetY / 400000],
+                                    color: [100, 100, 200],
+                                };
+
+                                this.commandCommunicationTargetLayer.push(targetData);
+                            }
+                        } else {
+                            console.error("メッセージタイプ別で未処理なやつみっけ", cmd.componentsMap.messageType);
                         }
-                    } else {
-                        console.error("メッセージタイプ別で未処理なやつみっけ", cmd.componentsMap.messageType);
                     }
 
                     messageCount++;
@@ -1757,6 +1785,17 @@ export class CreateLayer {
             getSourceColor: (d) => d.color,
             getTargetColor: (d) => [255, 255, 200],
             getWidth: 2,
+        });
+    }
+
+    createTextLayer(id: string, data: Array<any>) {
+        return new TextLayer({
+            data: data,
+            id: id,
+            getPosition: (d) => d.position,
+            getText: (d) => d.message,
+            getColor: (d) => d.color,
+            getSize: 16,
         });
     }
 
@@ -1947,6 +1986,11 @@ export class CreateLayer {
 
     getCommandCommunicationTargetLayer() {
         const layer = this.createCommunicationTargetArcLayer("command-communication-target-arc", this.commandCommunicationTargetLayer);
+        return layer;
+    }
+
+    getCommandHelpMessageLayer() {
+        const layer = this.createTextLayer("command-help-message", this.commandHelpMessageLayer);
         return layer;
     }
 }
