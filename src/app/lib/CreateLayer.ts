@@ -1499,8 +1499,6 @@ export class CreateLayer {
                                 const x = entity.getPropertys().X.value;
                                 const y = entity.getPropertys().Y.value;
 
-                                console.log(y / 400000);
-
                                 const Data = {
                                     color: [255, 0, 0],
                                     position: [x / 400000, y / 400000],
