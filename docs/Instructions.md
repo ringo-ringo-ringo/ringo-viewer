@@ -183,15 +183,19 @@ perceptionで始まるレイヤーは全て，「view perception」にて選択�
 ### communication*
 communicationから始まるレイヤーは全て，知覚情報を見ているエージェントが受信した通信が描画されます．
 ROADは通信によって道路が通行可能か不可能かを示すレイヤーです．
+
 ![](./imgs/communicatioin-road.png)
 
 AMBULANCE_TEAM，CIVILIAN，FIRE_BRIGADE，POLICE_FORCEは，そのエージェントがどこにいるのかを示すレイヤーです．
 ここには，知覚情報を見ているエージェント自身が発信して，自身の発信したものも含めた通信を受信している場合があります．
 通信の送信と受信にはステップ数が数回必要であり，過去の自分の情報を受信し，描画されるため，水色のエージェントが2体表示される場合があります．
+
 ![](./imgs/communication-human.png)
 
 CENTRALIZEDは司令塔によって命令された対象を示すレイヤーです．
+
 ![](./imgs/communication-cen.png)
 
 Targetはエージェントが移動する先をアークで示すレイヤーです．
+
 ![](./imgs/communication-target.png)
