@@ -1489,6 +1489,8 @@ export class CreateLayer {
                     }
 
                     if (cmd.componentsMap.messageType === 1) {
+                        if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
+
                         const entitys = simulation.getWorldModel(step).getEntity();
 
                         let targetEntity = null;
