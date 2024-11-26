@@ -1350,6 +1350,7 @@ export class CreateLayer {
         const ignoreList = ["AgentID", "Time"];
 
         if (entity.command.length > 0) {
+            let messageCount = 0;
             entity.command.map((cmd) => {
                 if (URN_MAP[cmd.urn] === "AK_MOVE") {
                     if (cmd.componentsMap["Path"]) {
@@ -1480,11 +1481,13 @@ export class CreateLayer {
                     searchProp["UnLoad"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_SPEAK") {
                     //トライの配下にする？
-                    searchProp["MessageType"] = cmd.componentsMap.messageType;
-                    searchProp["MessageChannel"] = cmd.componentsMap.MessageChannel;
+                    const messageType = "MessageType-" + messageCount;
+                    searchProp[messageType] = cmd.componentsMap.messageType;
+                    const MessageChannel = "MessageChannel-" + messageCount;
+                    searchProp[MessageChannel] = cmd.componentsMap.MessageChannel;
 
                     for (const key in cmd.componentsMap.Message) {
-                        const outKey = "Message-" + key;
+                        const outKey = "Message-" + messageCount + "-" + key;
                         searchProp[outKey] = cmd.componentsMap.Message[key];
                     }
 
@@ -1653,6 +1656,8 @@ export class CreateLayer {
                     } else {
                         console.error("メッセージタイプ別で未処理なやつみっけ", cmd.componentsMap.messageType);
                     }
+
+                    messageCount++;
                 } else {
                     console.log("未処理のコマンド発見", URN_MAP[cmd.urn], cmd);
                 }
