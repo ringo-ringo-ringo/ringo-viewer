@@ -53,9 +53,7 @@ export class Command {
 
                             const helpMessage = atob(res.rawdata);
                             if (helpMessage.toLowerCase() === "help" || helpMessage.toLowerCase() === "ouch") {
-                                this.componentsMap[URN_MAP[key]] = {
-                                    helpMessage,
-                                };
+                                this.componentsMap[URN_MAP[key]] = helpMessage;
                             } else {
                                 try {
                                     const binaryString = window.atob(res.rawdata);
