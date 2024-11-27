@@ -369,13 +369,18 @@ export class CreateLayer {
 
                 const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
+                let props: { [key: string]: any } = {};
+                for (const key in properties) {
+                    props[key] = properties[key].value;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     positions: [x / 400000, y / 400000],
                     backgroundColor: [0, color, 0],
                     isSearch,
-                    ...properties,
+                    ...props,
                     ...commandProp,
                 };
 
@@ -439,13 +444,18 @@ export class CreateLayer {
                     bgc = [255, 100, 0];
                 }
 
+                let props: { [key: string]: any } = {};
+                for (const key in properties) {
+                    props[key] = properties[key].value;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     positions: [x / 400000, y / 400000],
                     backgroundColor: bgc,
                     isSearch,
-                    ...properties,
+                    ...props,
                     ...commandProp,
                 };
 
@@ -509,13 +519,18 @@ export class CreateLayer {
                     bgc = [255, 180, 255];
                 }
 
+                let props: { [key: string]: any } = {};
+                for (const key in properties) {
+                    props[key] = properties[key].value;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     positions: [x / 400000, y / 400000],
                     backgroundColor: bgc,
                     isSearch,
-                    ...properties,
+                    ...props,
                     ...commandProp,
                 };
 
@@ -575,13 +590,18 @@ export class CreateLayer {
 
                 const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
 
+                let props: { [key: string]: any } = {};
+                for (const key in properties) {
+                    props[key] = properties[key].value;
+                }
+
                 const data = {
                     entity: URN_MAP[entity.urn],
                     entityId: entity.entityId,
                     positions: [x / 400000, y / 400000],
                     backgroundColor: [0, 0, color],
                     isSearch,
-                    ...properties,
+                    ...props,
                     ...commandProp,
                 };
 
@@ -902,13 +922,18 @@ export class CreateLayer {
                         isSearch = true;
                     }
 
+                    let props: { [key: string]: any } = {};
+                    for (const key in properties) {
+                        props[key] = properties[key].value;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
-                        ...properties,
+                        ...props,
                     };
 
                     this.perceptionCiviliansLayer.push(data);
@@ -933,13 +958,18 @@ export class CreateLayer {
                         isSearch = true;
                     }
 
+                    let props: { [key: string]: any } = {};
+                    for (const key in properties) {
+                        props[key] = properties[key].value;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
-                        ...properties,
+                        ...props,
                     };
 
                     this.perceptionFireBrigadesLayer.push(data);
@@ -964,13 +994,18 @@ export class CreateLayer {
                         isSearch = true;
                     }
 
+                    let props: { [key: string]: any } = {};
+                    for (const key in properties) {
+                        props[key] = properties[key].value;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
-                        ...properties,
+                        ...props,
                     };
 
                     this.perceptionAmbulanceTeamsLayer.push(data);
@@ -995,13 +1030,18 @@ export class CreateLayer {
                         isSearch = true;
                     }
 
+                    let props: { [key: string]: any } = {};
+                    for (const key in properties) {
+                        props[key] = properties[key].value;
+                    }
+
                     const data = {
                         entity: URN_MAP[entity.urn],
                         entityId: entity.entityId,
                         positions: [x / 400000, y / 400000],
                         backgroundColor: bgc,
                         isSearch,
-                        ...properties,
+                        ...props,
                     };
 
                     this.perceptionPoliceForcesLayer.push(data);
