@@ -1497,9 +1497,7 @@ export class CreateLayer {
                 } else if (URN_MAP[cmd.urn] === "AK_UNLOAD") {
                     searchProp["UnLoad"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_SPEAK") {
-                    const messageType = "MessageType-" + messageCount;
-                    searchProp[messageType] = cmd.componentsMap.messageType;
-                    const MessageChannel = "MessageChannel-" + messageCount;
+                    const MessageChannel = messageCount + " - MessageChannel";
                     searchProp[MessageChannel] = cmd.componentsMap.MessageChannel;
 
                     try {
@@ -1517,8 +1515,11 @@ export class CreateLayer {
                             }
                         }
                     } catch (e) {
+                        const messageType = messageCount + " - MessageType";
+                        searchProp[messageType] = cmd.componentsMap.messageType;
+
                         for (const key in cmd.componentsMap.Message) {
-                            const outKey = "Message-" + messageCount + "-" + key;
+                            const outKey = messageCount + " - Message" + "-" + key;
                             searchProp[outKey] = cmd.componentsMap.Message[key];
                         }
 
