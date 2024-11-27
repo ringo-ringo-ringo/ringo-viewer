@@ -1554,7 +1554,7 @@ export class CreateLayer {
 
                                 this.commandCommunicationTargetLayer.push(targetData);
                             } else {
-                                console.log("エラー");
+                                console.error("エラー");
                             }
                         } else if (cmd.componentsMap.messageType === 3) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1583,7 +1583,7 @@ export class CreateLayer {
 
                                 this.commandCommunicationTargetLayer.push(targetData);
                             } else {
-                                console.log("エラー");
+                                console.error("エラー");
                             }
                         } else if (cmd.componentsMap.messageType === 4) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1612,7 +1612,7 @@ export class CreateLayer {
 
                                 this.commandCommunicationTargetLayer.push(targetData);
                             } else {
-                                console.log("エラー");
+                                console.error("エラー");
                             }
                         } else if (cmd.componentsMap.messageType === 5) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1640,8 +1640,8 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
-                            } else {
-                                console.log("エラー", cmd);
+                            }else {
+                                console.error("エラー");
                             }
                         } else if (cmd.componentsMap.messageType === 6) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1670,7 +1670,7 @@ export class CreateLayer {
 
                                 this.commandCommunicationTargetLayer.push(targetData);
                             } else {
-                                console.log("エラー");
+                                console.error("エラー");
                             }
                         } else if (cmd.componentsMap.messageType === 9) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1698,8 +1698,8 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
-                            } else {
-                                console.log("エラー");
+                            }else {
+                                console.error("エラー");
                             }
                         } else {
                             console.error("メッセージタイプ別で未処理なやつみっけ", cmd.componentsMap.messageType);
