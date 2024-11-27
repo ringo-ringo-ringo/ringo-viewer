@@ -49,11 +49,11 @@ export default function Home() {
         AMBULANCE_TEAM: true,
         POLICE_FORCE: true,
         POSITION_HISTORY: true,
-        COMMAND_PATH: false,
-        COMMAND_CLEAR: false,
-        COMMAND_CLEAR_AREA: true,
-        COMMAND_COMMUNICATION_TARGET: false,
-        COMMAND_HELP_MESSAGE: false,
+        PATH: false,
+        CLEAR: false,
+        CLEAR_AREA: true,
+        COMMUNICATION_TARGET: false,
+        HELP_MESSAGE: false,
     });
 
     const [perceptionFilter, setPerceptionFilter] = useState({
