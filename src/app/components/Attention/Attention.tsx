@@ -55,7 +55,7 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
             attentionList.push(data);
         } else if (key === "isSearch" || key === "backgroundColor" || key === "apex" || key === "positions" || key ==="to" || key === "from") {
         } else {
-            data = key + " : " + JSON.stringify(attentionData[key].value, null, 2);
+            data = key + " : " + JSON.stringify(attentionData[key], null, 2);
             attentionList.push(data);
         }
     }
