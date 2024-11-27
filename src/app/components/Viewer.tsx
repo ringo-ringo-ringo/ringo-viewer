@@ -126,7 +126,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
                         let text = "";
 
-                        text += "entity : " + object.entity + "\n";
+                        if (object.entity !== undefined) text += "entity : " + object.entity + "\n";
 
                         text += "entityId : " + object.entityId + "\n";
 
