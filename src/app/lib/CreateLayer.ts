@@ -1363,8 +1363,12 @@ export class CreateLayer {
                     if (cmd.componentsMap["Path"]) {
                         searchProp["MovePath"] = cmd.componentsMap["Path"];
                     }
-
-                    if ((searchProp["DestinationX"] && searchProp["DestinationX"] !== -1) || (searchProp["DestinationY"] && searchProp["DestinationY"] !== -1)) console.error("Destinationが-1じゃないの発見");
+                    if (cmd.componentsMap["DestinationX"]) {
+                        searchProp["DestinationX"] = cmd.componentsMap["DestinationX"];
+                    }
+                    if (cmd.componentsMap["DestinationY"]) {
+                        searchProp["DestinationY"] = cmd.componentsMap["DestinationY"];
+                    }
 
                     if (searchProp["MovePath"]) {
                         let first: boolean = true;
