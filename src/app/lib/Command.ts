@@ -246,7 +246,7 @@ export class Command {
                                         console.error("知らないメッセージタイプきたぞ", "メッセージタイプ : ", messageType);
                                     }
                                 } catch (e) {
-                                    console.error("えらー", component, e);
+                                    console.error("えらー", command, this, e);
                                 }
                             }
                         } else {
