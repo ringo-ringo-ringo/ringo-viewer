@@ -30,11 +30,15 @@ export class Command {
                 });
             });
 
+            let find = false;
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    find = true;
                 }
             });
+
+            if (!find) console.error("ないぞ");
         } else if (URN_MAP[this.urn] === "AK_SPEAK") {
             command.componentsMap.map((component: any) => {
                 let count = 0;
@@ -252,11 +256,15 @@ export class Command {
                 });
             });
 
+            let find = false;
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    find = true;
                 }
             });
+
+            if (!find) console.error("ないぞ");
         } else if (URN_MAP[this.urn] === "AK_REST") {
             command.componentsMap.map((component: any) => {
                 let count = 0;
@@ -277,11 +285,15 @@ export class Command {
                 });
             });
 
+            let find = false;
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    find = true;
                 }
             });
+
+            if (!find) console.error("ないぞ");
         } else if (URN_MAP[this.urn] === "AK_SUBSCRIBE") {
             command.componentsMap.map((component: any) => {
                 let count = 0;
@@ -304,11 +316,15 @@ export class Command {
                 });
             });
 
+            let find = false;
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    find = true;
                 }
             });
+
+            if (!find) console.error("ないぞ");
         } else if (URN_MAP[this.urn] === "AK_CLEAR") {
             command.componentsMap.map((component: any) => {
                 let count = 0;
@@ -329,11 +345,15 @@ export class Command {
                 });
             });
 
+            let find = false;
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    find = true;
                 }
             });
+
+            if (!find) console.error("ないぞ");
         } else if (URN_MAP[this.urn] === "AK_CLEAR_AREA") {
             command.componentsMap.map((component: any) => {
                 let count = 0;
@@ -354,11 +374,15 @@ export class Command {
                 });
             });
 
+            let find = false;
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    find = true;
                 }
             });
+
+            if (!find) console.error("ないぞ");
         } else if (URN_MAP[this.urn] === "AK_RESCUE") {
             command.componentsMap.map((component: any) => {
                 let count = 0;
@@ -379,11 +403,15 @@ export class Command {
                 });
             });
 
+            let find = false;
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    find = true;
                 }
             });
+
+            if (!find) console.error("ないぞ");
         } else if (URN_MAP[this.urn] === "AK_LOAD") {
             command.componentsMap.map((component: any) => {
                 let count = 0;
@@ -404,11 +432,15 @@ export class Command {
                 });
             });
 
+            let find = false;
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    find = true;
                 }
             });
+
+            if (!find) console.error("ないぞ");
         } else if (URN_MAP[this.urn] === "AK_UNLOAD") {
             command.componentsMap.map((component: any) => {
                 let count = 0;
@@ -429,11 +461,15 @@ export class Command {
                 });
             });
 
+            let find = false;
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    find = true;
                 }
             });
+
+            if (!find) console.error("ないぞ");
         } else {
             console.error("未知のコマンド発見！", URN_MAP[this.urn], command);
         }
