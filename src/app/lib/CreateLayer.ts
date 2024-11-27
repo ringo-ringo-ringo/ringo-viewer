@@ -1617,7 +1617,13 @@ export class CreateLayer {
                         } else if (cmd.componentsMap.messageType === 5) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
 
-                            const entitys = simulation.getWorldModel(step).getEntity();
+                            let entitys;
+
+                            if (cmd.componentsMap.Message.action === "CLEAR") {
+                                entitys = simulation.getWorldModel(step - 1).getEntity();
+                            } else {
+                                entitys = simulation.getWorldModel(step).getEntity();
+                            }
 
                             let targetEntity = null;
                             entitys.map((res) => {
@@ -1640,8 +1646,8 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
-                            }else {
-                                console.error("エラー");
+                            } else {
+                                console.error("エラー", cmd);
                             }
                         } else if (cmd.componentsMap.messageType === 6) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1698,7 +1704,7 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
-                            }else {
+                            } else {
                                 console.error("エラー");
                             }
                         } else {
