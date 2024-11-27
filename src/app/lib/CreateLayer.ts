@@ -1512,7 +1512,11 @@ export class CreateLayer {
                                     message: cmd.componentsMap.Message,
                                 };
                                 this.commandHelpMessageLayer.push(Data);
+                            } else {
+                                console.error("xとyがない");
                             }
+                        }else {
+                            console.error("エラー出ずに終わってしまった");
                         }
                     } catch (e) {
                         const messageType = messageCount + " - MessageType";
