@@ -73,6 +73,26 @@ export class Command {
                                     const messageType = reader.getBits(5);
                                     this.componentsMap["messageType"] = messageType;
 
+                                    let ttl;
+
+                                    command.componentsMap.map((tmp: any) => {
+                                        let countTmp = 0;
+                                        let keyTmp = "";
+                                        tmp.map((tmp1: any) => {
+                                            if (countTmp === 0) {
+                                                keyTmp = tmp1;
+                                                countTmp++;
+                                            } else {
+                                                if (URN_MAP[keyTmp] === "Channel") {
+                                                    if (tmp1.intvalue === 0) {
+                                                        ttl = reader.getBits(3);
+                                                        this.componentsMap["TTL"] = ttl;
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    });
+
                                     // MessageAmbulanceTeam
                                     if (messageType === 1) {
                                         const id = reader.getBits(32);

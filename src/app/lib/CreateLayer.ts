@@ -1589,6 +1589,14 @@ export class CreateLayer {
                                 }
                             });
 
+                            if (targetEntity === null) {
+                                entitys.map((res) => {
+                                    if (res.getEntityId() === cmd.componentsMap.Message.id) {
+                                        targetEntity = res;
+                                    }
+                                });
+                            }
+
                             if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
                                 const targetX = (targetEntity as Entity).getPropertys().X.value;
                                 const targetY = (targetEntity as Entity).getPropertys().Y.value;
@@ -1604,7 +1612,7 @@ export class CreateLayer {
 
                                 this.commandCommunicationTargetLayer.push(targetData);
                             } else {
-                                console.error("エラー");
+                                console.error("エラー", cmd, entity, targetEntity);
                             }
                         } else if (cmd.componentsMap.messageType === 3) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1617,6 +1625,14 @@ export class CreateLayer {
                                     targetEntity = res;
                                 }
                             });
+
+                            if (targetEntity === null) {
+                                entitys.map((res) => {
+                                    if (res.getEntityId() === cmd.componentsMap.Message.id) {
+                                        targetEntity = res;
+                                    }
+                                });
+                            }
 
                             if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
                                 const targetX = (targetEntity as Entity).getPropertys().X.value;
@@ -1633,7 +1649,7 @@ export class CreateLayer {
 
                                 this.commandCommunicationTargetLayer.push(targetData);
                             } else {
-                                console.error("エラー");
+                                console.error("エラー", cmd, entity, targetEntity);
                             }
                         } else if (cmd.componentsMap.messageType === 4) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1646,6 +1662,14 @@ export class CreateLayer {
                                     targetEntity = res;
                                 }
                             });
+
+                            if (targetEntity === null) {
+                                entitys.map((res) => {
+                                    if (res.getEntityId() === cmd.componentsMap.Message.id) {
+                                        targetEntity = res;
+                                    }
+                                });
+                            }
 
                             if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
                                 const targetX = (targetEntity as Entity).getPropertys().X.value;
@@ -1681,6 +1705,14 @@ export class CreateLayer {
                                     targetEntity = res;
                                 }
                             });
+
+                            if (targetEntity === null) {
+                                entitys.map((res) => {
+                                    if (res.getEntityId() === cmd.componentsMap.Message.id) {
+                                        targetEntity = res;
+                                    }
+                                });
+                            }
 
                             if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
                                 const targetX = (targetEntity as Entity).getPropertys().X.value;
