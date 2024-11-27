@@ -49,8 +49,15 @@ export default function Attention({ attentionData, setAttentionData, setPercepti
 
     const attentionList = [];
     for (const key in attentionData) {
-        const data = key + " : " + JSON.stringify(attentionData[key], null, 2);
-        attentionList.push(data);
+        let data;
+        if (key === "entity" || key === "entityId") {
+            data = key + " : " + JSON.stringify(attentionData[key], null, 2);
+            attentionList.push(data);
+        } else if (key === "isSearch" || key === "backgroundColor" || key === "apex" || key === "positions" || key ==="to" || key === "from") {
+        } else {
+            data = key + " : " + JSON.stringify(attentionData[key].value, null, 2);
+            attentionList.push(data);
+        }
     }
 
     const clear = () => {
