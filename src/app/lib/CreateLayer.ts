@@ -1491,6 +1491,9 @@ export class CreateLayer {
                     }
                 } else if (URN_MAP[cmd.urn] === "AK_LOAD") {
                     searchProp["Load"] = true;
+                    if (cmd.componentsMap["Target"]) {
+                        searchProp["Load-Target"] = cmd.componentsMap["Target"];
+                    }
                 } else if (URN_MAP[cmd.urn] === "AK_UNLOAD") {
                     searchProp["UnLoad"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_SPEAK") {
