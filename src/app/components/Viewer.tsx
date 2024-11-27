@@ -102,6 +102,9 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
     const deckglClickHandler = (e: any) => {
         setAttentionData(e.object);
+        if (e?.object?.entityId) {
+            setIdSearch(e.object.entityId.toString());
+        }
     };
 
     return (

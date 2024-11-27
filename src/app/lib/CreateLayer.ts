@@ -336,6 +336,7 @@ export class CreateLayer {
                                     backgroundColor: [250, 0, 0],
                                     from: [x1 / 400000, y1 / 400000],
                                     to: [x2 / 400000, y2 / 400000],
+                                    entityId: entity.entityId,
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -348,6 +349,7 @@ export class CreateLayer {
                         backgroundColor: [250, 0, 0],
                         from: [x2 / 400000, y2 / 400000],
                         to: [properties.X.value / 400000, properties.Y.value / 400000],
+                        entityId: entity.entityId,
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -400,6 +402,7 @@ export class CreateLayer {
                                     backgroundColor: [250, 0, 0],
                                     from: [x1 / 400000, y1 / 400000],
                                     to: [x2 / 400000, y2 / 400000],
+                                    entityId: entity.entityId,
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -412,6 +415,7 @@ export class CreateLayer {
                         backgroundColor: [250, 0, 0],
                         from: [x2 / 400000, y2 / 400000],
                         to: [properties.X.value / 400000, properties.Y.value / 400000],
+                        entityId: entity.entityId,
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -468,6 +472,7 @@ export class CreateLayer {
                                     backgroundColor: [250, 0, 0],
                                     from: [x1 / 400000, y1 / 400000],
                                     to: [x2 / 400000, y2 / 400000],
+                                    entityId: entity.entityId,
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -480,6 +485,7 @@ export class CreateLayer {
                         backgroundColor: [250, 0, 0],
                         from: [x2 / 400000, y2 / 400000],
                         to: [properties.X.value / 400000, properties.Y.value / 400000],
+                        entityId: entity.entityId,
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -536,6 +542,7 @@ export class CreateLayer {
                                     backgroundColor: [250, 0, 0],
                                     from: [x1 / 400000, y1 / 400000],
                                     to: [x2 / 400000, y2 / 400000],
+                                    entityId: entity.entityId,
                                 };
                                 this.PositionHistoryLayer.push(positionHistoryData);
                             }
@@ -548,6 +555,7 @@ export class CreateLayer {
                         backgroundColor: [250, 0, 0],
                         from: [x2 / 400000, y2 / 400000],
                         to: [properties.X.value / 400000, properties.Y.value / 400000],
+                        entityId: entity.entityId,
                     };
                     this.PositionHistoryLayer.push(positionHistoryData);
                 }
@@ -1388,6 +1396,7 @@ export class CreateLayer {
                                                 from: [entity.properties.X.value / 400000, entity.properties.Y.value / 400000],
                                                 to: [x2 / 400000, y2 / 400000],
                                                 isSearch,
+                                                entityId: entity.getEntityId(),
                                             };
                                             this.commandPathLayer.push(pathData);
                                             first = false;
@@ -1397,6 +1406,7 @@ export class CreateLayer {
                                                 from: [x1 / 400000, y1 / 400000],
                                                 to: [x2 / 400000, y2 / 400000],
                                                 isSearch,
+                                                entityId: entity.getEntityId(),
                                             };
                                             this.commandPathLayer.push(pathData);
                                         }
@@ -1799,7 +1809,7 @@ export class CreateLayer {
             getSourcePosition: (d) => d.from,
             getTargetPosition: (d) => d.to,
             getWidth: (d) => (d.isSearch ? 4 : 1),
-            // pickable: true,
+            pickable: true,
         });
     }
 
