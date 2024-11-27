@@ -51,17 +51,17 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (filter.CLEAR) layer.push(createLayer.getCommandClearLayer());
 
             //visibleの建物たち
-            if (perceptionFilter.perceptionROAD && isOkPerception) layer.push(createLayer.getPerceptionRoadsLayer());
+            if (perceptionFilter.visibleROAD && isOkPerception) layer.push(createLayer.getPerceptionRoadsLayer());
             //communicationの建物たち
             if (perceptionFilter.communicationROAD && isOkPerception) layer.push(createLayer.getCommunicationRoadsLayer());
-            if (perceptionFilter.perceptionBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
-            if (perceptionFilter.perceptionPOLICE_OFFICE && isOkPerception) layer.push(createLayer.getPerceptionPoliceOfficesLayer());
-            if (perceptionFilter.perceptionREFUGE && isOkPerception) layer.push(createLayer.getPerceptionRefugesLayer());
-            if (perceptionFilter.perceptionHYDRANT && isOkPerception) layer.push(createLayer.getPerceptionHydrantsLayer());
-            if (perceptionFilter.perceptionGAS_STATION && isOkPerception) layer.push(createLayer.getPerceptionGasStationsLayer());
-            if (perceptionFilter.perceptionFIRE_STATION && isOkPerception) layer.push(createLayer.getPerceptionFireStationsLayer());
-            if (perceptionFilter.perceptionAMBULANCE_CENTRE && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceCentresLayer());
-            if (perceptionFilter.perceptionBLOCKADE && isOkPerception) layer.push(createLayer.getPerceptionBlockadesLayer());
+            if (perceptionFilter.visibleBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
+            if (perceptionFilter.visiblePOLICE_OFFICE && isOkPerception) layer.push(createLayer.getPerceptionPoliceOfficesLayer());
+            if (perceptionFilter.visibleREFUGE && isOkPerception) layer.push(createLayer.getPerceptionRefugesLayer());
+            if (perceptionFilter.visibleHYDRANT && isOkPerception) layer.push(createLayer.getPerceptionHydrantsLayer());
+            if (perceptionFilter.visibleGAS_STATION && isOkPerception) layer.push(createLayer.getPerceptionGasStationsLayer());
+            if (perceptionFilter.visibleFIRE_STATION && isOkPerception) layer.push(createLayer.getPerceptionFireStationsLayer());
+            if (perceptionFilter.visibleAMBULANCE_CENTRE && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceCentresLayer());
+            if (perceptionFilter.visibleBLOCKADE && isOkPerception) layer.push(createLayer.getPerceptionBlockadesLayer());
 
             //communicationのcentralized
             if (perceptionFilter.communicationCENTRALIZED && isOkPerception) layer.push(createLayer.getCommunicationCentralizedLayer());
@@ -73,10 +73,10 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (filter.POLICE_FORCE) layer.push(createLayer.getPoliceForcesLayer());
 
             //visibleの人間たち
-            if (perceptionFilter.perceptionCIVILIAN && isOkPerception) layer.push(createLayer.getPerceptionCiviliansLayer());
-            if (perceptionFilter.perceptionFIRE_BRIGADE && isOkPerception) layer.push(createLayer.getPerceptionFireBrigadesLayer());
-            if (perceptionFilter.perceptionAMBULANCE_TEAM && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceTeamsLayer());
-            if (perceptionFilter.perceptionPOLICE_FORCE && isOkPerception) layer.push(createLayer.getPerceptionPoliceForcesLayer());
+            if (perceptionFilter.visibleCIVILIAN && isOkPerception) layer.push(createLayer.getPerceptionCiviliansLayer());
+            if (perceptionFilter.visibleFIRE_BRIGADE && isOkPerception) layer.push(createLayer.getPerceptionFireBrigadesLayer());
+            if (perceptionFilter.visibleAMBULANCE_TEAM && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceTeamsLayer());
+            if (perceptionFilter.visiblePOLICE_FORCE && isOkPerception) layer.push(createLayer.getPerceptionPoliceForcesLayer());
 
             //communicationの人間たち
             if (perceptionFilter.communicationAMBULANCE_TEAM && isOkPerception) layer.push(createLayer.getCommunicationAmbulanceTeamsLayer());
