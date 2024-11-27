@@ -1497,7 +1497,6 @@ export class CreateLayer {
                 } else if (URN_MAP[cmd.urn] === "AK_UNLOAD") {
                     searchProp["UnLoad"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_SPEAK") {
-                    //トライの配下にする？
                     const messageType = "MessageType-" + messageCount;
                     searchProp[messageType] = cmd.componentsMap.messageType;
                     const MessageChannel = "MessageChannel-" + messageCount;
