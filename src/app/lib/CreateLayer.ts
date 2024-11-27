@@ -1516,7 +1516,7 @@ export class CreateLayer {
                                 console.error("xとyがない");
                             }
                         } else {
-                            console.error("エラー出ずに終わってしまった");
+                            // console.error("エラー出ずに終わってしまった", cmd);
                         }
                     } catch (e) {
                         const messageType = messageCount + " - MessageType";
