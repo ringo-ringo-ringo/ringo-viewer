@@ -384,7 +384,7 @@ export class CreateLayer {
                     ...commandProp,
                 };
 
-                this.CiviliansLayer.push(data);
+                if (x !== null && y !== null) this.CiviliansLayer.push(data);
             } else if (URN_MAP[entity.urn] === "FIRE_BRIGADE") {
                 const properties = entity.getPropertys();
 
