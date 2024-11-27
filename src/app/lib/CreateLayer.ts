@@ -1515,7 +1515,7 @@ export class CreateLayer {
                             } else {
                                 console.error("xとyがない");
                             }
-                        }else {
+                        } else {
                             console.error("エラー出ずに終わってしまった");
                         }
                     } catch (e) {
@@ -1553,6 +1553,8 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
+                            } else {
+                                console.log("エラー");
                             }
                         } else if (cmd.componentsMap.messageType === 3) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1580,6 +1582,8 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
+                            } else {
+                                console.log("エラー");
                             }
                         } else if (cmd.componentsMap.messageType === 4) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1607,6 +1611,8 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
+                            } else {
+                                console.log("エラー");
                             }
                         } else if (cmd.componentsMap.messageType === 5) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1634,6 +1640,8 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
+                            } else {
+                                console.log("エラー", cmd);
                             }
                         } else if (cmd.componentsMap.messageType === 6) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1661,6 +1669,8 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
+                            } else {
+                                console.log("エラー");
                             }
                         } else if (cmd.componentsMap.messageType === 9) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
@@ -1688,6 +1698,8 @@ export class CreateLayer {
                                 };
 
                                 this.commandCommunicationTargetLayer.push(targetData);
+                            } else {
+                                console.log("エラー");
                             }
                         } else {
                             console.error("メッセージタイプ別で未処理なやつみっけ", cmd.componentsMap.messageType);
