@@ -231,7 +231,7 @@ export class Command {
                                         } else if (ACTION === 2) {
                                             action = "CLEAR";
                                         } else if (ACTION === 3) {
-                                            action = "AAUTONOMY";
+                                            action = "AUTONOMY";
                                         } else {
                                             action = "";
                                         }
