@@ -47,10 +47,6 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
         if (simulation.getCommand(callStep).length === 0 && callStep !== 0) {
             setIsLoading((e) => e + 1);
 
-            if (simulation.getCommand(callStep - 1).length === 0 && callStep !== 0) {
-                await fetchCommand(callStep - 1);
-            }
-
             await LoadLog.load(simulation.getLogPath(), `${callStep}/COMMANDS`)
                 .then((res) => {
                     simulation.setCommand(callStep, res);
@@ -149,19 +145,17 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
 
                             throw new Error("ログを読み込めませんでした");
                         });
+
+                    await fetchCommand(callStep);
                 };
 
                 (async () => {
                     await fetchUpdate(step);
 
-                    await fetchCommand(step);
-
                     await fetchPerception();
                 })();
             }
         } else {
-            fetchCommand(step);
-
             fetchPerception();
         }
     }, [step, perceptionId]);
