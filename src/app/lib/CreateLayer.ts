@@ -1587,7 +1587,35 @@ export class CreateLayer {
                                 };
                                 this.commandHelpMessageLayer.push(Data);
                             } else {
-                                console.error("xとyがない");
+                                let findXY = false;
+
+                                const loadingId = entity.getPropertys().Loading.value;
+
+                                simulation
+                                    .getWorldModel(step)
+                                    .getEntity()
+                                    .map((res) => {
+                                        if (res.getEntityId() === loadingId) {
+                                            if ((res as Entity).getPropertys()?.X?.idDefined && (res as Entity).getPropertys()?.Y?.idDefined) {
+                                                const x = res.getPropertys().X.value;
+                                                const y = res.getPropertys().Y.value;
+
+                                                const Data = {
+                                                    color: [255, 0, 0],
+                                                    position: [x / 400000, y / 400000],
+                                                    message: cmd.componentsMap.Message,
+                                                };
+                                                this.commandHelpMessageLayer.push(Data);
+
+                                                findXY = true;
+                                            }
+                                        }
+                                    });
+
+                                if (!findXY) {
+                                    console.error("xとyがない");
+                                    console.log(cmd, entity);
+                                }
                             }
                         } else {
                             console.error("エラー出ずに終わってしまった", cmd);
