@@ -1589,7 +1589,7 @@ export class CreateLayer {
                             } else {
                                 let findXY = false;
 
-                                const loadingId = entity.getPropertys().Loading.value;
+                                const loadingId = entity.getPropertys().Loading?.value;
 
                                 simulation
                                     .getWorldModel(step)
