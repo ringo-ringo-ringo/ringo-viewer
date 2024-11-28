@@ -18,7 +18,11 @@ export class Entity {
         entity.propertiesList.forEach((prop: any) => {
             const p = new Property(prop);
             // this.properties[p.urn] = p;
-            this.properties[URN_MAP[p.urn]] = p;
+            if (p.urn === 999) {
+                this.properties["Loading"] = p;
+            } else {
+                this.properties[URN_MAP[p.urn]] = p;
+            }
         });
     }
 
@@ -31,6 +35,15 @@ export class Entity {
         } else {
             console.error("わたされたログは違うぞ");
         }
+    }
+
+    changeLoading(res: any) {
+        const prop = {
+            urn: 999,
+            defined: res === null ? false : true,
+            value: res,
+        };
+        this.properties["Loading"] = new Property(prop);
     }
 
     clone() {
@@ -104,5 +117,13 @@ export class Entity {
 
     getCommunication() {
         return this.communication;
+    }
+
+    getLoading() {
+        if (this.properties["Loading"]) {
+            return this.properties["Loading"].value;
+        } else {
+            return null;
+        }
     }
 }

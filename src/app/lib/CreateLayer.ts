@@ -384,7 +384,31 @@ export class CreateLayer {
                     ...commandProp,
                 };
 
-                if (x !== null && y !== null) this.CiviliansLayer.push(data);
+                if (x !== null && y !== null) {
+                    this.CiviliansLayer.push(data);
+                } else {
+                    simulation
+                        .getWorldModel(step)
+                        .getEntity()
+                        .map((res) => {
+                            if (entity.getPropertys().Loading?.value === res.getEntityId()) {
+                                const underx = res.getPropertys().X.value;
+                                const undery = res.getPropertys().Y.value;
+
+                                const underData = {
+                                    entity: URN_MAP[entity.urn],
+                                    entityId: entity.entityId,
+                                    positions: [underx / 400000, undery / 400000],
+                                    backgroundColor: [0, color, 0],
+                                    isSearch,
+                                    ...props,
+                                    ...commandProp,
+                                };
+
+                                this.CiviliansLayer.push(underData);
+                            }
+                        });
+                }
             } else if (URN_MAP[entity.urn] === "FIRE_BRIGADE") {
                 const properties = entity.getPropertys();
 
@@ -1861,6 +1885,8 @@ export class CreateLayer {
                     return 28;
                 } else if (d.Rescue || d.Load || d.UnLoad) {
                     return 16;
+                } else if (d.Loading && d.entity === "CIVILIAN") {
+                    return 20;
                 } else {
                     return 10;
                 }

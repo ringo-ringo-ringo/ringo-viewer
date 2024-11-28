@@ -456,7 +456,14 @@ export class Command {
             entity.map((entity: Entity) => {
                 if (entity.getEntityId() === this.componentsMap.AgentID) {
                     entity.setCommand(this);
+                    entity.changeLoading(this.componentsMap.Target);
                     find = true;
+                }
+            });
+
+            entity.map((res: Entity) => {
+                if (res.getEntityId() === this.componentsMap.Target) {
+                    res.changeLoading(this.componentsMap.AgentID);
                 }
             });
 
@@ -482,9 +489,18 @@ export class Command {
             });
 
             let find = false;
-            entity.map((entity: Entity) => {
-                if (entity.getEntityId() === this.componentsMap.AgentID) {
-                    entity.setCommand(this);
+            entity.map((res: Entity) => {
+                if (res.getEntityId() === this.componentsMap.AgentID) {
+                    const loadingId = res.getLoading();
+
+                    entity.map((res2: Entity) => {
+                        if (res2.getEntityId() === loadingId) {
+                            res2.changeLoading(null);
+                        }
+                    });
+
+                    res.setCommand(this);
+                    res.changeLoading(null);
                     find = true;
                 }
             });
