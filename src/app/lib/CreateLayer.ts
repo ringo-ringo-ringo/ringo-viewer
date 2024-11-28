@@ -1636,7 +1636,23 @@ export class CreateLayer {
 
                                 this.commandCommunicationTargetLayer.push(targetData);
                             } else {
-                                console.error("エラー", cmd, entity, targetEntity);
+                                if (targetEntity !== null && entity.getEntityId() === (targetEntity as Entity).getPropertys().Loading.value) {
+                                    const targetX = entity.getPropertys().X.value;
+                                    const targetY = entity.getPropertys().Y.value;
+
+                                    const x = entity.getPropertys().X.value;
+                                    const y = entity.getPropertys().Y.value;
+
+                                    const targetData = {
+                                        from: [x / 400000, y / 400000],
+                                        to: [targetX / 400000, targetY / 400000],
+                                        color: [255, 255, 255],
+                                    };
+
+                                    this.commandCommunicationTargetLayer.push(targetData);
+                                } else {
+                                    console.error("エラー", cmd, entity, targetEntity);
+                                }
                             }
                         } else if (cmd.componentsMap.messageType === 3) {
                             if (cmd.componentsMap.AgentID !== entity.getEntityId()) console.error("違うぞ");
