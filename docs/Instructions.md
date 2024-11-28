@@ -2,7 +2,9 @@
 
 ![](./imgs/ringo-viewer.png)
 
+
 ## 画面の構成
+
 
 ### ① ライナー
 
@@ -57,7 +59,10 @@
 シミュレーションの経過ステップ数と表すバーです．
 上部のボタンは，ステップ数を移動するためのものです．
 
+---
+
 ## 機能と操作説明
+
 
 ### ③ ビューワー
 
@@ -118,6 +123,9 @@
 | -------------------- | ---------------------- | --------------------------------------------------------------------- |
 | ![](./imgs/PerB.png) | delete perception view | 「VIEW PERCEPTION」ボタンによって表示されていた情報が非表示になります |
 
+
+---
+
 ## 仕様詳細
 
 下記では，RRS の仕様を少しだけ紹介しつつ，本ビューワーでの描画方法等についてレイヤーごとに詳細に述べます
@@ -170,8 +178,8 @@ COMMAND_CLEAR_AREA レイヤーは，その土木隊の位置から，その土�
 
 ![](./imgs/ak-clear-area.png)
 
-### perception*
-pperceptionで始まるレイヤーは全て，「view perception」にて選択されたエンティティが実際に見た情報が描画されます
+### visible*
+visibleで始まるレイヤーは全て，「view perception」にて選択されたエンティティが実際に見た情報が描画されます
 その知覚情報を見ているエンティティは水色のマークで表示されます．
 また，ここでは情報は現在エージェントが見た情報だけではなく，過去に最後に認知したエンティティの情報も全て描画されます．
 そのため，このデータは過去のデータも描画され，古い情報と新しい情報が含まれます．
@@ -183,7 +191,6 @@ pperceptionで始まるレイヤーは全て，「view perception」にて選択
 
 
 ### communication*
-<!-- communicationから始まるレイヤーは全て，知覚情報を見ているエージェントが受信した通信が描画されます． -->
 communicationから始まるレイヤーには，知覚情報を見ているエージェントが受信した通信が描画されています．
 
 #### ROAD
@@ -222,3 +229,62 @@ Targetはエージェントが行動する先をアークで示すレイヤー�
 
 
 <!-- レイヤーの重ね順について書く(viewer.tsxを見て記述「だからいい感じに表示非表示してくださいねーっていう」) -->
+
+
+---
+
+## レイヤーの重ね順について
+注意点として，上記で説明したレイヤーは重ねる順番が指定されています．
+そのため，自分が見たい情報が他のレイヤーの下に表示されてしまい，うまく確認できない場合があります．
+下記に，レイヤーの重ね順を記述しておきますので，この順番を意識して自分の見たいレイヤーが上に来るようにフィルタリングをおこなってください．
+
+8から順に重ねられているため，1が一番上にあるレイヤーです．
+④内のタブ名(フィルタリングの項目名)のように表示しています．
+1. テキスト
+WORLD(HELP_MESSAGE)
+2. アーク
+WORLD(COMMUNICATION_TARGET)，PERCEPTION(communicationTarget)
+3. 軌跡
+WORLD(POSITION_HISTORY)，WORLD(PATH)，WORLD(CLEAR_AREA)
+4. communicationの人間たち
+PERCEPTION(communicationAMBULANCE_TEAM)，
+PERCEPTION(communicationCIVILIAN)，
+PERCEPTION(communicationFIRE_BRIGADE)，
+PERCEPTION(communicationPOLICE_FORCE)
+5. visibleの人間たち
+PERCEPTION(visibleCIVILIAN)，
+PERCEPTION(visibleFIRE_BRIGADE)，
+PERCEPTION(visibleAMBULANCE_TEAM)，
+PERCEPTION(visiblePOLICE_FORCE)
+6. 実世界の人間たち
+WORLD(CIVILIAN)，
+WORLD(FIRE_BRIGADE)，
+WORLD(AMBULANCE_TEAM)，
+WORLD(POLICE_FORCE)
+7. communicationのcentralized
+PERCEPTION(communicationCENTRALIZED)
+8. visibleの建物たち
+PERCEPTION(visibleROAD)，
+PERCEPTION(communicationROAD)，
+PERCEPTION(visibleBUILDING)，
+PERCEPTION(visiblePOLICE_OFFICE)，
+PERCEPTION(visibleREFUGE)，
+PERCEPTION(visibleHYDRANT)，
+PERCEPTION(visibleGAS_STATION)，
+PERCEPTION(visibleFIRE_STATION)，
+PERCEPTION(visibleAMBULANCE_CENTRE)，
+PERCEPTION(visibleBLOCKADE)
+
+8. commandの建物たち
+WORLD(CLEAR)
+
+9. 実世界の建物たち
+WORLD(ROAD),
+WORLD(BUILDING),
+WORLD(POLICE_OFFICE),
+WORLD(REFUGE),
+WORLD(HYDRANT),
+WORLD(GAS_STATION),
+WORLD(FIRE_STATION),
+WORLD(AMBULANCE_CENTRE),
+WORLD(BLOCKADE)
