@@ -1858,7 +1858,7 @@ export class CreateLayer {
                                 console.error("エラー");
                             }
                         } else {
-                            console.error("メッセージタイプ別で未処理なやつみっけ", cmd.componentsMap.messageType);
+                            console.error("メッセージタイプ別で未処理なやつみっけ", cmd, cmd.componentsMap.messageType, e);
                         }
                     }
 
