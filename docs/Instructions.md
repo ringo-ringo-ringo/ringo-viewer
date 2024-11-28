@@ -241,29 +241,37 @@ Targetはエージェントが行動する先をアークで示すレイヤー�
 8から順に重ねられているため，1が一番上にあるレイヤーです．
 ④内のタブ名(フィルタリングの項目名)のように表示しています．
 1. テキスト
+
 WORLD(HELP_MESSAGE)
 2. アーク
+
 WORLD(COMMUNICATION_TARGET)，PERCEPTION(communicationTarget)
 3. 軌跡
+
 WORLD(POSITION_HISTORY)，WORLD(PATH)，WORLD(CLEAR_AREA)
 4. communicationの人間たち
+
 PERCEPTION(communicationAMBULANCE_TEAM)，
 PERCEPTION(communicationCIVILIAN)，
 PERCEPTION(communicationFIRE_BRIGADE)，
 PERCEPTION(communicationPOLICE_FORCE)
 5. visibleの人間たち
+
 PERCEPTION(visibleCIVILIAN)，
 PERCEPTION(visibleFIRE_BRIGADE)，
 PERCEPTION(visibleAMBULANCE_TEAM)，
 PERCEPTION(visiblePOLICE_FORCE)
 6. 実世界の人間たち
+
 WORLD(CIVILIAN)，
 WORLD(FIRE_BRIGADE)，
 WORLD(AMBULANCE_TEAM)，
 WORLD(POLICE_FORCE)
 7. communicationのcentralized
+
 PERCEPTION(communicationCENTRALIZED)
 8. visibleの建物たち
+
 PERCEPTION(visibleROAD)，
 PERCEPTION(communicationROAD)，
 PERCEPTION(visibleBUILDING)，
@@ -276,9 +284,11 @@ PERCEPTION(visibleAMBULANCE_CENTRE)，
 PERCEPTION(visibleBLOCKADE)
 
 8. commandの建物たち
+
 WORLD(CLEAR)
 
 9. 実世界の建物たち
+
 WORLD(ROAD),
 WORLD(BUILDING),
 WORLD(POLICE_OFFICE),
