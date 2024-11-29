@@ -22,4 +22,5 @@
 
 
 \* AK_SPEAKにおける，MessageBuilding，CommandAmbulance，CommandFire，CommandScout，MessageReportは読み取れません
+
 また，救急隊複数人が同一の市民を同ステップ時に搬送（RESCUE）しようとした際に，正しく処理ができないバグを発見しています
