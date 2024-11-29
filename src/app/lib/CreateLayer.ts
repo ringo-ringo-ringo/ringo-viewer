@@ -1078,8 +1078,14 @@ export class CreateLayer {
 
             //communicationの情報をひとつづづ読んでいって，レイヤーに格納
             communications.map((communication) => {
-                try {
-                    if (URN_MAP[communication.urn] === "AK_SPEAK") {
+                if (URN_MAP[communication.urn] === "AK_SPEAK") {
+                    try {
+                        if (communication.components.Message.toLowerCase() === "help" || communication.components.Message.toLowerCase() === "ouch") {
+                            console.error("ヘルプメッセージあるぞ");
+                        } else {
+                            console.error("エラー出ずに終わってしまった", communication);
+                        }
+                    } catch (e) {
                         //AK_SPEAKについてのメッセージ
                         if (communication.components.messageType === 1) {
                             //MessageAmbulanceTeam
@@ -1130,20 +1136,24 @@ export class CreateLayer {
 
                                 this.communicationAmbulanceTeamsLayer.push(data);
 
-                                if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
-                                    const targetX = (targetEntity as Entity).getPropertys().X.value;
-                                    const targetY = (targetEntity as Entity).getPropertys().Y.value;
+                                if (communication.components.Message.action === "MOVE") {
+                                    if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                        const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                        const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
-                                    const targetData = {
-                                        from: [x / 400000, y / 400000],
-                                        to: [targetX / 400000, targetY / 400000],
-                                        color: [255, 255, 255],
-                                    };
+                                        const targetData = {
+                                            from: [x / 400000, y / 400000],
+                                            to: [targetX / 400000, targetY / 400000],
+                                            color: [255, 255, 255],
+                                        };
 
-                                    this.communicationTargetLayer.push(targetData);
+                                        this.communicationTargetLayer.push(targetData);
+                                    } else {
+                                        console.error("エラー");
+                                    }
                                 }
                             } else {
-                                console.error("だめだー");
+                                console.error("エラー");
                             }
                         } else if (communication.components.messageType === 3) {
                             //MessageCivilian
@@ -1190,7 +1200,7 @@ export class CreateLayer {
 
                                 this.communicationCiviliansLayer.push(data);
                             } else {
-                                console.error("だめだー");
+                                console.error("エラー", communication, positionEntity);
                             }
                         } else if (communication.components.messageType === 4) {
                             //MessageFireBrigade
@@ -1241,20 +1251,24 @@ export class CreateLayer {
 
                                 this.communicationFireBrigadesLayer.push(data);
 
-                                if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
-                                    const targetX = (targetEntity as Entity).getPropertys().X.value;
-                                    const targetY = (targetEntity as Entity).getPropertys().Y.value;
+                                if (communication.components.Message.action === "MOVE") {
+                                    if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                        const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                        const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
-                                    const targetData = {
-                                        from: [x / 400000, y / 400000],
-                                        to: [targetX / 400000, targetY / 400000],
-                                        color: [255, 0, 0],
-                                    };
+                                        const targetData = {
+                                            from: [x / 400000, y / 400000],
+                                            to: [targetX / 400000, targetY / 400000],
+                                            color: [255, 0, 0],
+                                        };
 
-                                    this.communicationTargetLayer.push(targetData);
+                                        this.communicationTargetLayer.push(targetData);
+                                    } else {
+                                        console.error("エラー");
+                                    }
                                 }
                             } else {
-                                console.error("だめだー");
+                                console.error("エラー");
                             }
                         } else if (communication.components.messageType === 5) {
                             //MessagePoliceForce
@@ -1305,20 +1319,24 @@ export class CreateLayer {
 
                                 this.communicationPoliceForcesLayer.push(data);
 
-                                if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
-                                    const targetX = (targetEntity as Entity).getPropertys().X.value;
-                                    const targetY = (targetEntity as Entity).getPropertys().Y.value;
+                                if (communication.components.Message.action === "MOVE") {
+                                    if (targetEntity !== null && (targetEntity as Entity).getPropertys()?.X?.idDefined && (targetEntity as Entity).getPropertys()?.Y?.idDefined) {
+                                        const targetX = (targetEntity as Entity).getPropertys().X.value;
+                                        const targetY = (targetEntity as Entity).getPropertys().Y.value;
 
-                                    const targetData = {
-                                        from: [x / 400000, y / 400000],
-                                        to: [targetX / 400000, targetY / 400000],
-                                        color: [0, 0, 255],
-                                    };
+                                        const targetData = {
+                                            from: [x / 400000, y / 400000],
+                                            to: [targetX / 400000, targetY / 400000],
+                                            color: [0, 0, 255],
+                                        };
 
-                                    this.communicationTargetLayer.push(targetData);
+                                        this.communicationTargetLayer.push(targetData);
+                                    } else {
+                                        console.error("エラー", communication, positionEntity, targetEntity);
+                                    }
                                 }
                             } else {
-                                console.error("だめだー");
+                                console.error("エラー");
                             }
                         } else if (communication.components.messageType === 6) {
                             // MessageRoad
@@ -1358,7 +1376,7 @@ export class CreateLayer {
 
                                 this.communicationRoadsLayer.push(data);
                             } else {
-                                console.error("だめだー");
+                                console.error("エラー");
                             }
                         } else if (communication.components.messageType === 9) {
                             //CommandPolice
@@ -1398,21 +1416,19 @@ export class CreateLayer {
 
                                 this.communicationCentralizedLayer.push(data);
                             } else {
-                                console.error("だめだー");
+                                console.error("エラー");
                             }
                         } else {
                             //AK_SPEAK内のコンポーネントの種類の処理がなされていない場合
 
                             console.error("メッセージタイプ別で未処理なやつみっけ", communication.components.messageType);
                         }
-                    } else {
-                        //コミュニケーションのメッセージ内容の処理がなされていない場合
-                        //現状は，AK_SPEAK以外の場合
-
-                        console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
                     }
-                } catch (e) {
-                    console.error("コミュニケーションの描画，失敗，残念", e);
+                } else {
+                    //コミュニケーションのメッセージ内容の処理がなされていない場合
+                    //現状は，AK_SPEAK以外の場合
+
+                    console.error("レイヤー格納処理してないやつみっけ", communication, URN_MAP[communication.urn]);
                 }
             });
         }
