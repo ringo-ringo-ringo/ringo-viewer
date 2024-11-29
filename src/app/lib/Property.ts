@@ -10,7 +10,9 @@ export class Property {
         if (propertys.defined) {
             this.idDefined = true;
             if (this.idDefined) {
-                if (URN_MAP[propertys.urn] === "EDGES") {
+                if (propertys.urn === 999) {
+                    this.value = propertys.value;
+                } else if (URN_MAP[propertys.urn] === "EDGES") {
                     this.value = propertys.edgelist;
                     // console.log(this.value);
                 } else if (URN_MAP[propertys.urn] === "X") {

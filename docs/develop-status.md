@@ -7,15 +7,21 @@
 | END_OF_LOG file                                          |                                              | ○                                                 |
 | INITIAL_CONDITIONS file                                  | 0 ステップ目の情報                           | ○                                                 |
 | UPDATES file                                             | 前ステップからの差分情報                     | ○                                                 |
-| COMMANDS file                                            | 発行されたコマンド                           | ×                                                 |
+| COMMANDS file                                            | 発行されたコマンド                           | ○*                                                 |
 | PERCEPTION file -> visible                               | 見た情報                                     | ○                                                 |
-| PERCEPTION file -> communication -> MessageAmbulanceTeam |                                              | △                                                 |
+| PERCEPTION file -> communication -> MessageAmbulanceTeam |                                              | ○                                                 |
 | PERCEPTION file -> communication -> MessageBuilding      |                                              | ×                                                 |
-| PERCEPTION file -> communication -> MessageCivilian      |                                              | △                                                 |
-| PERCEPTION file -> communication -> MessageFireBrigade   |                                              | △                                                 |
-| PERCEPTION file -> communication -> MessagePoliceForce   |                                              | △                                                 |
+| PERCEPTION file -> communication -> MessageCivilian      |                                              | ○                                                 |
+| PERCEPTION file -> communication -> MessageFireBrigade   |                                              | ○                                                 |
+| PERCEPTION file -> communication -> MessagePoliceForce   |                                              | ○                                                 |
 | PERCEPTION file -> communication -> CommandAmbulance     |                                              | ×                                                 |
 | PERCEPTION file -> communication -> CommandFire          |                                              | ×                                                 |
-| PERCEPTION file -> communication -> CommandPolice        |                                              | △                                                 |
+| PERCEPTION file -> communication -> CommandPolice        |                                              | ○                                                 |
 | PERCEPTION file -> communication -> CommandScout         |                                              | ×                                                 |
 | PERCEPTION file -> communication -> MessageReport        |                                              | ×                                                 |
+
+
+\* AK_SPEAKにおける，MessageBuilding，CommandAmbulance，CommandFire，CommandScout，MessageReportは読み取れません
+
+救急隊複数人が同一の市民を同ステップ時に搬送（RESCUE）しようとした際に，正しく処理ができないバグを発見しています
+また，AK_SPEAKにおいて，搬送中の市民の情報（（救急隊によって搬送されている）この市民はここにいますよ　or 私は今この市民を搬送中です）が含まれる場合，これらは描画できません．
