@@ -210,10 +210,13 @@ COMMAND_CLEAR_AREA レイヤーは，その土木隊の位置から，その土�
 
 ### COMMUNICATION_TARGET
 通信の送信対象
+![](./imgs/COMMUNICATION_TARGET.png)
+
 
 ### HELP_MESSAGE
 市民は，シミュレーション中に救助を求めるメッセージを出すことがあります．
 メッセージが出た場合，その市民の上に赤色のメッセージが表示されます．
+![](./imgs/HELP_MESSAGE.png)
 
 ### visible*
 visibleで始まるレイヤーは全て，「view perception」にて選択されたエンティティが実際に見た情報が描画されます
