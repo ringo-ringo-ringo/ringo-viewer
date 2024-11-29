@@ -43,6 +43,24 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
         }
     };
 
+    const fetchCommand = async (callStep: number) => {
+        if (simulation.getCommand(callStep).length === 0 && callStep !== 0) {
+            setIsLoading((e) => e + 1);
+
+            await LoadLog.load(simulation.getLogPath(), `${callStep}/COMMANDS`)
+                .then((res) => {
+                    simulation.setCommand(callStep, res);
+                    setSimulation(new Simulation(simulation));
+                    setIsLoading((e) => e - 1);
+                })
+                .catch((error) => {
+                    console.error("ログの読み込みエラー:", error);
+
+                    throw new Error("ログを読み込めませんでした");
+                });
+        }
+    };
+
     useEffect(() => {
         if (!simulation.getWorldModel(step)) {
             if (step === 0) {
@@ -127,6 +145,8 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
 
                             throw new Error("ログを読み込めませんでした");
                         });
+
+                    await fetchCommand(callStep);
                 };
 
                 (async () => {

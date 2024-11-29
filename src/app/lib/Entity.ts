@@ -1,6 +1,7 @@
 import { Property } from "@/app/lib/Property";
 import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
 import { Communication } from "@/app/lib/Communication";
+import { Command } from "@/app/lib/Command";
 
 export class Entity {
     urn: number;
@@ -8,6 +9,7 @@ export class Entity {
     properties: { [key: string]: any } = {};
     perception: Entity[] | null = null;
     communication: Communication[] = [];
+    command: Command[] = [];
 
     constructor(entity: any) {
         this.urn = entity.urn;
@@ -16,7 +18,11 @@ export class Entity {
         entity.propertiesList.forEach((prop: any) => {
             const p = new Property(prop);
             // this.properties[p.urn] = p;
-            this.properties[URN_MAP[p.urn]] = p;
+            if (p.urn === 999) {
+                this.properties["Loading"] = p;
+            } else {
+                this.properties[URN_MAP[p.urn]] = p;
+            }
         });
     }
 
@@ -29,6 +35,15 @@ export class Entity {
         } else {
             console.error("わたされたログは違うぞ");
         }
+    }
+
+    changeLoading(res: any) {
+        const prop = {
+            urn: 999,
+            defined: res === null ? false : true,
+            value: res,
+        };
+        this.properties["Loading"] = new Property(prop);
     }
 
     clone() {
@@ -84,6 +99,10 @@ export class Entity {
         });
     }
 
+    setCommand(command: Command) {
+        this.command.push(command);
+    }
+
     getPerception() {
         return this.perception;
     }
@@ -98,5 +117,13 @@ export class Entity {
 
     getCommunication() {
         return this.communication;
+    }
+
+    getLoading() {
+        if (this.properties["Loading"]) {
+            return this.properties["Loading"].value;
+        } else {
+            return null;
+        }
     }
 }

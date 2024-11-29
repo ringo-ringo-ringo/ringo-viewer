@@ -49,22 +49,27 @@ export default function Home() {
         AMBULANCE_TEAM: true,
         POLICE_FORCE: true,
         POSITION_HISTORY: true,
+        PATH: false,
+        CLEAR: false,
+        CLEAR_AREA: true,
+        COMMUNICATION_TARGET: false,
+        HELP_MESSAGE: false,
     });
 
     const [perceptionFilter, setPerceptionFilter] = useState({
-        perceptionROAD: true,
-        perceptionBLOCKADE: true,
-        perceptionBUILDING: true,
-        perceptionREFUGE: true,
-        perceptionHYDRANT: true,
-        perceptionGAS_STATION: true,
-        perceptionFIRE_STATION: true,
-        perceptionAMBULANCE_CENTRE: true,
-        perceptionPOLICE_OFFICE: true,
-        perceptionCIVILIAN: true,
-        perceptionFIRE_BRIGADE: true,
-        perceptionAMBULANCE_TEAM: true,
-        perceptionPOLICE_FORCE: true,
+        visibleROAD: true,
+        visibleBLOCKADE: true,
+        visibleBUILDING: true,
+        visibleREFUGE: true,
+        visibleHYDRANT: true,
+        visibleGAS_STATION: true,
+        visibleFIRE_STATION: true,
+        visibleAMBULANCE_CENTRE: true,
+        visiblePOLICE_OFFICE: true,
+        visibleCIVILIAN: true,
+        visibleFIRE_BRIGADE: true,
+        visibleAMBULANCE_TEAM: true,
+        visiblePOLICE_FORCE: true,
         communicationROAD: true,
         communicationAMBULANCE_TEAM: true,
         communicationCIVILIAN: true,
@@ -92,7 +97,11 @@ export default function Home() {
         setFilter((prevFilter: any) => {
             const newFilter = prevFilter;
             for (const key in newFilter) {
-                newFilter[key] = true;
+                if (key === "COMMAND_PATH" || key === "COMMAND_CLEAR" || key === "COMMAND_COMMUNICATION_TARGET" || key === "COMMAND_HELP_MESSAGE") {
+                    newFilter[key] = false;
+                } else {
+                    newFilter[key] = true;
+                }
             }
             return newFilter;
         });
