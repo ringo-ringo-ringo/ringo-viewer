@@ -1695,7 +1695,30 @@ export class CreateLayer {
 
                                     this.commandCommunicationTargetLayer.push(targetData);
                                 } else {
-                                    console.error("エラー", cmd, entity, targetEntity);
+                                    if (targetEntity !== null && (targetEntity as Entity).getLoading() !== null) {
+                                        const loadingId = (targetEntity as Entity).getLoading();
+                                        entitys.map((res) => {
+                                            if (res.getEntityId() === loadingId) {
+                                                if ((res as Entity).getPropertys()?.X?.idDefined && (res as Entity).getPropertys()?.Y?.idDefined && (entity as Entity).getPropertys()?.X?.idDefined && (entity as Entity).getPropertys()?.Y?.idDefined) {
+                                                    const targetX = (res as Entity).getPropertys().X.value;
+                                                    const targetY = (res as Entity).getPropertys().Y.value;
+
+                                                    const x = entity.getPropertys().X.value;
+                                                    const y = entity.getPropertys().Y.value;
+
+                                                    const targetData = {
+                                                        from: [x / 400000, y / 400000],
+                                                        to: [targetX / 400000, targetY / 400000],
+                                                        color: [0, 255, 0],
+                                                    };
+
+                                                    this.commandCommunicationTargetLayer.push(targetData);
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        console.error("エラー", cmd, entity, targetEntity);
+                                    }
                                 }
                             }
                         } else if (cmd.componentsMap.messageType === 3) {
