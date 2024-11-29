@@ -453,17 +453,24 @@ export class Command {
             });
 
             let find = false;
-            entity.map((entity: Entity) => {
-                if (entity.getEntityId() === this.componentsMap.AgentID) {
-                    entity.setCommand(this);
-                    entity.changeLoading(this.componentsMap.Target);
-                    find = true;
-                }
-            });
+            let go = false;
+            entity.map((resll: Entity) => {
+                if (resll.getEntityId() === this.componentsMap.AgentID) {
+                    entity.map((res: Entity) => {
+                        if (res.getEntityId() === this.componentsMap.Target) {
+                            const loadId = res.getLoading();
 
-            entity.map((res: Entity) => {
-                if (res.getEntityId() === this.componentsMap.Target) {
-                    res.changeLoading(this.componentsMap.AgentID);
+                            if (loadId === null) {
+                                res.changeLoading(this.componentsMap.AgentID);
+                                go = true;
+                            }
+                        }
+                    });
+                    resll.setCommand(this);
+                    find = true;
+                    if (go) {
+                        resll.changeLoading(this.componentsMap.Target);
+                    }
                 }
             });
 
