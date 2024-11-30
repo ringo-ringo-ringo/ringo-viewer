@@ -292,26 +292,29 @@ Target はエージェントが行動する先をアークで示すレイヤー�
 下記にレイヤーの重ね順について記述します．
 下記に示したレイヤーは，上に書かれている項目が前面に，下に書かれている項目が背面にレイヤーが位置します．
 
-1. テキスト
+1. ヘルプメッセージ
 
 WORLD(HELP_MESSAGE)
 
-2. アーク
+2. 通信
 
-WORLD(COMMUNICATION_TARGET)，PERCEPTION(communicationTarget)
+WORLD(COMMUNICATION_TARGET)
+PERCEPTION(communicationTarget)
 
 3. 軌跡
 
-WORLD(POSITION_HISTORY)，WORLD(PATH)，WORLD(CLEAR_AREA)
+WORLD(POSITION_HISTORY)
+WORLD(PATH)
+WORLD(CLEAR_AREA)
 
-4. 選択したエージェントが受信した通信の人間たち
+4. 知覚情報を見ているエージェントが受信した通信の人間たち
 
 PERCEPTION(communicationAMBULANCE_TEAM)，
 PERCEPTION(communicationCIVILIAN)，
 PERCEPTION(communicationFIRE_BRIGADE)，
 PERCEPTION(communicationPOLICE_FORCE)
 
-5. 選択したエージェントが見た人間たち
+5. 知覚情報を見ているエージェントが見た人間たち
 
 PERCEPTION(visibleCIVILIAN)，
 PERCEPTION(visibleFIRE_BRIGADE)，
@@ -325,11 +328,11 @@ WORLD(FIRE_BRIGADE)，
 WORLD(AMBULANCE_TEAM)，
 WORLD(POLICE_FORCE)
 
-7. 選択したエージェントが受信した司令塔の通信
+7. 知覚情報を見ているエージェントが受信した司令塔の通信
 
 PERCEPTION(communicationCENTRALIZED)
 
-8. 選択したエージェントが見た建物たち
+8. 知覚情報を見ているエージェントが見た建物たち
 
 PERCEPTION(visibleROAD)，
 PERCEPTION(communicationROAD)，
