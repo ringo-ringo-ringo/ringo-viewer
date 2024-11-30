@@ -1588,7 +1588,7 @@ export class CreateLayer {
                     searchProp["UnLoad"] = true;
                 } else if (URN_MAP[cmd.urn] === "AK_SPEAK") {
                     const MessageChannel = messageCount + " - MessageChannel";
-                    searchProp[MessageChannel] = cmd.componentsMap.MessageChannel;
+                    searchProp[MessageChannel] = cmd.componentsMap.Channel;
 
                     try {
                         if (cmd.componentsMap.Message.toLowerCase() === "help" || cmd.componentsMap.Message.toLowerCase() === "ouch") {
