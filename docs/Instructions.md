@@ -102,11 +102,11 @@
 そうすると，「VIEW PERCEPTION」ボタンによって表示された情報が非表示になり，シミュレーションの実世界における構成要素が表示されます．
 
 また，ここには通信が送信された回数と，その内容が記述されています．
-左端の番号は，南海目に送信された通信かを表しています．
-以下は，「Message-」に続く項目名とその説明です．
+左端の番号は，何番目に送信された通信かを表しています．
+以下の画像は，送信される項目名の一例です．
 通信内で送られる項目については，送信先のエージェント種別によって異なります．
 ![](./imgs/AttentionMessage.png)
-| 項目名 | 説明 |
+<!-- | 項目名 | 説明 |
 | ----------------------- | ---------- |
 | Channel |  |
 | Type | メッセージを送る対象のエージェント種別を表しています<br> |
@@ -121,7 +121,7 @@
 | cost |  |
 | x |  |
 | y |  |
-| passable |  |
+| passable |  | -->
 
 <!-- 各項目の説明 -->
 
@@ -210,12 +210,14 @@ COMMAND_CLEAR_AREA レイヤーは，その土木隊の位置から，その土�
 
 ### COMMUNICATION_TARGET
 通信の送信対象
+
 ![](./imgs/COMMUNICATION_TARGET.png)
 
 
 ### HELP_MESSAGE
 市民は，シミュレーション中に救助を求めるメッセージを出すことがあります．
 メッセージが出た場合，その市民の上に赤色のメッセージが表示されます．
+
 ![](./imgs/HELP_MESSAGE.png)
 
 ### visible*
@@ -275,7 +277,7 @@ Targetはエージェントが行動する先をアークで示すレイヤー�
 そのため，自分が見たい情報が他のレイヤーの下に表示されてしまい，うまく確認できない場合があります．
 下記に，レイヤーの重ね順を記述しておきますので，この順番を意識して自分の見たいレイヤーが上に来るようにフィルタリングをおこなってください．
 
-8から順に重ねられているため，1が一番上にあるレイヤーです．
+9から順に重ねられているため，1が一番上に表示されているレイヤーです．
 また番号内の項目についても先に書かれているものが上に来ているレイヤーになっています．
 記述方法については，④内のタブ名(フィルタリングの項目名)のように表示しています．
 
@@ -291,14 +293,14 @@ WORLD(COMMUNICATION_TARGET)，PERCEPTION(communicationTarget)
 
 WORLD(POSITION_HISTORY)，WORLD(PATH)，WORLD(CLEAR_AREA)
 
-4. communicationの人間たち
+4. 選択したエージェントが受信した通信の人間たち
 
 PERCEPTION(communicationAMBULANCE_TEAM)，
 PERCEPTION(communicationCIVILIAN)，
 PERCEPTION(communicationFIRE_BRIGADE)，
 PERCEPTION(communicationPOLICE_FORCE)
 
-5. visibleの人間たち
+5. 選択したエージェントが見た人間たち
 
 PERCEPTION(visibleCIVILIAN)，
 PERCEPTION(visibleFIRE_BRIGADE)，
@@ -312,11 +314,11 @@ WORLD(FIRE_BRIGADE)，
 WORLD(AMBULANCE_TEAM)，
 WORLD(POLICE_FORCE)
 
-7. communicationのcentralized
+7. 選択したエージェントが受信した司令塔の通信
 
 PERCEPTION(communicationCENTRALIZED)
 
-8. visibleの建物たち
+8. 選択したエージェントが見た建物たち
 
 PERCEPTION(visibleROAD)，
 PERCEPTION(communicationROAD)，
@@ -329,7 +331,7 @@ PERCEPTION(visibleFIRE_STATION)，
 PERCEPTION(visibleAMBULANCE_CENTRE)，
 PERCEPTION(visibleBLOCKADE)
 
-8. commandの建物たち
+8. エージェントが発行したAK_CLEARの情報
 
 WORLD(CLEAR)
 
