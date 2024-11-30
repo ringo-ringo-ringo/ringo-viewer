@@ -38,8 +38,8 @@
 | ![](./imgs/AMB.png)        | 救急隊                     |
 | ![](./imgs/POL.png)        | 土木隊                     |
 | ![](./imgs/AMBwithCIV.png) | 市民を搬送している救急隊   |
-| ![](./imgs/Rescue.png)     | 消防隊が市民を救助している |
-| ![](./imgs/LOAD.png)       | 救急隊が市民を搬送し始めた |
+| ![](./imgs/Rescue.png)     | 市民を救助している消防隊 |
+| ![](./imgs/LOAD.png)       | 市民をLOADまたはUNLOADしている救急隊 |
 | ![](./imgs/star.png) | 選択または ID 検索した任意のエージェント |
 | ![](./imgs/BUIL.png) | 建物 |
 | ![](./imgs/B_HINAN.png) | 避難所 |
