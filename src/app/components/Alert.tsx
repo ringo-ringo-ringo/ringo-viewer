@@ -8,6 +8,9 @@ export default function Alert({ alertList }: any) {
         left: 10px;
         bottom: calc(76.5px + 10px);
         z-index: 100;
+        .alert{
+            margin-top: 5px;
+        }
     `;
 
     return (
@@ -15,7 +18,7 @@ export default function Alert({ alertList }: any) {
             <div css={base}>
                 {alertList.map((alert: string, index: any) => {
                     return (
-                        <MuiAlert key={index} severity="warning">
+                        <MuiAlert className="alert" key={index} severity="warning">
                             {alert}
                         </MuiAlert>
                     );
