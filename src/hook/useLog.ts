@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "react";
-import { Simulation } from "@/app/lib/Simulation";
-import { LoadLog } from "@/app/lib/LoadLog";
+import { Simulation } from "@/lib/Simulation";
+import { LoadLog } from "@/lib/LoadLog";
 
 export default function useLog(): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>, any, Dispatch<SetStateAction<any>>, number, number] {
     const [step, setStep] = useState<number>(0);

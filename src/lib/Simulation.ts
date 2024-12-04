@@ -1,4 +1,4 @@
-import { WorldModel } from "@/app/lib/WorldModel";
+import { WorldModel } from "@/lib/WorldModel";
 import { Entity } from "./Entity";
 import { URN_MAP } from "./URN";
 

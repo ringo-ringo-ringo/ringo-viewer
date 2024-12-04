@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Simulation } from "@/app/lib/Simulation";
-import { URN_MAP } from "@/app/lib/URN";
+import { Simulation } from "@/lib/Simulation";
+import { URN_MAP } from "@/lib/URN";
 
 export default function useScore(step: number, simulation: Simulation) {
     const [score, setScore] = useState<number>(0);

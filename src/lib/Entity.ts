@@ -1,7 +1,7 @@
-import { Property } from "@/app/lib/Property";
-import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
-import { Communication } from "@/app/lib/Communication";
-import { Command } from "@/app/lib/Command";
+import { Property } from "@/lib/Property";
+import { URN_MAP, URN_MAP_R } from "@/lib/URN";
+import { Communication } from "@/lib/Communication";
+import { Command } from "@/lib/Command";
 
 export class Entity {
     urn: number;

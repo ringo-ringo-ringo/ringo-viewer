@@ -1,15 +1,15 @@
 "use client";
 
-import useLog from "@/app/hook/useLog";
-import Viewer from "@/app/components/Viewer";
+import useLog from "@/hook/useLog";
+import Viewer from "@/components/Viewer";
 import { useEffect, useState } from "react";
 import { Button, Slider, LinearProgress } from "@mui/material";
-import Sidebar from "@/app/components/Sidebar";
-import useScore from "@/app/hook/useScore";
-import Header from "@/app/components/Header/Header";
-import Linear from "@/app/components/Linear";
-import Bottomer from "@/app/components/Bottomer";
-import Alert from "@/app/components/Alert";
+import Sidebar from "@/components/Sidebar";
+import useScore from "@/hook/useScore";
+import Header from "@/components/Header/Header";
+import Linear from "@/components/Linear";
+import Bottomer from "@/components/Bottomer";
+import Alert from "@/components/Alert";
 
 export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading, maxStep] = useLog();

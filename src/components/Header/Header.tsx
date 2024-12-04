@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import Text from "@/app/components/Header/Text";
+import Text from "@/components/Header/Text";
 import { LinearProgress } from "@mui/material";
 
 export default function Header({ step, score, maxScore, isLoading, maxStep }: any) {

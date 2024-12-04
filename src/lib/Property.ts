@@ -1,4 +1,4 @@
-import { URN_MAP } from "@/app/lib/URN";
+import { URN_MAP } from "@/lib/URN";
 
 export class Property {
     urn: number;

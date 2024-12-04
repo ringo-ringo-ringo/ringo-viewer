@@ -1,9 +1,9 @@
-import { Simulation } from "@/app/lib/Simulation";
-import { WorldModel } from "@/app/lib/WorldModel";
-import { URN_MAP, URN_MAP_R } from "@/app/lib/URN";
+import { Simulation } from "@/lib/Simulation";
+import { WorldModel } from "@/lib/WorldModel";
+import { URN_MAP, URN_MAP_R } from "@/lib/URN";
 import { PolygonLayer, IconLayer, LineLayer, ArcLayer, TextLayer } from "@deck.gl/layers";
 import { Entity } from "./Entity";
-import { Communication } from "@/app/lib/Communication";
+import { Communication } from "@/lib/Communication";
 
 interface BuildLayer {
     apex: number[][];

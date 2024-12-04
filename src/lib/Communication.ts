@@ -1,5 +1,5 @@
-import { URN_MAP } from "@/app/lib/URN";
-import { BitStreamReader } from "@/app/lib/BitStreamReader";
+import { URN_MAP } from "@/lib/URN";
+import { BitStreamReader } from "@/lib/BitStreamReader";
 
 export class Communication {
     urn: number;

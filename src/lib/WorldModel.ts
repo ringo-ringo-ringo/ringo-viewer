@@ -1,5 +1,5 @@
-import { Entity } from "@/app/lib/Entity";
-import { Command } from "@/app/lib/Command";
+import { Entity } from "@/lib/Entity";
+import { Command } from "@/lib/Command";
 
 export class WorldModel {
     step: number;

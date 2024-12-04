@@ -5,10 +5,10 @@ import { css } from "@emotion/react";
 import React, { ReactElement, useState, useEffect } from "react";
 import DeckGL from "@deck.gl/react";
 import { PolygonLayer, IconLayer } from "@deck.gl/layers";
-import { CreateLayer } from "@/app/lib/CreateLayer";
-import Attention from "@/app/components/Attention/Attention";
-import Sidebar from "@/app/components/Sidebar";
-import OpenSideBar from "@/app/components/OpenSideBar";
+import { CreateLayer } from "@/lib/CreateLayer";
+import Attention from "@/components/Attention/Attention";
+import Sidebar from "@/components/Sidebar";
+import OpenSideBar from "@/components/OpenSideBar";
 
 export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter, IdSearch, setIdSearch }: any) {
     const body = css`
