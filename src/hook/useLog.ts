@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "reac
 import { Simulation } from "@/lib/Simulation";
 import { LoadLog } from "@/lib/LoadLog";
 
-export default function useLog(): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>, any, Dispatch<SetStateAction<any>>, number, number] {
+export default function useLog(URLLogPath?: string): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>, any, Dispatch<SetStateAction<any>>, number, number] {
     const [step, setStep] = useState<number>(0);
     const [isPause, setIsPause] = useState<boolean>(false);
     const [simulation, setSimulation] = useState<Simulation>(new Simulation());
@@ -66,8 +66,15 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
             if (step === 0) {
                 setIsLoading((e) => e + 2);
 
-                const start = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "START_OF_LOG");
-                const end = LoadLog.load(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH, "END_OF_LOG");
+                let logPath: string = "";
+                if (URLLogPath) {
+                    logPath = `/logs/${URLLogPath}`;
+                } else {
+                    logPath = String(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH);
+                }
+
+                const start = LoadLog.load(logPath, "START_OF_LOG");
+                const end = LoadLog.load(logPath, "END_OF_LOG");
 
                 Promise.all([start, end])
                     .then(([startJson, endJson]) => {
@@ -89,7 +96,7 @@ export default function useLog(): [number, Dispatch<SetStateAction<number>>, boo
 
                         setIsLoading((e) => e + 1);
 
-                        simulation.setLogPath(String(process.env.NEXT_PUBLIC_DEFAULT_LOG_PATH));
+                        simulation.setLogPath(logPath);
 
                         LoadLog.load(simulation.getLogPath(), "CONFIG")
                             .then((res) => {
