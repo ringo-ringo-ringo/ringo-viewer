@@ -10,12 +10,14 @@ export default function useScore(step: number, simulation: Simulation) {
         if (simulation.getWorldModel(step)) {
             let totalHP = 0;
             let aliveCivilian = 0;
+            let countCivilian = 0;
 
             const worldModel = simulation.getWorldModel(step);
             const entitys = worldModel.getEntity();
 
             entitys.map((entity) => {
                 if (URN_MAP[entity.urn] === "CIVILIAN") {
+                    countCivilian++;
                     const properties = entity.getPropertys();
                     if (properties.HP.idDefined) {
                         if (properties.HP.value > 0) {
@@ -26,7 +28,7 @@ export default function useScore(step: number, simulation: Simulation) {
                 }
             });
 
-            const score: number = aliveCivilian * Math.exp(-5 * (1 - totalHP / (aliveCivilian * 10000)));
+            const score: number = aliveCivilian * Math.exp(-5 * (1 - totalHP / (countCivilian * 10000)));
             setScore(score);
             if (step === 0) setMaxScore(score);
         }

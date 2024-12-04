@@ -1,8 +1,10 @@
 import { Entity } from "@/app/lib/Entity";
+import { Command } from "@/app/lib/Command";
 
 export class WorldModel {
     step: number;
     entity: Entity[] = [];
+    command: Command[] = [];
 
     constructor(step: number, entity?: Entity[]) {
         this.step = step;
@@ -68,7 +70,45 @@ export class WorldModel {
         }
     }
 
+    getCommunications(id: number): any {
+        for (const entity of this.entity) {
+            if (entity.getEntityId() === id) {
+                return entity.getCommunication();
+            }
+        }
+    }
+
+    setCommunication(entityID: number, log: any) {
+        this.entity.map((entity) => {
+            if (entity.getEntityId() === entityID) {
+                entity.setCommunication(log);
+            }
+        });
+    }
+
+    setCommand(log: any) {
+        if (this.step === log.time) {
+            log.commandsList.map((command: any) => {
+                this.command.push(new Command(command, this.entity));
+            });
+        }
+    }
+
+    getCommand() {
+        return this.command;
+    }
+
     getEntity() {
         return this.entity;
+    }
+
+    getOneEntityById(id: number) {
+        this.entity.map((entity) => {
+            if (entity.getEntityId() === id) {
+                return entity;
+            }
+        });
+
+        return null;
     }
 }

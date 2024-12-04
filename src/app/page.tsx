@@ -11,7 +11,7 @@ import Linear from "@/app/components/Linear";
 import Bottomer from "@/app/components/Bottomer";
 
 export default function Home() {
-    const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading] = useLog();
+    const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading, maxStep] = useLog();
     const [score, maxScore] = useScore(step, simulation);
 
     const [attentionData, setAttentionData] = useState(null);
@@ -23,6 +23,8 @@ export default function Home() {
     }, [step]);
 
     const [buttonDisable, setButtonDisable] = useState<boolean>(false);
+
+    const [IdSearch, setIdSearch] = useState<string>("");
 
     useEffect(() => {
         if (isLoading > 0) {
@@ -47,26 +49,39 @@ export default function Home() {
         AMBULANCE_TEAM: true,
         POLICE_FORCE: true,
         POSITION_HISTORY: true,
+        PATH: false,
+        CLEAR: false,
+        CLEAR_AREA: true,
+        COMMUNICATION_TARGET: false,
+        HELP_MESSAGE: false,
     });
 
     const [perceptionFilter, setPerceptionFilter] = useState({
-        perceptionROAD: true,
-        perceptionBLOCKADE: true,
-        perceptionBUILDING: true,
-        perceptionREFUGE: true,
-        perceptionHYDRANT: true,
-        perceptionGAS_STATION: true,
-        perceptionFIRE_STATION: true,
-        perceptionAMBULANCE_CENTRE: true,
-        perceptionPOLICE_OFFICE: true,
-        perceptionCIVILIAN: true,
-        perceptionFIRE_BRIGADE: true,
-        perceptionAMBULANCE_TEAM: true,
-        perceptionPOLICE_FORCE: true,
+        visibleROAD: true,
+        visibleBLOCKADE: true,
+        visibleBUILDING: true,
+        visibleREFUGE: true,
+        visibleHYDRANT: true,
+        visibleGAS_STATION: true,
+        visibleFIRE_STATION: true,
+        visibleAMBULANCE_CENTRE: true,
+        visiblePOLICE_OFFICE: true,
+        visibleCIVILIAN: true,
+        visibleFIRE_BRIGADE: true,
+        visibleAMBULANCE_TEAM: true,
+        visiblePOLICE_FORCE: true,
+        communicationROAD: true,
+        communicationAMBULANCE_TEAM: true,
+        communicationCIVILIAN: true,
+        communicationFIRE_BRIGADE: true,
+        communicationPOLICE_FORCE: true,
+        communicationCENTRALIZED: true,
+
+        communicationTarget: true,
     });
 
     const stepUp = (count: number) => {
-        if (step + count <= 300) {
+        if (step + count <= maxStep) {
             setStep((prevStep: number) => prevStep + count);
         }
     };
@@ -82,7 +97,11 @@ export default function Home() {
         setFilter((prevFilter: any) => {
             const newFilter = prevFilter;
             for (const key in newFilter) {
-                newFilter[key] = true;
+                if (key === "COMMAND_PATH" || key === "COMMAND_CLEAR" || key === "COMMAND_COMMUNICATION_TARGET" || key === "COMMAND_HELP_MESSAGE") {
+                    newFilter[key] = false;
+                } else {
+                    newFilter[key] = true;
+                }
             }
             return newFilter;
         });
@@ -107,9 +126,9 @@ export default function Home() {
     return (
         <>
             <Linear isLoading={isLoading}></Linear>
-            <Header step={step} score={score} maxScore={maxScore} isLoading={isLoading}></Header>
-            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter} setPerceptionFilter={setPerceptionFilter}></Viewer>
-            <Bottomer sliderValue={sliderValue} changeSlider={changeSlider} changeCommittedSlider={changeCommittedSlider} buttonDisable={buttonDisable} setStep={setStep} stepDown={stepDown} stepUp={stepUp} perceptionId={perceptionId} deletePerceptionId={deletePerceptionId}></Bottomer>
+            <Header step={step} score={score} maxScore={maxScore} isLoading={isLoading} maxStep={maxStep}></Header>
+            <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter} setPerceptionFilter={setPerceptionFilter} IdSearch={IdSearch} setIdSearch={setIdSearch}></Viewer>
+            <Bottomer sliderValue={sliderValue} changeSlider={changeSlider} changeCommittedSlider={changeCommittedSlider} buttonDisable={buttonDisable} setStep={setStep} stepDown={stepDown} stepUp={stepUp} perceptionId={perceptionId} deletePerceptionId={deletePerceptionId} maxStep={maxStep}></Bottomer>
         </>
     );
 }

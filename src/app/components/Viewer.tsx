@@ -10,7 +10,7 @@ import Attention from "@/app/components/Attention/Attention";
 import Sidebar from "@/app/components/Sidebar";
 import OpenSideBar from "@/app/components/OpenSideBar";
 
-export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter }: any) {
+export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter, IdSearch, setIdSearch }: any) {
     const body = css`
         position: relative;
         height: 100%;
@@ -23,7 +23,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
     useEffect(() => {
         if (simulation && simulation.getWorldModel(step)) {
             const createLayer = new CreateLayer();
-            createLayer.createLayer(step, simulation, perceptionId);
+            createLayer.createLayer(step, simulation, perceptionId, IdSearch);
 
             // const layer = [createLayer.getBuildingsLayer(), createLayer.getRoadsLayer(), createLayer.getPoliceOfficesLayer(), createLayer.getRefugesLayer(), createLayer.getHydrantsLayer(), createLayer.getGasStationsLayer(), createLayer.getFireStationsLayer(), createLayer.getAmbulanceCentresLayer(), createLayer.getBlockadesLayer(), createLayer.getCiviliansLayer(), createLayer.getFireBrigadesLayer(), createLayer.getAmbulanceTeamsLayer(), createLayer.getPoliceForcesLayer(), createLayer.getPositionHistoryLayer()];
 
@@ -36,6 +36,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                 isOkPerception = false;
             }
 
+            //実世界の建物たち
             if (filter.ROAD) layer.push(createLayer.getRoadsLayer());
             if (filter.BUILDING) layer.push(createLayer.getBuildingsLayer());
             if (filter.POLICE_OFFICE) layer.push(createLayer.getPoliceOfficesLayer());
@@ -46,34 +47,64 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             if (filter.AMBULANCE_CENTRE) layer.push(createLayer.getAmbulanceCentresLayer());
             if (filter.BLOCKADE) layer.push(createLayer.getBlockadesLayer());
 
-            if (perceptionFilter.perceptionROAD && isOkPerception) layer.push(createLayer.getPerceptionRoadsLayer());
-            if (perceptionFilter.perceptionBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
-            if (perceptionFilter.perceptionPOLICE_OFFICE && isOkPerception) layer.push(createLayer.getPerceptionPoliceOfficesLayer());
-            if (perceptionFilter.perceptionREFUGE && isOkPerception) layer.push(createLayer.getPerceptionRefugesLayer());
-            if (perceptionFilter.perceptionHYDRANT && isOkPerception) layer.push(createLayer.getPerceptionHydrantsLayer());
-            if (perceptionFilter.perceptionGAS_STATION && isOkPerception) layer.push(createLayer.getPerceptionGasStationsLayer());
-            if (perceptionFilter.perceptionFIRE_STATION && isOkPerception) layer.push(createLayer.getPerceptionFireStationsLayer());
-            if (perceptionFilter.perceptionAMBULANCE_CENTRE && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceCentresLayer());
-            if (perceptionFilter.perceptionBLOCKADE && isOkPerception) layer.push(createLayer.getPerceptionBlockadesLayer());
+            //commandの建物たち
+            if (filter.CLEAR) layer.push(createLayer.getCommandClearLayer());
 
+            //visibleの建物たち
+            if (perceptionFilter.visibleROAD && isOkPerception) layer.push(createLayer.getPerceptionRoadsLayer());
+            //communicationの建物たち
+            if (perceptionFilter.communicationROAD && isOkPerception) layer.push(createLayer.getCommunicationRoadsLayer());
+            if (perceptionFilter.visibleBUILDING && isOkPerception) layer.push(createLayer.getPerceptionBuildingsLayer());
+            if (perceptionFilter.visiblePOLICE_OFFICE && isOkPerception) layer.push(createLayer.getPerceptionPoliceOfficesLayer());
+            if (perceptionFilter.visibleREFUGE && isOkPerception) layer.push(createLayer.getPerceptionRefugesLayer());
+            if (perceptionFilter.visibleHYDRANT && isOkPerception) layer.push(createLayer.getPerceptionHydrantsLayer());
+            if (perceptionFilter.visibleGAS_STATION && isOkPerception) layer.push(createLayer.getPerceptionGasStationsLayer());
+            if (perceptionFilter.visibleFIRE_STATION && isOkPerception) layer.push(createLayer.getPerceptionFireStationsLayer());
+            if (perceptionFilter.visibleAMBULANCE_CENTRE && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceCentresLayer());
+            if (perceptionFilter.visibleBLOCKADE && isOkPerception) layer.push(createLayer.getPerceptionBlockadesLayer());
+
+            //communicationのcentralized
+            if (perceptionFilter.communicationCENTRALIZED && isOkPerception) layer.push(createLayer.getCommunicationCentralizedLayer());
+
+            //実世界の人間たち
             if (filter.CIVILIAN) layer.push(createLayer.getCiviliansLayer());
             if (filter.FIRE_BRIGADE) layer.push(createLayer.getFireBrigadesLayer());
             if (filter.AMBULANCE_TEAM) layer.push(createLayer.getAmbulanceTeamsLayer());
             if (filter.POLICE_FORCE) layer.push(createLayer.getPoliceForcesLayer());
 
-            if (perceptionFilter.perceptionCIVILIAN && isOkPerception) layer.push(createLayer.getPerceptionCiviliansLayer());
-            if (perceptionFilter.perceptionFIRE_BRIGADE && isOkPerception) layer.push(createLayer.getPerceptionFireBrigadesLayer());
-            if (perceptionFilter.perceptionAMBULANCE_TEAM && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceTeamsLayer());
-            if (perceptionFilter.perceptionPOLICE_FORCE && isOkPerception) layer.push(createLayer.getPerceptionPoliceForcesLayer());
+            //visibleの人間たち
+            if (perceptionFilter.visibleCIVILIAN && isOkPerception) layer.push(createLayer.getPerceptionCiviliansLayer());
+            if (perceptionFilter.visibleFIRE_BRIGADE && isOkPerception) layer.push(createLayer.getPerceptionFireBrigadesLayer());
+            if (perceptionFilter.visibleAMBULANCE_TEAM && isOkPerception) layer.push(createLayer.getPerceptionAmbulanceTeamsLayer());
+            if (perceptionFilter.visiblePOLICE_FORCE && isOkPerception) layer.push(createLayer.getPerceptionPoliceForcesLayer());
 
+            //communicationの人間たち
+            if (perceptionFilter.communicationAMBULANCE_TEAM && isOkPerception) layer.push(createLayer.getCommunicationAmbulanceTeamsLayer());
+            if (perceptionFilter.communicationCIVILIAN && isOkPerception) layer.push(createLayer.getCommunicationCiviliansLayer());
+            if (perceptionFilter.communicationFIRE_BRIGADE && isOkPerception) layer.push(createLayer.getCommunicationFireBrigadesLayer());
+            if (perceptionFilter.communicationPOLICE_FORCE && isOkPerception) layer.push(createLayer.getCommunicationPoliceForcesLayer());
+
+            //軌跡
             if (filter.POSITION_HISTORY) layer.push(createLayer.getPositionHistoryLayer());
+            if (filter.PATH) layer.push(createLayer.getCommandPathLayer());
+            if (filter.CLEAR_AREA) layer.push(createLayer.getCommandClearAreaLayer());
+
+            //アーク
+            if (perceptionFilter.communicationTarget && isOkPerception) layer.push(createLayer.getCommunicationTargetLayer());
+            if (filter.COMMUNICATION_TARGET) layer.push(createLayer.getCommandCommunicationTargetLayer());
+
+            //テキスト
+            if (filter.HELP_MESSAGE) layer.push(createLayer.getCommandHelpMessageLayer());
 
             setLayer(layer);
         }
-    }, [simulation, step, filter, perceptionFilter, perceptionId]);
+    }, [simulation, step, filter, perceptionFilter, perceptionId, IdSearch]);
 
     const deckglClickHandler = (e: any) => {
         setAttentionData(e.object);
+        if (e?.object?.entityId) {
+            setIdSearch(e.object.entityId.toString());
+        }
     };
 
     return (
@@ -81,9 +112,9 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
             <div css={body}>
                 <DeckGL
                     initialViewState={{
-                        longitude: 2,
-                        latitude: 2,
-                        zoom: 6,
+                        longitude: 1,
+                        latitude: 1,
+                        zoom: 8,
                     }}
                     controller
                     layers={layer}
@@ -95,14 +126,14 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
                         let text = "";
 
-                        text += "entity : " + object.entity + "\n";
+                        if (object.entity !== undefined) text += "entity : " + object.entity + "\n";
 
                         text += "entityId : " + object.entityId + "\n";
 
                         for (const key in object) {
                             if (key && object.hasOwnProperty(key)) {
                                 const value = object[key];
-                                if (value.value) {
+                                if (value?.value) {
                                     if (key === "HP" || key === "STAMINA" || key === "BURIEDNESS" || key === "REPAIR_COST" || key === "OCCUPIED_BEDS" || key === "BED_CAPACITY" || key === "BED_CAPACITY" || key === "BROKENNESS") {
                                         text += JSON.stringify(key) + " : " + JSON.stringify(value.value) + "\n";
                                     } else {
@@ -116,7 +147,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                     }}
                 />
 
-                {showSideBar ? <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter} setShowSideBar={setShowSideBar}></Sidebar> : <OpenSideBar setShowSideBar={setShowSideBar}></OpenSideBar>}
+                {showSideBar ? <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter} setShowSideBar={setShowSideBar} IdSearch={IdSearch} setIdSearch={setIdSearch}></Sidebar> : <OpenSideBar setShowSideBar={setShowSideBar}></OpenSideBar>}
 
                 {attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}
             </div>
