@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 * {
-    margin: 0;
-    padding: 0;
-    /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
-    -ms-overflow-style: none;
-    /*Firefoxへの対応*/
-    scrollbar-width: none;
+  margin: 0;
+  padding: 0;
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
 }
 
 *::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 :root {
-    /* --background: #f2f2f2; */
-    --background: #e0e0e0;
-    --foreground: #171717;
+  /* --background: #f2f2f2; */
+  --background: #e0e0e0;
+  --foreground: #171717;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -29,26 +29,14 @@
 } */
 
 body {
-    color: var(--foreground);
-    background: var(--background);
-    font-family: Arial, Helvetica, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.example4 {
-  background: linear-gradient(to right, #e60000, #f39800, #fff100, #009944, #0068b7, #1d2088, #920783, #e60000) 0 / 200%;
-  height: 80px;
-  animation: 5s example4 linear infinite;
-}
-
-@keyframes example4 {
-  100% {
-    background-position: 200%;
-  }
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }

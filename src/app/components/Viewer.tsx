@@ -14,6 +14,14 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
     const body = css`
         position: relative;
         height: 100%;
+        background: linear-gradient(to right, #e60000, #f39800, #fff100, #009944, #0068b7, #1d2088, #920783, #e60000) 0 / 200%;
+        animation: 5s example4 linear infinite;
+
+        @keyframes example4 {
+            100% {
+                background-position: 200%;
+            }
+        }
     `;
 
     const [layer, setLayer] = useState<any>([]);
