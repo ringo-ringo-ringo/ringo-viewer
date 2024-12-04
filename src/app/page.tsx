@@ -116,13 +116,6 @@ export default function Home() {
         setStep(value);
     };
 
-    // console.log("現在のステップ");
-    // console.log(step);
-    // console.log("現在のシミュレーション");
-    // console.log(simulation);
-    // console.log("現在のスコアと最大スコア");
-    // console.log(score, maxScore);
-
     return (
         <>
             <Linear isLoading={isLoading}></Linear>
