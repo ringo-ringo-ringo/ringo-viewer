@@ -86,7 +86,7 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
     const autoCloseBody = css`
         position: absolute;
         /* bottom: 0px; */
-        bottom: calc(-36.5px + -20px);
+        bottom: calc(-36.5px + -20px - 20px + 40px);
         width: 100%;
         background-color: transparent;
         padding: 20px 10px;
@@ -99,6 +99,10 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                 height: 16px;
                 bottom: 0;
             }
+            .buttons,
+            .showIcon {
+                opacity: 1;
+            }
         }
         .showIcon {
             position: absolute;
@@ -110,6 +114,7 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
             border-radius: 10px;
             z-index: 5;
             transition: 0.2s;
+            opacity: 0;
             :hover {
                 cursor: pointer;
                 color: #f5f5f5f5;
@@ -122,10 +127,11 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
         .buttons {
             height: 36.5px;
             overflow-y: scroll;
+            opacity: 0;
         }
         .MuiSlider-root {
             position: absolute;
-            bottom: calc(36.5px + 20px);
+            bottom: calc(36.5px + 20px + 20px - 40px);
             left: 0;
             padding: 0;
             height: 8px;
