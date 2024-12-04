@@ -1,1 +1,3 @@
-export default function Alert() {}
+export default function Alert() {
+    return <></>;
+}

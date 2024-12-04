@@ -9,6 +9,7 @@ import useScore from "@/app/hook/useScore";
 import Header from "@/app/components/Header/Header";
 import Linear from "@/app/components/Linear";
 import Bottomer from "@/app/components/Bottomer";
+import Alert from "@/app/components/Alert";
 
 export default function Home() {
     const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading, maxStep] = useLog();
@@ -121,6 +122,7 @@ export default function Home() {
             <Linear isLoading={isLoading}></Linear>
             <Header step={step} score={score} maxScore={maxScore} isLoading={isLoading} maxStep={maxStep}></Header>
             <Viewer simulation={simulation} step={step} setAttentionData={setAttentionData} filter={filter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} attentionData={attentionData} setPerceptionId={setPerceptionId} setFilter={setFilter} setPerceptionFilter={setPerceptionFilter} IdSearch={IdSearch} setIdSearch={setIdSearch}></Viewer>
+            <Alert></Alert>
             <Bottomer sliderValue={sliderValue} changeSlider={changeSlider} changeCommittedSlider={changeCommittedSlider} buttonDisable={buttonDisable} setStep={setStep} stepDown={stepDown} stepUp={stepUp} perceptionId={perceptionId} deletePerceptionId={deletePerceptionId} maxStep={maxStep}></Bottomer>
         </>
     );
