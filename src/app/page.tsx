@@ -11,8 +11,8 @@ import Linear from "@/components/Linear";
 import Bottomer from "@/components/Bottomer";
 import Alert from "@/components/Alert";
 
-export default function Home() {
-    const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading, maxStep] = useLog();
+export default function Home(prop: any) {
+    const [step, setStep, isPause, setIsPause, simulation, setSimulation, perceptionId, setPerceptionId, isLoading, maxStep] = useLog(prop.logPath);
     const [score, maxScore] = useScore(step, simulation);
 
     const [attentionData, setAttentionData] = useState(null);
