@@ -10,7 +10,7 @@ import Attention from "@/components/Attention/Attention";
 import Sidebar from "@/components/Sidebar";
 import OpenSideBar from "@/components/OpenSideBar";
 
-export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter, IdSearch, setIdSearch }: any) {
+export default function Viewer({ simulation, step, setAttentionData, filter, perceptionId, perceptionFilter, attentionData, setPerceptionId, setFilter, setPerceptionFilter, IdSearch, setIdSearch, IdSearchList, setIdSearchList }: any) {
     const body = css`
         position: relative;
         height: 100%;
@@ -23,7 +23,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
     useEffect(() => {
         if (simulation && simulation.getWorldModel(step)) {
             const createLayer = new CreateLayer();
-            createLayer.createLayer(step, simulation, perceptionId, IdSearch);
+            createLayer.createLayer(step, simulation, perceptionId, IdSearch, IdSearchList);
 
             // const layer = [createLayer.getBuildingsLayer(), createLayer.getRoadsLayer(), createLayer.getPoliceOfficesLayer(), createLayer.getRefugesLayer(), createLayer.getHydrantsLayer(), createLayer.getGasStationsLayer(), createLayer.getFireStationsLayer(), createLayer.getAmbulanceCentresLayer(), createLayer.getBlockadesLayer(), createLayer.getCiviliansLayer(), createLayer.getFireBrigadesLayer(), createLayer.getAmbulanceTeamsLayer(), createLayer.getPoliceForcesLayer(), createLayer.getPositionHistoryLayer()];
 
@@ -98,7 +98,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
 
             setLayer(layer);
         }
-    }, [simulation, step, filter, perceptionFilter, perceptionId, IdSearch]);
+    }, [simulation, step, filter, perceptionFilter, perceptionId, IdSearch, IdSearchList]);
 
     const deckglClickHandler = (e: any) => {
         setAttentionData(e.object);
@@ -147,7 +147,7 @@ export default function Viewer({ simulation, step, setAttentionData, filter, per
                     }}
                 />
 
-                {showSideBar ? <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter} setShowSideBar={setShowSideBar} IdSearch={IdSearch} setIdSearch={setIdSearch}></Sidebar> : <OpenSideBar setShowSideBar={setShowSideBar}></OpenSideBar>}
+                {showSideBar ? <Sidebar filter={filter} setFilter={setFilter} perceptionId={perceptionId} perceptionFilter={perceptionFilter} setPerceptionFilter={setPerceptionFilter} setShowSideBar={setShowSideBar} IdSearch={IdSearch} setIdSearch={setIdSearch} IdSearchList={IdSearchList} setIdSearchList={setIdSearchList}></Sidebar> : <OpenSideBar setShowSideBar={setShowSideBar}></OpenSideBar>}
 
                 {attentionData ? <Attention attentionData={attentionData} setAttentionData={setAttentionData} setPerceptionId={setPerceptionId} setFilter={setFilter}></Attention> : ""}
             </div>

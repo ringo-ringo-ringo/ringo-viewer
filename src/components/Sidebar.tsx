@@ -10,9 +10,9 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
-import { Tooltip, TextField } from "@mui/material";
+import { Tooltip, TextField, Button } from "@mui/material";
 
-export default function Sidebar({ filter, setFilter, perceptionId, perceptionFilter, setPerceptionFilter, setShowSideBar, IdSearch, setIdSearch }: any) {
+export default function Sidebar({ filter, setFilter, perceptionId, perceptionFilter, setPerceptionFilter, setShowSideBar, IdSearch, setIdSearch, IdSearchList, setIdSearchList }: any) {
     const body = css`
         position: absolute;
         top: 100px;
@@ -81,6 +81,13 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
     } else {
     }
 
+    const addIdSearchList = () => {
+        if (IdSearch !== "") {
+            IdSearchList.push(IdSearch);
+            setIdSearch("");
+        }
+    };
+
     return (
         <div css={body}>
             <TabContext value={tabValue}>
@@ -112,6 +119,14 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
                 </TabPanel>
                 <TabPanel value="3">
                     <TextField id="ID-Search" label="ID-Search" variant="standard" value={IdSearch} onChange={changeIdSearch} />
+                    <Tooltip title="add">
+                        <Button onClick={addIdSearchList}>追加</Button>
+                    </Tooltip>
+                    <ul>
+                        {IdSearchList.map((list: string, index: any) => {
+                            return <li key={index}>{list}</li>;
+                        })}
+                    </ul>
                 </TabPanel>
             </TabContext>
         </div>
