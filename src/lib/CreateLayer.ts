@@ -112,8 +112,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -134,8 +139,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -161,8 +171,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -189,8 +204,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -216,8 +236,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -243,8 +268,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -271,8 +301,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -299,8 +334,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -366,8 +406,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 let props: { [key: string]: any } = {};
                 for (const key in properties) {
@@ -461,8 +506,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 if (commandProp["Rescue"]) {
                     bgc = [255, 100, 0];
@@ -536,8 +586,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 if (commandProp["Load"] || commandProp["UnLoad"]) {
                     bgc = [255, 180, 255];
@@ -611,8 +666,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 let props: { [key: string]: any } = {};
                 for (const key in properties) {
@@ -657,8 +717,13 @@ export class CreateLayer {
                 if (String(entity.getEntityId()) === IdSearch) {
                     isSearch = true;
                 }
+                IdSearchList.map((res) => {
+                    if (String(entity.getEntityId()) === res) {
+                        isSearch = true;
+                    }
+                });
 
-                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch);
+                const commandProp = this.searchCommand(simulation, step, worldModel, entity, IdSearch, IdSearchList);
 
                 const data = {
                     entity: URN_MAP[entity.urn],
@@ -700,6 +765,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     const data = {
                         entity: URN_MAP[entity.urn],
@@ -719,6 +789,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     const data = {
                         entity: URN_MAP[entity.urn],
@@ -762,6 +837,11 @@ export class CreateLayer {
                                     if (String(entity.getEntityId()) === IdSearch) {
                                         isSearch = true;
                                     }
+                                    IdSearchList.map((res) => {
+                                        if (String(entity.getEntityId()) === res) {
+                                            isSearch = true;
+                                        }
+                                    });
 
                                     const data = {
                                         entity: URN_MAP[entity.urn],
@@ -790,6 +870,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     const data = {
                         entity: URN_MAP[entity.urn],
@@ -815,6 +900,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     const data = {
                         entity: URN_MAP[entity.urn],
@@ -839,6 +929,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     const data = {
                         entity: URN_MAP[entity.urn],
@@ -863,6 +958,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     const data = {
                         entity: URN_MAP[entity.urn],
@@ -888,6 +988,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     const data = {
                         entity: URN_MAP[entity.urn],
@@ -913,6 +1018,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     const data = {
                         entity: URN_MAP[entity.urn],
@@ -945,6 +1055,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     let props: { [key: string]: any } = {};
                     for (const key in properties) {
@@ -981,6 +1096,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     let props: { [key: string]: any } = {};
                     for (const key in properties) {
@@ -1017,6 +1137,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     let props: { [key: string]: any } = {};
                     for (const key in properties) {
@@ -1053,6 +1178,11 @@ export class CreateLayer {
                     if (String(entity.getEntityId()) === IdSearch) {
                         isSearch = true;
                     }
+                    IdSearchList.map((res) => {
+                        if (String(entity.getEntityId()) === res) {
+                            isSearch = true;
+                        }
+                    });
 
                     let props: { [key: string]: any } = {};
                     for (const key in properties) {
@@ -1121,6 +1251,11 @@ export class CreateLayer {
                                 if (String(communication.components.Message.id) === IdSearch) {
                                     isSearch = true;
                                 }
+                                IdSearchList.map((res) => {
+                                    if (String(communication.components.Message.id) === res) {
+                                        isSearch = true;
+                                    }
+                                });
 
                                 const data = {
                                     entity: "AMBULANCE_TEAM",
@@ -1185,6 +1320,11 @@ export class CreateLayer {
                                 if (String(communication.components.Message.id) === IdSearch) {
                                     isSearch = true;
                                 }
+                                IdSearchList.map((res) => {
+                                    if (String(communication.components.Message.id) === res) {
+                                        isSearch = true;
+                                    }
+                                });
 
                                 const data = {
                                     entity: "CIVILIAN",
@@ -1236,6 +1376,11 @@ export class CreateLayer {
                                 if (String(communication.components.Message.id) === IdSearch) {
                                     isSearch = true;
                                 }
+                                IdSearchList.map((res) => {
+                                    if (String(communication.components.Message.id) === res) {
+                                        isSearch = true;
+                                    }
+                                });
 
                                 const data = {
                                     entity: "FIRE_BRIGADE",
@@ -1304,6 +1449,11 @@ export class CreateLayer {
                                 if (String(communication.components.Message.id) === IdSearch) {
                                     isSearch = true;
                                 }
+                                IdSearchList.map((res) => {
+                                    if (String(communication.components.Message.id) === res) {
+                                        isSearch = true;
+                                    }
+                                });
 
                                 const data = {
                                     entity: "POLICE_FORCE",
@@ -1361,6 +1511,11 @@ export class CreateLayer {
                                 if (String(communication.components.Message.id) === IdSearch) {
                                     isSearch = true;
                                 }
+                                IdSearchList.map((res) => {
+                                    if (String(communication.components.Message.id) === res) {
+                                        isSearch = true;
+                                    }
+                                });
 
                                 const data = {
                                     entity: "ROAD",
@@ -1401,6 +1556,11 @@ export class CreateLayer {
                                 if (String((targetEntity as Entity).getEntityId()) === IdSearch) {
                                     isSearch = true;
                                 }
+                                IdSearchList.map((res) => {
+                                    if (String(communication.components.Message.id) === res) {
+                                        isSearch = true;
+                                    }
+                                });
 
                                 const data = {
                                     entity: "centralized",
@@ -1434,13 +1594,18 @@ export class CreateLayer {
         }
     }
 
-    searchCommand(simulation: Simulation, step: number, worldModel: WorldModel, entity: Entity, IdSearch: string) {
+    searchCommand(simulation: Simulation, step: number, worldModel: WorldModel, entity: Entity, IdSearch: string, IdSearchList: string[]) {
         const searchProp: any = {};
 
         let isSearch = false;
         if (String(entity.getEntityId()) === IdSearch) {
             isSearch = true;
         }
+        IdSearchList.map((res) => {
+            if (String(entity.getEntityId()) === res) {
+                isSearch = true;
+            }
+        });
 
         const ignoreList = ["AgentID", "Time"];
 
