@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import React from "react";
 import { css } from "@emotion/react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -88,6 +89,11 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
         }
     };
 
+    const deleteIdSearchList = (id: string) => {
+        const newList = IdSearchList.filter((item: any) => item !== id);
+        setIdSearchList(newList);
+    };
+
     return (
         <div css={body}>
             <TabContext value={tabValue}>
@@ -124,7 +130,24 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
                     </Tooltip>
                     <ul>
                         {IdSearchList.map((list: string, index: any) => {
-                            return <li key={index}>{list}</li>;
+                            return (
+                                <React.Fragment key={index}>
+                                    <div>
+                                        <li>
+                                            {list}
+                                            <Tooltip title="delete">
+                                                <Button
+                                                    onClick={() => {
+                                                        deleteIdSearchList(list);
+                                                    }}
+                                                >
+                                                    delete
+                                                </Button>
+                                            </Tooltip>
+                                        </li>
+                                    </div>
+                                </React.Fragment>
+                            );
                         })}
                     </ul>
                 </TabPanel>
