@@ -61,10 +61,18 @@ export default function useLog(URLLogPath?: string): [number, Dispatch<SetStateA
         }
     };
 
-    if (isLoading === 0 && !isPause) {
-        setTimeout(function () {
-            setStep(step + 1);
-        }, 1000);
+    if (isLoading === 0 && !isPause && simulation.getWorldModel(step)) {
+        if (perceptionId) {
+            if (simulation.getWorldModel(step).getPerception(perceptionId)) {
+                setTimeout(function () {
+                    setStep(step + 1);
+                }, 1000);
+            }
+        } else {
+            setTimeout(function () {
+                setStep(step + 1);
+            }, 1000);
+        }
     }
 
     useEffect(() => {
