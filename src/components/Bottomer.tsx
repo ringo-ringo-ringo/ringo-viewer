@@ -12,6 +12,8 @@ import Replay10Icon from "@mui/icons-material/Replay10";
 import Forward10Icon from "@mui/icons-material/Forward10";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Tooltip from "@mui/material/Tooltip";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
 
 export default function Bottomer({ sliderValue, changeSlider, changeCommittedSlider, buttonDisable, setStep, stepDown, stepUp, perceptionId, deletePerceptionId, maxStep, isPause, setIsPause }: any) {
     const defaultBody = css`
@@ -161,6 +163,10 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
         }
     };
 
+    const toggleAutoPlay = () => {
+        setIsPause(!isPause);
+    };
+
     return (
         <>
             <div css={autoClose ? autoCloseBody : defaultBody}>
@@ -202,6 +208,27 @@ export default function Bottomer({ sliderValue, changeSlider, changeCommittedSli
                             <NavigateBeforeIcon></NavigateBeforeIcon>
                         </Button>
                     </Tooltip>
+                    {isPause ? (
+                        <Tooltip title="play">
+                            <Button
+                                onClick={() => {
+                                    toggleAutoPlay();
+                                }}
+                            >
+                                <PlayArrowIcon></PlayArrowIcon>
+                            </Button>
+                        </Tooltip>
+                    ) : (
+                        <Tooltip title="pause">
+                            <Button
+                                onClick={() => {
+                                    toggleAutoPlay();
+                                }}
+                            >
+                                <PauseIcon></PauseIcon>
+                            </Button>
+                        </Tooltip>
+                    )}
                     <Tooltip title="go to next step">
                         <Button
                             onClick={() => {
