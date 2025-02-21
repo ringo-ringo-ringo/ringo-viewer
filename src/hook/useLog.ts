@@ -4,7 +4,7 @@ import { LoadLog } from "@/lib/LoadLog";
 
 export default function useLog(URLLogPath?: string): [number, Dispatch<SetStateAction<number>>, boolean, Dispatch<SetStateAction<boolean>>, Simulation, Dispatch<SetStateAction<Simulation>>, any, Dispatch<SetStateAction<any>>, number, number] {
     const [step, setStep] = useState<number>(0);
-    const [isPause, setIsPause] = useState<boolean>(false);
+    const [isPause, setIsPause] = useState<boolean>(true);
     const [simulation, setSimulation] = useState<Simulation>(new Simulation());
     const [isLoading, setIsLoading] = useState<number>(0);
     const [perceptionId, setPerceptionId] = useState(null);
