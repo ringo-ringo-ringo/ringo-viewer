@@ -37,6 +37,7 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
                 display: grid;
                 grid-template-columns: 1fr auto;
                 margin: 10px 0;
+                border-bottom: 1px solid gray;
                 .txt {
                     padding: 0 5px;
                 }
