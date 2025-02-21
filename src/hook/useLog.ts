@@ -70,7 +70,7 @@ export default function useLog(URLLogPath?: string): [number, Dispatch<SetStateA
     useEffect(() => {
         if (!simulation.getWorldModel(step)) {
             if (step === 0) {
-                setIsLoading((e) => e + 2);
+                setIsLoading((e) => e + 4);
 
                 let logPath: string = "";
                 if (URLLogPath) {
@@ -100,8 +100,6 @@ export default function useLog(URLLogPath?: string): [number, Dispatch<SetStateA
 
                         setIsLoading((e) => e - 2);
 
-                        setIsLoading((e) => e + 1);
-
                         simulation.setLogPath(logPath);
 
                         LoadLog.load(simulation.getLogPath(), "CONFIG")
@@ -119,8 +117,6 @@ export default function useLog(URLLogPath?: string): [number, Dispatch<SetStateA
 
                                 throw new Error("ログを読み込めませんでした");
                             });
-
-                        setIsLoading((e) => e + 1);
 
                         LoadLog.load(simulation.getLogPath(), "INITIAL_CONDITIONS")
                             .then((res) => {
