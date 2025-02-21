@@ -13,7 +13,7 @@ import Forward10Icon from "@mui/icons-material/Forward10";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Tooltip from "@mui/material/Tooltip";
 
-export default function Bottomer({ sliderValue, changeSlider, changeCommittedSlider, buttonDisable, setStep, stepDown, stepUp, perceptionId, deletePerceptionId, maxStep }: any) {
+export default function Bottomer({ sliderValue, changeSlider, changeCommittedSlider, buttonDisable, setStep, stepDown, stepUp, perceptionId, deletePerceptionId, maxStep, isPause, setIsPause }: any) {
     const defaultBody = css`
         position: absolute;
         /* bottom: 0px; */
