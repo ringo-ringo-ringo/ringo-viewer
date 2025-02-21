@@ -23,6 +23,25 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
         overflow: scroll;
         padding: 10px;
         border-radius: 10px;
+
+        .tab-3-search {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            height: 48px;
+            button {
+                height: 100%;
+            }
+        }
+        .tab-3-list {
+            li {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                margin: 10px 0;
+                .txt {
+                    padding: 0 5px;
+                }
+            }
+        }
     `;
 
     const clearIcon = css`
@@ -124,28 +143,28 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
                     </FormGroup>
                 </TabPanel>
                 <TabPanel value="3">
-                    <TextField id="ID-Search" label="ID-Search" variant="standard" value={IdSearch} onChange={changeIdSearch} />
-                    <Tooltip title="add">
-                        <Button onClick={addIdSearchList}>追加</Button>
-                    </Tooltip>
-                    <ul>
+                    <div className="tab-3-search">
+                        <TextField id="ID-Search" label="ID-Search" variant="standard" value={IdSearch} onChange={changeIdSearch} />
+                        <Tooltip title="add">
+                            <Button onClick={addIdSearchList}>追加</Button>
+                        </Tooltip>
+                    </div>
+                    <ul className="tab-3-list">
                         {IdSearchList.map((list: string, index: any) => {
                             return (
                                 <React.Fragment key={index}>
-                                    <div>
-                                        <li>
-                                            {list}
-                                            <Tooltip title="delete">
-                                                <Button
-                                                    onClick={() => {
-                                                        deleteIdSearchList(list);
-                                                    }}
-                                                >
-                                                    delete
-                                                </Button>
-                                            </Tooltip>
-                                        </li>
-                                    </div>
+                                    <li>
+                                        <span className="txt">{list}</span>
+                                        <Tooltip title="delete" className="btn">
+                                            <Button
+                                                onClick={() => {
+                                                    deleteIdSearchList(list);
+                                                }}
+                                            >
+                                                delete
+                                            </Button>
+                                        </Tooltip>
+                                    </li>
                                 </React.Fragment>
                             );
                         })}
