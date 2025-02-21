@@ -146,7 +146,7 @@ export default function Sidebar({ filter, setFilter, perceptionId, perceptionFil
                     <div className="tab-3-search">
                         <TextField id="ID-Search" label="ID-Search" variant="standard" value={IdSearch} onChange={changeIdSearch} />
                         <Tooltip title="add">
-                            <Button onClick={addIdSearchList}>追加</Button>
+                            <Button onClick={addIdSearchList}>add</Button>
                         </Tooltip>
                     </div>
                     <ul className="tab-3-list">
