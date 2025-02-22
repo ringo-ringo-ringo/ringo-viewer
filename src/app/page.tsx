@@ -34,7 +34,11 @@ export default function Home(prop: any) {
         if (isLoading > 0) {
             setButtonDisable(true);
         } else {
-            setButtonDisable(false);
+            if (!isPause) {
+                setButtonDisable(true);
+            } else {
+                setButtonDisable(false);
+            }
         }
     }, [isLoading]);
 
